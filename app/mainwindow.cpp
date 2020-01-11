@@ -144,11 +144,7 @@ void MainWindow::initializeApp()
     // init extension flags
     ui->actionAutolink->setChecked(options->isAutolinkEnabled());
     ui->actionStrikethroughOption->setChecked(options->isStrikethroughEnabled());
-    ui->actionAlphabeticLists->setChecked(options->isAlphabeticListsEnabled());
-    ui->actionDefinitionLists->setChecked(options->isDefinitionListsEnabled());
-    ui->actionSmartyPants->setChecked(options->isSmartyPantsEnabled());
-    ui->actionFootnotes->setChecked(options->isFootnotesEnabled());
-    ui->actionSuperscript->setChecked(options->isSuperscriptEnabled());
+    ui->actionUnderline->setChecked(options->isUnderlineEnabled());
 
     // init option flags
     ui->actionMathSupport->setChecked(options->isMathSupportEnabled());
@@ -604,9 +600,9 @@ void MainWindow::extensionsFootnotes(bool enabled)
     plainTextChanged();
 }
 
-void MainWindow::extensionsSuperscript(bool enabled)
+void MainWindow::extensionsUnderline(bool enabled)
 {
-    options->setSuperscriptEnabled(enabled);
+    options->setUnderlineEnabled(enabled);
     plainTextChanged();
 }
 
@@ -858,7 +854,7 @@ void MainWindow::markdownConverterChanged()
 #ifdef ENABLE_HOEDOWN
     case Options::HoedownMarkdownConverter:
 #endif
-    case Options::DiscountMarkdownConverter:
+    case Options::MD4CMarkdownConverter:
         viewSynchronizer = new HtmlViewSynchronizer(ui->webView, ui->plainTextEdit);
         connect(generator, SIGNAL(htmlResultReady(QString)),
                 viewSynchronizer, SLOT(rememberScrollBarPos()));
@@ -1117,11 +1113,7 @@ void MainWindow::updateExtensionStatus()
 {
     ui->actionAutolink->setEnabled(generator->isSupported(MarkdownConverter::AutolinkOption));
     ui->actionAlphabeticLists->setEnabled(generator->isSupported(MarkdownConverter::NoAlphaListOption));
-    ui->actionDefinitionLists->setEnabled(generator->isSupported(MarkdownConverter::NoDefinitionListOption));
-    ui->actionFootnotes->setEnabled(generator->isSupported(MarkdownConverter::ExtraFootnoteOption));
-    ui->actionSmartyPants->setEnabled(generator->isSupported(MarkdownConverter::NoSmartypantsOption));
-    ui->actionStrikethroughOption->setEnabled(generator->isSupported(MarkdownConverter::NoStrikethroughOption));
-    ui->actionSuperscript->setEnabled(generator->isSupported(MarkdownConverter::NoSuperscriptOption));
+    ui->actionUnderline->setEnabled(generator->isSupported(MarkdownConverter::UnderlineOption));
 }
 
 void MainWindow::syncWebViewToHtmlSource()

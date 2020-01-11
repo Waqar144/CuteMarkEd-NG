@@ -29,7 +29,7 @@ class Options : public QObject
 public:
     enum ProxyMode { NoProxy, SystemProxy, ManualProxy };
 #ifndef ENABLE_HOEDOWN
-    enum MarkdownConverter { DiscountMarkdownConverter, RevealMarkdownConverter };
+    enum MarkdownConverter { MD4CMarkdownConverter, RevealMarkdownConverter };
 #else
     enum MarkdownConverter { DiscountMarkdownConverter, HoedownMarkdownConverter, RevealMarkdownConverter };
 #endif
@@ -116,6 +116,9 @@ public:
     bool isSuperscriptEnabled() const;
     void setSuperscriptEnabled(bool enabled);
 
+    bool isUnderlineEnabled() const;
+    void setUnderlineEnabled(bool enabled);
+
     bool isMathSupportEnabled() const;
     void setMathSupportEnabled(bool enabled);
 
@@ -179,6 +182,7 @@ private:
     QString m_proxyPassword;
     bool m_autolinkEnabled;
     bool m_strikethroughEnabled;
+    bool m_underlineEnabled;
     bool m_alphabeticListsEnabled;
     bool m_definitionListsEnabled;
     bool m_smartyPantsEnabled;

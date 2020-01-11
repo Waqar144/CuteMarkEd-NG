@@ -140,7 +140,7 @@ void HtmlPreviewGenerator::markdownConverterChanged()
         converter->templateRenderer()->setCodeHighlightingStyle(style);
         break;
 
-    case Options::DiscountMarkdownConverter:
+    case Options::MD4CMarkdownConverter:
     default:
         converter = new MD4CMarkdownConverter();
         converter->templateRenderer()->setCodeHighlightingStyle(style);
@@ -217,6 +217,11 @@ MarkdownConverter::ConverterOptions HtmlPreviewGenerator::converterOptions() con
     // strikethrough
     if (!options->isStrikethroughEnabled()) {
         parserOptionFlags |= MarkdownConverter::NoStrikethroughOption;
+    }
+
+    // underlines
+    if (options->isUnderlineEnabled()) {
+        parserOptionFlags |= MarkdownConverter::UnderlineOption;
     }
 
     // alphabetic lists

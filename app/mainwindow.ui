@@ -167,7 +167,7 @@
      <x>0</x>
      <y>0</y>
      <width>850</width>
-     <height>21</height>
+     <height>23</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -265,11 +265,7 @@
      </property>
      <addaction name="actionAutolink"/>
      <addaction name="actionStrikethroughOption"/>
-     <addaction name="actionAlphabeticLists"/>
-     <addaction name="actionDefinitionLists"/>
-     <addaction name="actionSmartyPants"/>
-     <addaction name="actionFootnotes"/>
-     <addaction name="actionSuperscript"/>
+     <addaction name="actionUnderline"/>
     </widget>
     <widget class="LanguageMenu" name="menuLanguages">
      <property name="title">
@@ -703,12 +699,12 @@
     <string>Footnotes</string>
    </property>
   </action>
-  <action name="actionSuperscript">
+  <action name="actionUnderline">
    <property name="checkable">
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Superscript</string>
+    <string>Underlines</string>
    </property>
   </action>
   <action name="actionWordWrap">
@@ -744,7 +740,7 @@
   <customwidget>
    <class>QWebView</class>
    <extends>QWidget</extends>
-   <header>QtWebKitWidgets/QWebView</header>
+   <header location="global">QtWebKitWidgets/QWebView</header>
   </customwidget>
   <customwidget>
    <class>MarkdownEditor</class>
@@ -1574,10 +1570,10 @@
    </hints>
   </connection>
   <connection>
-   <sender>actionSuperscript</sender>
+   <sender>actionUnderline</sender>
    <signal>triggered(bool)</signal>
    <receiver>MainWindow</receiver>
-   <slot>extensionsSuperscript(bool)</slot>
+   <slot>extensionsUnderline(bool)</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>

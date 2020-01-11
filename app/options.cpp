@@ -42,6 +42,7 @@ static const char* PROXY_USER = "internet/proxy/user";
 static const char* PROXY_PASSWORD = "internet/proxy/password";
 static const char* AUTOLINK_ENABLED = "extensions/autolink";
 static const char* STRIKETHROUGH_ENABLED = "extensions/strikethrough";
+static const char* UNDERLINE_ENABLED = "extensions/underline";
 static const char* ALPHABETICLISTS_ENABLED = "extensions/alphabeticLists";
 static const char* DEFINITIONSLISTS_ENABLED = "extensions/definitionLists";
 static const char* SMARTYPANTS_ENABLED = "extensions/smartyPants";
@@ -67,6 +68,7 @@ Options::Options(QObject *parent) :
     m_proxyPort(0),
     m_autolinkEnabled(true),
     m_strikethroughEnabled(true),
+    m_underlineEnabled(true),
     m_alphabeticListsEnabled(true),
     m_definitionListsEnabled(true),
     m_smartyPantsEnabled(true),
@@ -83,7 +85,7 @@ Options::Options(QObject *parent) :
     m_lineColumnEnabled(true),
     m_rulerEnabled(false),
     m_rulerPos(80),
-    m_markdownConverter(DiscountMarkdownConverter),
+    m_markdownConverter(MD4CMarkdownConverter),
     m_lastUsedTheme(THEME_DEFAULT)
 {
 }
@@ -304,6 +306,16 @@ bool Options::isStrikethroughEnabled() const
 void Options::setStrikethroughEnabled(bool enabled)
 {
     m_strikethroughEnabled = enabled;
+}
+
+bool Options::isUnderlineEnabled() const
+{
+    return m_underlineEnabled;
+}
+
+void Options::setUnderlineEnabled(bool enabled)
+{
+    m_underlineEnabled = enabled;
 }
 
 bool Options::isAlphabeticListsEnabled() const
@@ -529,6 +541,7 @@ void Options::readSettings()
     // extension settings
     m_autolinkEnabled = settings.value(AUTOLINK_ENABLED, true).toBool();
     m_strikethroughEnabled = settings.value(STRIKETHROUGH_ENABLED, true).toBool();
+    m_underlineEnabled = settings.value(UNDERLINE_ENABLED, true).toBool();
     m_alphabeticListsEnabled = settings.value(ALPHABETICLISTS_ENABLED, true).toBool();
     m_definitionListsEnabled = settings.value(DEFINITIONSLISTS_ENABLED, true).toBool();
     m_smartyPantsEnabled = settings.value(SMARTYPANTS_ENABLED, true).toBool();
@@ -599,6 +612,7 @@ void Options::writeSettings()
     // extensions settings
     settings.setValue(AUTOLINK_ENABLED, m_autolinkEnabled);
     settings.setValue(STRIKETHROUGH_ENABLED, m_strikethroughEnabled);
+    settings.setValue(UNDERLINE_ENABLED, m_underlineEnabled);
     settings.setValue(ALPHABETICLISTS_ENABLED, m_alphabeticListsEnabled);
     settings.setValue(DEFINITIONSLISTS_ENABLED, m_definitionListsEnabled);
     settings.setValue(SMARTYPANTS_ENABLED, m_smartyPantsEnabled);

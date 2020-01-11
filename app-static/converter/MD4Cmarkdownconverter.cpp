@@ -105,18 +105,6 @@ void captureHtmlFragment (const MD_CHAR* data, MD_SIZE data_size, void* userData
 
 QString MD4CMarkdownConverter::renderAsHtml(MarkdownDocument *document)
 {
-
-//    QString html;
-//    char *out;
-//    if (document) {
-//        DiscountMarkdownDocument *doc = dynamic_cast<DiscountMarkdownDocument*>(document);
-
-//        if (doc && doc->document()) {
-//            mkd_document(doc->document(), &out);
-//            //html = QString::fromUtf8(out);
-//        }
-//    }
-
     MD4CMarkdownDocument *doc = dynamic_cast<MD4CMarkdownDocument*>(document);
     const char *data = doc->text.toUtf8().constData();
     size_t length = strlen(data);
@@ -204,13 +192,12 @@ unsigned long MD4CMarkdownConverter::translateConverterOptions(ConverterOptions 
     unsigned converterOptions = MD_DIALECT_GITHUB;
 
     converterOptions &= ~(MD_FLAG_PERMISSIVEAUTOLINKS);
+    converterOptions &= ~MD_FLAG_UNDERLINE;
 
     // autolink
     if (options.testFlag(MarkdownConverter::AutolinkOption)) {
-        converterOptions |= MD_FLAG_PERMISSIVEAUTOLINKS;
-        converterOptions |= MD_FLAG_PERMISSIVEURLAUTOLINKS;
-        converterOptions |= MD_FLAG_PERMISSIVEWWWAUTOLINKS;
-        converterOptions |= MD_FLAG_PERMISSIVEEMAILAUTOLINKS;
+        converterOptions |= MD_FLAG_PERMISSIVEAUTOLINKS | MD_FLAG_PERMISSIVEURLAUTOLINKS |
+                            MD_FLAG_PERMISSIVEWWWAUTOLINKS | MD_FLAG_PERMISSIVEEMAILAUTOLINKS;
     }
 
     // strikethrough
