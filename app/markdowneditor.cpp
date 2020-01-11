@@ -448,7 +448,7 @@ void MarkdownEditor::setShowSpecialCharacters(bool enabled)
 
 void MarkdownEditor::setSpellingCheckEnabled(bool enabled)
 {
-//    highlighter->setSpellingCheckEnabled(enabled);
+    highlighter->setSpellingCheckEnabled(enabled);
 
     // rehighlight markdown document
 //    highlighter->reset();
@@ -474,7 +474,7 @@ void MarkdownEditor::setSnippetCompleter(SnippetCompleter *completer)
 
 void MarkdownEditor::setYamlHeaderSupportEnabled(bool enabled)
 {
-    //highlighter->setYamlHeaderSupportEnabled(enabled);
+//    highlighter->setYamlHeaderSupportEnabled(enabled);
 
     // rehighlight markdown document
     //highlighter->reset();

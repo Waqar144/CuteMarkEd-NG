@@ -34,20 +34,19 @@ public:
     
 //    void reset();
 //    void setStyles(const QVector<PegMarkdownHighlight::HighlightingStyle> &styles);
-//    void setSpellingCheckEnabled(bool enabled);
+    void setSpellingCheckEnabled(bool enabled);
 //    void setYamlHeaderSupportEnabled(bool enabled);
 
 //protected:
-    //void highlightBlock(const QString &textBlock) Q_DECL_OVERRIDE;
+    void highlightBlock(const QString &textBlock) Q_DECL_OVERRIDE;
 
 private slots:
 //    void resultReady(pmh_element **elements, unsigned long base_offset);
 
 private:
 //    void applyFormat(unsigned long pos, unsigned long end, QTextCharFormat format, bool merge);
-//    void checkSpelling(const QString &textBlock);
+    void checkSpelling(const QString &textBlock);
 
-//    HighlightWorkerThread *workerThread;
 //    QVector<PegMarkdownHighlight::HighlightingStyle> highlightingStyles;
     QString previousText;
     QTextCharFormat spellFormat;

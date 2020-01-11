@@ -52,49 +52,30 @@ CuteMarkdownHighlighter::CuteMarkdownHighlighter(QTextDocument *document, hunspe
 //    reset();
 //}
 
-//void CuteMarkdownHighlighter::setSpellingCheckEnabled(bool enabled)
-//{
-//   spellingCheckEnabled = enabled;
-//}
+void CuteMarkdownHighlighter::setSpellingCheckEnabled(bool enabled)
+{
+   spellingCheckEnabled = enabled;
+}
 
 //void CuteMarkdownHighlighter::setYamlHeaderSupportEnabled(bool enabled)
 //{
 //    yamlHeaderSupportEnabled = enabled;
 //}
 
-//void CuteMarkdownHighlighter::highlightBlock(const QString &textBlock)
-//{
-//    if (document()->isEmpty()) {
-//        return;
-//    }
+void CuteMarkdownHighlighter::highlightBlock(const QString &textBlock)
+{
+    if (textBlock.isEmpty()) {
+        return;
+    }
+
+    MarkdownHighlighter::highlightBlock(textBlock);
 
 //    // check spelling of passed text block
-//    if (spellingCheckEnabled) {
-//        checkSpelling(textBlock);
-//    }
+    if (spellingCheckEnabled) {
+        checkSpelling(textBlock);
+    }
 
-//    QString text = document()->toPlainText();
-
-//    // document changed since last call?
-//    if (text == previousText) {
-//        return;
-//    }
-
-//    // cut YAML headers
-//    QString actualText;
-//    unsigned long offset = 0;
-//    if (yamlHeaderSupportEnabled) {
-//        YamlHeaderChecker checker(text);
-//        actualText = checker.body();
-//        offset = checker.bodyOffset();
-//    } else {
-//        actualText = text;
-//    }
-
-//    workerThread->enqueue(actualText, offset);
-
-//    previousText = text;
-//}
+}
 
 //void CuteMarkdownHighlighter::applyFormat(unsigned long pos, unsigned long end,
 //                                      QTextCharFormat format, bool merge)
@@ -150,16 +131,17 @@ CuteMarkdownHighlighter::CuteMarkdownHighlighter(QTextDocument *document, hunspe
 //    }
 //}
 
-//void CuteMarkdownHighlighter::checkSpelling(const QString &textBlock)
-//{
-//    QStringList wordList = textBlock.split(QRegExp("\\W+"), QString::SkipEmptyParts);
-//    int index = 0;
-//    foreach (QString word, wordList) {
-//        index = textBlock.indexOf(word, index);
+void CuteMarkdownHighlighter::checkSpelling(const QString &textBlock)
+{
+    QStringList wordList = textBlock.split(QRegExp("\\W+"), QString::SkipEmptyParts);
+    int index = 0;
+    foreach (QString word, wordList) {
+        index = textBlock.indexOf(word, index);
 
-//        if (!spellChecker->isCorrect(word)) {
-//            setFormat(index, word.length(), spellFormat);
-//        }
-//        index += word.length();
-//    }
-//}
+        if (!spellChecker->isCorrect(word)) {
+            qDebug() << word;
+            setFormat(index, word.length(), spellFormat);
+        }
+        index += word.length();
+    }
+}
