@@ -27,8 +27,8 @@
 #include <QTextStream>
 
 #include <controls/linenumberarea.h>
-#include <peg-markdown-highlight/styleparser.h>
-#include <markdownhighlighter.h>
+#include <cutemarkdownhighlighter.h>
+
 #include "markdownmanipulator.h"
 #include "snippetcompleter.h"
 
@@ -58,7 +58,7 @@ MarkdownEditor::MarkdownEditor(QWidget *parent) :
     completer(0),
     showHardLinebreaks(false)
 {
-    highlighter = new MarkdownHighlighter(this->document(), spellChecker);
+    highlighter = new CuteMarkdownHighlighter(this->document(), spellChecker);
 
     QFont font("Monospace", 10);
     font.setStyleHint(QFont::TypeWriter);
@@ -159,7 +159,7 @@ int MarkdownEditor::lineNumberAreaWidth()
 
 void MarkdownEditor::resetHighlighting()
 {
-    highlighter->reset();
+//    highlighter->reset();
 }
 
 void MarkdownEditor::paintEvent(QPaintEvent *e)
@@ -379,15 +379,15 @@ void MarkdownEditor::loadStyleFromStylesheet(const QString &fileName)
     QString input = ts.readAll();
 
     // parse the stylesheet
-    PegMarkdownHighlight::StyleParser parser(input);
-    QVector<PegMarkdownHighlight::HighlightingStyle> styles = parser.highlightingStyles(this->font());
+//    PegMarkdownHighlight::StyleParser parser(input);
+//    QVector<PegMarkdownHighlight::HighlightingStyle> styles = parser.highlightingStyles(this->font());
 
-    // set new style & rehighlight markdown document
-    highlighter->setStyles(styles);
+//    // set new style & rehighlight markdown document
+//    highlighter->setStyles(styles);
     highlighter->rehighlight();
 
     // update color palette
-    this->setPalette(parser.editorPalette());
+//    this->setPalette(parser.editorPalette());
     this->viewport()->setPalette(this->palette());
 }
 
@@ -448,10 +448,10 @@ void MarkdownEditor::setShowSpecialCharacters(bool enabled)
 
 void MarkdownEditor::setSpellingCheckEnabled(bool enabled)
 {
-    highlighter->setSpellingCheckEnabled(enabled);
+//    highlighter->setSpellingCheckEnabled(enabled);
 
     // rehighlight markdown document
-    highlighter->reset();
+//    highlighter->reset();
     highlighter->rehighlight();
 }
 
@@ -460,7 +460,7 @@ void MarkdownEditor::setSpellingDictionary(const Dictionary &dictionary)
     spellChecker->loadDictionary(dictionary.filePath());
 
     // rehighlight markdown document
-    highlighter->reset();
+   // highlighter->reset();
     highlighter->rehighlight();
 }
 
@@ -474,10 +474,10 @@ void MarkdownEditor::setSnippetCompleter(SnippetCompleter *completer)
 
 void MarkdownEditor::setYamlHeaderSupportEnabled(bool enabled)
 {
-    highlighter->setYamlHeaderSupportEnabled(enabled);
+    //highlighter->setYamlHeaderSupportEnabled(enabled);
 
     // rehighlight markdown document
-    highlighter->reset();
+    //highlighter->reset();
     highlighter->rehighlight();
 }
 

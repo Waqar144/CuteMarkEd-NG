@@ -18,6 +18,8 @@ unix:!macx {
   CONFIG += link_pkgconfig
 }
 
+include(../3rdparty/qmarkdowntextedit/qmarkdowntextedit.pri)
+
 TRANSLATIONS += \
     translations/cutemarked_cs.ts \
     translations/cutemarked_da.ts \
@@ -51,8 +53,8 @@ SOURCES += \
     controls/findreplacewidget.cpp \
     controls/recentfilesmenu.cpp \
     htmlpreviewgenerator.cpp \
-    markdownhighlighter.cpp \
-    highlightworkerthread.cpp \
+    cutemarkdownhighlighter.cpp \
+#    highlightworkerthread.cpp \
     markdownmanipulator.cpp \
     exportpdfdialog.cpp \
     exporthtmldialog.cpp \
@@ -92,8 +94,8 @@ HEADERS  += \
     controls/findreplacewidget.h \
     controls/recentfilesmenu.h \
     htmlpreviewgenerator.h \
-    markdownhighlighter.h \
-    highlightworkerthread.h \
+    cutemarkdownhighlighter.h \
+#    highlightworkerthread.h \
     markdownmanipulator.h \
     exportpdfdialog.h \
     exporthtmldialog.h \
@@ -196,34 +198,6 @@ else:unix: LIBS += -L/usr/lib -lmarkdown
 
 win32:INCLUDEPATH += $$PWD/../3rdparty/discount
 win32:DEPENDPATH += $$PWD/../3rdparty/discount
-
-# peg-markdown-highlight adapter
-win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../libs/peg-markdown-highlight/release/ -lpmh-adapter
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../libs/peg-markdown-highlight/debug/ -lpmh-adapter
-else:unix: LIBS += -L$$OUT_PWD/../libs/peg-markdown-highlight/ -lpmh-adapter
-
-INCLUDEPATH += $$PWD/../libs/
-DEPENDPATH += $$PWD/../libs/peg-markdown-highlight
-
-win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../libs/peg-markdown-highlight/release/libpmh-adapter.a
-else:win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../libs/peg-markdown-highlight/debug/libpmh-adapter.a
-else:win32-msvc*:CONFIG(release, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../libs/peg-markdown-highlight/release/pmh-adapter.lib
-else:win32-msvc*:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../libs/peg-markdown-highlight/debug/pmh-adapter.lib
-else:unix: PRE_TARGETDEPS += $$OUT_PWD/../libs/peg-markdown-highlight/libpmh-adapter.a
-
-# peg-markdown-highlight
-win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../3rdparty/peg-markdown-highlight/release/ -lpmh
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../3rdparty/peg-markdown-highlight/debug/ -lpmh
-else:unix: LIBS += -L$$OUT_PWD/../3rdparty/peg-markdown-highlight/ -lpmh
-
-INCLUDEPATH += $$PWD/../3rdparty/peg-markdown-highlight
-DEPENDPATH += $$PWD/../3rdparty/peg-markdown-highlight
-
-win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../3rdparty/peg-markdown-highlight/release/libpmh.a
-else:win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../3rdparty/peg-markdown-highlight/debug/libpmh.a
-else:win32-msvc*:CONFIG(release, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../3rdparty/peg-markdown-highlight/release/pmh.lib
-else:win32-msvc*:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../3rdparty/peg-markdown-highlight/debug/pmh.lib
-else:unix: PRE_TARGETDEPS += $$OUT_PWD/../3rdparty/peg-markdown-highlight/libpmh.a
 
 # hunspell
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../3rdparty/hunspell/lib/ -lhunspell

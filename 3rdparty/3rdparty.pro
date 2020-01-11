@@ -1,7 +1,6 @@
 TEMPLATE = subdirs
 
-SUBDIRS += \
-    peg-markdown-highlight
+
 
 win32 {
     SUBDIRS += \

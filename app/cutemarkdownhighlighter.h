@@ -19,39 +19,36 @@
 
 #include <QSyntaxHighlighter>
 
-#include "pmh_definitions.h"
-#include "peg-markdown-highlight/definitions.h"
-#include "highlightworkerthread.h"
+#include "../3rdparty/qmarkdowntextedit/markdownhighlighter.h"
 
 namespace hunspell {
 class SpellChecker;
 }
 
-class MarkdownHighlighter : public QSyntaxHighlighter
+class CuteMarkdownHighlighter : public MarkdownHighlighter
 {
     Q_OBJECT
 
 public:
-    MarkdownHighlighter(QTextDocument *document, hunspell::SpellChecker *spellChecker);
-    ~MarkdownHighlighter();
+    CuteMarkdownHighlighter(QTextDocument *document, hunspell::SpellChecker *spellChecker);
     
-    void reset();
-    void setStyles(const QVector<PegMarkdownHighlight::HighlightingStyle> &styles);
-    void setSpellingCheckEnabled(bool enabled);
-    void setYamlHeaderSupportEnabled(bool enabled);
+//    void reset();
+//    void setStyles(const QVector<PegMarkdownHighlight::HighlightingStyle> &styles);
+//    void setSpellingCheckEnabled(bool enabled);
+//    void setYamlHeaderSupportEnabled(bool enabled);
 
-protected:
-    void highlightBlock(const QString &textBlock) Q_DECL_OVERRIDE;
+//protected:
+    //void highlightBlock(const QString &textBlock) Q_DECL_OVERRIDE;
 
 private slots:
-    void resultReady(pmh_element **elements, unsigned long base_offset);
+//    void resultReady(pmh_element **elements, unsigned long base_offset);
 
 private:
-    void applyFormat(unsigned long pos, unsigned long end, QTextCharFormat format, bool merge);
-    void checkSpelling(const QString &textBlock);
+//    void applyFormat(unsigned long pos, unsigned long end, QTextCharFormat format, bool merge);
+//    void checkSpelling(const QString &textBlock);
 
-    HighlightWorkerThread *workerThread;
-    QVector<PegMarkdownHighlight::HighlightingStyle> highlightingStyles;
+//    HighlightWorkerThread *workerThread;
+//    QVector<PegMarkdownHighlight::HighlightingStyle> highlightingStyles;
     QString previousText;
     QTextCharFormat spellFormat;
     hunspell::SpellChecker *spellChecker;

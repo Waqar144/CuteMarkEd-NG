@@ -23,7 +23,7 @@ class Dictionary;
 namespace hunspell {
 class SpellChecker;
 }
-class MarkdownHighlighter;
+class CuteMarkdownHighlighter;
 class SnippetCompleter;
 
 
@@ -89,7 +89,7 @@ private:
 
 private:
     QWidget *lineNumberArea;
-    MarkdownHighlighter *highlighter;
+    CuteMarkdownHighlighter *highlighter;
     hunspell::SpellChecker *spellChecker;
     SnippetCompleter *completer;
     bool showHardLinebreaks;
