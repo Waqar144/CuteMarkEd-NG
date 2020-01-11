@@ -16,7 +16,7 @@ INCLUDEPATH += $$PWD
 SOURCES += \
     snippets/jsonsnippettranslator.cpp \
     snippets/snippetcollection.cpp \
-    converter/discountmarkdownconverter.cpp \
+    converter/MD4Cmarkdownconverter.cpp \
     spellchecker/dictionary.cpp \
     converter/revealmarkdownconverter.cpp \
     template/htmltemplate.cpp \
@@ -32,7 +32,10 @@ SOURCES += \
     revealviewsynchronizer.cpp \
     htmlpreviewcontroller.cpp \
     htmlviewsynchronizer.cpp \
-    yamlheaderchecker.cpp
+    yamlheaderchecker.cpp \
+    $$PWD/../3rdparty/md4c/md4c/md4c.c \
+    $$PWD/../3rdparty/md4c/md2html/render_html.c \
+    $$PWD/../3rdparty/md4c/md2html/entity.c
 
 HEADERS += \
     snippets/snippet.h \
@@ -41,7 +44,7 @@ HEADERS += \
     snippets/snippetcollection.h \
     converter/markdownconverter.h \
     converter/markdowndocument.h \
-    converter/discountmarkdownconverter.h \
+    converter/MD4Cmarkdownconverter.h \
     spellchecker/dictionary.h \
     converter/revealmarkdownconverter.h \
     template/template.h \
@@ -59,7 +62,10 @@ HEADERS += \
     revealviewsynchronizer.h \
     htmlpreviewcontroller.h \
     htmlviewsynchronizer.h \
-    yamlheaderchecker.h
+    yamlheaderchecker.h \
+    $$PWD/../3rdparty/md4c/md4c/md4c.h \
+    $$PWD/../3rdparty/md4c/md2html/render_html.h \
+    $$PWD/../3rdparty/md4c/md2html/entity.h
 
 #unix:!symbian {
 #    maemo5 {
@@ -85,8 +91,13 @@ macx:INCLUDEPATH += /usr/local/include
 INCLUDEPATH += $$PWD/../libs/jsonconfig
 
 #
-# Discount library
+# MD4C library
 #
+INCLUDEPATH += $$PWD/../3rdparty/md4c
+INCLUDEPATH += $$PWD/../3rdparty/md4c/md4c
+
+
+#Discount Library
 win32:INCLUDEPATH += $$PWD/../3rdparty/discount
 
 #

@@ -10,3 +10,6 @@
 [submodule "3rdparty/qmarkdowntextedit"]
 	path = 3rdparty/qmarkdowntextedit
 	url = https://github.com/pbek/qmarkdowntextedit
+[submodule "3rdparty/md4c"]
+	path = 3rdparty/md4c
+	url = https://github.com/mity/md4c

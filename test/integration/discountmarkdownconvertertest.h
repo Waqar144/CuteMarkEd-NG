@@ -19,35 +19,35 @@
 
 #include <QObject>
 
-class DiscountMarkdownConverter;
+class MD4CMarkdownConverter;
 
 
 class DiscountMarkdownConverterTest : public QObject
 {
-    Q_OBJECT
+//    Q_OBJECT
     
-private slots:
-    void initTestCase();
+//private slots:
+//    void initTestCase();
 
-    void convertsEmptyStringToEmptyHtml();
-    void convertsMarkdownParagraphToHtml();
-    void convertsMarkdownHeaderToHtml();
-    void preservesGermanUmlautsInHtml();
+//    void convertsEmptyStringToEmptyHtml();
+//    void convertsMarkdownParagraphToHtml();
+//    void convertsMarkdownHeaderToHtml();
+//    void preservesGermanUmlautsInHtml();
 
-    void supportsSuperscriptIfEnabled();
-    void ignoresSuperscriptIfDisabled();
+//    void supportsSuperscriptIfEnabled();
+//    void ignoresSuperscriptIfDisabled();
 
-    void benchmark_data();
-    void benchmark();
-    void benchmarkTableOfContents_data();
-    void benchmarkTableOfContents();
+//    void benchmark_data();
+//    void benchmark();
+//    void benchmarkTableOfContents_data();
+//    void benchmarkTableOfContents();
 
-    void cleanupTestCase();
+//    void cleanupTestCase();
 
-private:
-    QString transformMarkdownToHtml(const QString &text);
-    bool isIdAnchorDisabled(const QString &html);
-    DiscountMarkdownConverter *converter;
+//private:
+//    QString transformMarkdownToHtml(const QString &text);
+//    bool isIdAnchorDisabled(const QString &html);
+//    MD4CMarkdownConverter *converter;
 };
 
 #endif // DISCOUNTMARKDOWNCONVERTERTEST_H

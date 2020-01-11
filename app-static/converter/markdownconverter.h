@@ -56,7 +56,8 @@ public:
         NoAlphaListOption      = 0x00080000, /* forbid alphabetic lists */
         NoDefinitionListOption = 0x00100000, /* forbid definition lists */
         ExtraFootnoteOption    = 0x00200000, /* enable markdown extra-style footnotes */
-        NoStyleOption          = 0x00400000  /* don't extract <style> blocks */
+        NoStyleOption          = 0x00400000, /* don't extract <style> blocks */
+        UnderlineOption        = 0x00800000  /* allow underline <u> */
     };
     Q_DECLARE_FLAGS(ConverterOptions, ConverterOption)
 

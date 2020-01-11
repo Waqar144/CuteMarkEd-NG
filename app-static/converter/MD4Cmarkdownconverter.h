@@ -34,21 +34,23 @@
 
 #include "markdownconverter.h"
 
-class DiscountMarkdownConverter : public MarkdownConverter
+class MD4CMarkdownConverter : public MarkdownConverter
 {
 public:
-    DiscountMarkdownConverter();
+    MD4CMarkdownConverter();
 
     virtual MarkdownDocument *createDocument(const QString &text, ConverterOptions options);
     virtual QString renderAsHtml(MarkdownDocument *document);
     virtual QString renderAsTableOfContents(MarkdownDocument *document);
+
+    static QString markdownToHtml(const QString &text, ConverterOption options);
 
     virtual Template *templateRenderer() const;
 
     virtual ConverterOptions supportedOptions() const;
 
 private:
-    unsigned long translateConverterOptions(ConverterOptions options) const;
+    static unsigned long translateConverterOptions(ConverterOptions options);
 };
 
 #endif // DISCOUNTMARKDOWNCONVERTER_H

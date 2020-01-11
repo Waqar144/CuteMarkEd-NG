@@ -191,7 +191,7 @@ else:win32-msvc*:CONFIG(release, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../
 else:win32-msvc*:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../app-static/debug/app-static.lib
 else:unix: PRE_TARGETDEPS += $$OUT_PWD/../app-static/libapp-static.a
 
-# discount
+ discount
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../3rdparty/discount/release/ -ldiscount
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../3rdparty/discount/debug/ -ldiscount
 else:unix: LIBS += -L/usr/lib -lmarkdown

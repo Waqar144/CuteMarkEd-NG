@@ -20,8 +20,9 @@
 
 #include <converter/markdownconverter.h>
 #include <converter/markdowndocument.h>
-#include <converter/discountmarkdownconverter.h>
+#include <converter/MD4Cmarkdownconverter.h>
 #include <converter/revealmarkdownconverter.h>
+#include <QDebug>
 
 #ifdef ENABLE_HOEDOWN
 #include <converter/hoedownmarkdownconverter.h>
@@ -141,7 +142,7 @@ void HtmlPreviewGenerator::markdownConverterChanged()
 
     case Options::DiscountMarkdownConverter:
     default:
-        converter = new DiscountMarkdownConverter();
+        converter = new MD4CMarkdownConverter();
         converter->templateRenderer()->setCodeHighlightingStyle(style);
         break;
     }
@@ -191,7 +192,6 @@ void HtmlPreviewGenerator::run()
 void HtmlPreviewGenerator::generateHtmlFromMarkdown()
 {
     if (!document) return;
-
     QString html = converter->templateRenderer()->render(converter->renderAsHtml(document), renderOptions());
     emit htmlResultReady(html);
 }
