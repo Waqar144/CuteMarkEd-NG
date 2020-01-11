@@ -93,6 +93,12 @@ MainWindow::MainWindow(const QString &fileName, QWidget *parent) :
     setFileName(fileName);
 
     QTimer::singleShot(0, this, SLOT(initializeApp()));
+
+    previewTimer = new QTimer;
+    previewTimer->setSingleShot(false);
+    previewTimer->setInterval(1000);
+    previewTimer->callOnTimeout(generator, &HtmlPreviewGenerator::updatePreview);
+    previewTimer->start();
 }
 
 MainWindow::~MainWindow()
@@ -101,7 +107,7 @@ MainWindow::~MainWindow()
 
     // stop background HTML preview generator
     generator->markdownTextChanged(QString());
-    generator->wait();
+    //generator->wait();
     delete generator;
 
     delete ui;
@@ -1068,7 +1074,7 @@ void MainWindow::setupHtmlPreview()
             this, SLOT(htmlResultReady(QString)));
     connect(generator, SIGNAL(tocResultReady(QString)),
             this, SLOT(tocResultReady(QString)));
-    generator->start();
+    //generator->start();
 }
 
 void MainWindow::setupHtmlSourceView()

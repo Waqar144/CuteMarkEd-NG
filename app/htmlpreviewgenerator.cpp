@@ -23,6 +23,7 @@
 #include <converter/MD4Cmarkdownconverter.h>
 #include <converter/revealmarkdownconverter.h>
 #include <QDebug>
+#include <QTimer>
 
 #ifdef ENABLE_HOEDOWN
 #include <converter/hoedownmarkdownconverter.h>
@@ -34,7 +35,7 @@
 #include "yamlheaderchecker.h"
 
 HtmlPreviewGenerator::HtmlPreviewGenerator(Options *opt, QObject *parent) :
-    QThread(parent),
+    QObject(parent),
     options(opt),
     document(0),
     converter(0)
@@ -55,10 +56,8 @@ void HtmlPreviewGenerator::markdownTextChanged(const QString &text)
     QString actualText = checker.hasHeader() && options->isYamlHeaderSupportEnabled() ?
                             checker.body()
                           : text;
-    // enqueue task to parse the markdown text and generate a new HTML document
-    QMutexLocker locker(&tasksMutex);
-    tasks.enqueue(actualText);
-    bufferNotEmpty.wakeOne();
+
+    this->text = actualText;
 }
 
 QString HtmlPreviewGenerator::exportHtml(const QString &styleSheet, const QString &highlightingScript)
@@ -148,45 +147,18 @@ void HtmlPreviewGenerator::markdownConverterChanged()
     }
 }
 
-void HtmlPreviewGenerator::run()
+void HtmlPreviewGenerator::updatePreview()
 {
-    forever {
-        QString text;
+    // delete previous markdown document
+    if (document)
+        delete document;
 
-        {
-            // wait for new task
-            QMutexLocker locker(&tasksMutex);
-            while (tasks.count() == 0) {
-                bufferNotEmpty.wait(&tasksMutex);
-            }
+    // generate HTML from markdown
+    document = converter->createDocument(this->text, converterOptions());
+    generateHtmlFromMarkdown();
 
-            // get last task from queue and skip all previous tasks
-            while (!tasks.isEmpty())
-                text = tasks.dequeue();
-        }
-
-        // end processing?
-        if (text.isNull()) {
-            return;
-        }
-
-        // delay processing to see if more tasks are coming
-        // (e.g. because the user is typing fast)
-        this->msleep(calculateDelay(text));
-
-        // no more new tasks?
-        if (tasks.isEmpty()) {
-            // delete previous markdown document
-            delete document;
-
-            // generate HTML from markdown
-            document = converter->createDocument(text, converterOptions());
-            generateHtmlFromMarkdown();
-
-            // generate table of contents
-            generateTableOfContents();
-        }
-    }
+    // generate table of contents
+    generateTableOfContents();
 }
 
 void HtmlPreviewGenerator::generateHtmlFromMarkdown()
@@ -281,7 +253,7 @@ Template::RenderOptions HtmlPreviewGenerator::renderOptions() const
 
 int HtmlPreviewGenerator::calculateDelay(const QString &text)
 {
-    const int MINIMUM_DELAY = 50;
+    const int MINIMUM_DELAY = 10;
     const int MAXIMUM_DELAY = 2000;
 
     // calculate the processing delay based on amount of characters in the

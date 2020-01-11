@@ -164,6 +164,7 @@ private:
     QString fileName;
     float splitFactor;
     bool rightViewCollapsed;
+    QTimer *previewTimer;
 };
 
 #endif // MAINWINDOW_H

@@ -21,6 +21,8 @@
 #include <QtCore/qqueue.h>
 #include <QtCore/qmutex.h>
 #include <QtCore/qwaitcondition.h>
+#include <QObject>
+#include <QTimer>
 
 #include <converter/markdownconverter.h>
 #include <template/template.h>
@@ -28,12 +30,13 @@
 class MarkdownDocument;
 class Options;
 
-class HtmlPreviewGenerator : public QThread
+class HtmlPreviewGenerator : public QObject
 {
     Q_OBJECT
 
 public:
     explicit HtmlPreviewGenerator(Options *opt, QObject *parent = 0);
+    void updatePreview();
     
     bool isSupported(MarkdownConverter::ConverterOption option) const;
 
@@ -52,9 +55,6 @@ signals:
     void htmlResultReady(const QString &html);
     void tocResultReady(const QString &toc);
 
-protected:
-    virtual void run();
-
 private:
     void generateHtmlFromMarkdown();
     void generateTableOfContents();
@@ -64,9 +64,10 @@ private:
 
 private:
     Options *options;
+    QTimer *timer;
     MarkdownDocument *document;
     MarkdownConverter *converter;
-    QQueue<QString> tasks;
+    QString text;
     QMutex tasksMutex;
     QWaitCondition bufferNotEmpty;
 };
