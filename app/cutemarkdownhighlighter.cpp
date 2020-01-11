@@ -57,10 +57,10 @@ void CuteMarkdownHighlighter::setSpellingCheckEnabled(bool enabled)
    spellingCheckEnabled = enabled;
 }
 
-//void CuteMarkdownHighlighter::setYamlHeaderSupportEnabled(bool enabled)
-//{
-//    yamlHeaderSupportEnabled = enabled;
-//}
+void CuteMarkdownHighlighter::setYamlHeaderSupportEnabled(bool enabled)
+{
+    yamlHeaderSupportEnabled = enabled;
+}
 
 void CuteMarkdownHighlighter::highlightBlock(const QString &textBlock)
 {
@@ -77,69 +77,14 @@ void CuteMarkdownHighlighter::highlightBlock(const QString &textBlock)
 
 }
 
-//void CuteMarkdownHighlighter::applyFormat(unsigned long pos, unsigned long end,
-//                                      QTextCharFormat format, bool merge)
-//{
-//    // The QTextDocument contains an additional single paragraph separator (unicode 0x2029).
-//    // https://bugreports.qt-project.org/browse/QTBUG-4841
-//    unsigned long max_offset = document()->characterCount() - 1;
-
-//    if (end <= pos || max_offset < pos) {
-//        return;
-//    }
-
-//    if (max_offset < end) {
-//        end = max_offset;
-//    }
-
-//    // "The QTextLayout object can only be modified from the
-//    // documentChanged implementation of a QAbstractTextDocumentLayout
-//    // subclass. Any changes applied from the outside cause undefined
-//    // behavior." -- we are breaking this rule here. There might be
-//    // a better (more correct) way to do this.
-
-//    int startBlockNum = document()->findBlock(pos).blockNumber();
-//    int endBlockNum = document()->findBlock(end).blockNumber();
-//    for (int j = startBlockNum; j <= endBlockNum; j++)
-//    {
-//        QTextBlock block = document()->findBlockByNumber(j);
-
-//        QTextLayout *layout = block.layout();
-//        int blockpos = block.position();
-//        QTextLayout::FormatRange r;
-//        r.format = format;
-//        QList<QTextLayout::FormatRange> list;
-//        if (merge) {
-//            list = layout->additionalFormats();
-//        }
-
-//        if (j == startBlockNum) {
-//            r.start = pos - blockpos;
-//            r.length = (startBlockNum == endBlockNum)
-//                        ? end - pos
-//                        : block.length() - r.start;
-//        } else if (j == endBlockNum) {
-//            r.start = 0;
-//            r.length = end - blockpos;
-//        } else {
-//            r.start = 0;
-//            r.length = block.length();
-//        }
-
-//        list.append(r);
-//        layout->setAdditionalFormats(list);
-//    }
-//}
-
 void CuteMarkdownHighlighter::checkSpelling(const QString &textBlock)
 {
-    QStringList wordList = textBlock.split(QRegExp("\\W+"), QString::SkipEmptyParts);
+    const QStringList wordList = textBlock.split(QRegExp("\\W+"), QString::SkipEmptyParts);
     int index = 0;
-    foreach (QString word, wordList) {
+    for (const QString &word : wordList) {
         index = textBlock.indexOf(word, index);
 
         if (!spellChecker->isCorrect(word)) {
-            qDebug() << word;
             setFormat(index, word.length(), spellFormat);
         }
         index += word.length();

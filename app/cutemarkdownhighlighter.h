@@ -35,7 +35,7 @@ public:
 //    void reset();
 //    void setStyles(const QVector<PegMarkdownHighlight::HighlightingStyle> &styles);
     void setSpellingCheckEnabled(bool enabled);
-//    void setYamlHeaderSupportEnabled(bool enabled);
+    void setYamlHeaderSupportEnabled(bool enabled);
 
 //protected:
     void highlightBlock(const QString &textBlock) Q_DECL_OVERRIDE;
