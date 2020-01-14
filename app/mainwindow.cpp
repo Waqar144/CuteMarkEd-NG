@@ -506,11 +506,11 @@ void MainWindow::lastUsedTheme()
 
     currentTheme = themeCollection->theme(themeName);
     applyCurrentTheme();
-
-    for (auto action : stylesGroup->actions()) {
+    const auto styleGroupActions = stylesGroup->actions();
+    for (const auto action : styleGroupActions) {
         if (action->text() == themeName) {
             action->setChecked(true);
-            stylesGroup->triggered(action);
+            emit stylesGroup->triggered(action);
             break;
         }
     }
@@ -1235,7 +1235,7 @@ void MainWindow::loadCustomStyles()
 {
     QStringList paths = DataLocation::standardLocations();
     qDebug() << paths;
-    QDir dataPath(paths.first() + QDir::separator() + "styles");
+    QDir dataPath(paths.first() + QDir::separator() + QStringLiteral("styles"));
     dataPath.setFilter(QDir::Files);
     if (dataPath.exists()) {
         // iterate over all files in the styles subdirectory
@@ -1284,6 +1284,6 @@ void MainWindow::writeSettings()
 
 QString MainWindow::stylePath(const QString &styleName)
 {
-    QString suffix = options->isSourceAtSingleSizeEnabled() ? "" : "+";
+    QString suffix = options->isSourceAtSingleSizeEnabled() ? QLatin1String("") : QLatin1String("+");
     return QStringLiteral(":/theme/%1%2.txt").arg(styleName, suffix);
 }

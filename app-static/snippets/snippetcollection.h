@@ -26,7 +26,6 @@
 class SnippetCollection : public QObject, public JsonCollection<Snippet>
 {
     Q_OBJECT
-    Q_ENUMS(CollectionChangedType)
 
 public:
     enum CollectionChangedType
@@ -35,6 +34,7 @@ public:
         ItemChanged,
         ItemDeleted
     };
+    Q_ENUM(CollectionChangedType)
 
     explicit SnippetCollection(QObject *parent = 0);
 
