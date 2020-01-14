@@ -336,27 +336,29 @@ void MainWindow::fileExportToPdf()
     // of QWebView::print() method (possible bug in Qt?)
     // more info here: http://stackoverflow.com/questions/11629093/add-working-url-into-pdf-using-qt-qprinter
 
-//    ExportPdfDialog dialog(fileName);
-//    if (dialog.exec() == QDialog::Accepted) {
-//         QTextDocument doc;
-//         doc.setHtml(ui->webView->page()->currentFrame()->toHtml());
-//         doc.print(dialog.printer());
-//    }
+    ExportPdfDialog dialog(fileName);
+    if (dialog.exec() == QDialog::Accepted) {
+        auto orientation = dialog.printer()->orientation() == QPrinter::Portrait ? QPageLayout::Portrait : QPageLayout::Landscape;
+        auto paperSize = (QPageSize::PageSizeId)dialog.printer()->paperSize();
+        const QPageLayout &layout = QPageLayout(QPageSize(paperSize), orientation, QMarginsF());;
+        const auto &filename = dialog.printer()->outputFileName();
+        ui->webView->page()->printToPdf(filename, layout);
+    }
 }
 
 void MainWindow::filePrint()
 {
-//    QPrinter printer;
-//    QPrintDialog *dlg = new QPrintDialog(&printer, this);
-//    dlg->setWindowTitle(tr("Print Document"));
+    QPrinter printer;
+    QPrintDialog *dlg = new QPrintDialog(&printer, this);
+    dlg->setWindowTitle(tr("Print Document"));
 
-//    if (ui->webView->hasSelection())
-//        dlg->addEnabledOption(QAbstractPrintDialog::PrintSelection);
+    if (ui->webView->hasSelection())
+        dlg->addEnabledOption(QAbstractPrintDialog::PrintSelection);
 
-//    if (dlg->exec() == QDialog::Accepted)
-//        ui->webView->print(&printer);
+    if (dlg->exec() == QDialog::Accepted)
+//        ui->webView->page()->printToPdf()
 
-//    delete dlg;
+    delete dlg;
 }
 
 void MainWindow::editUndo()
