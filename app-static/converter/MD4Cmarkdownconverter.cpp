@@ -29,6 +29,7 @@
  * IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
+#include <QDebug>
 #include "MD4Cmarkdownconverter.h"
 
 #include "md2html/render_html.h"
@@ -106,7 +107,11 @@ void captureHtmlFragment (const MD_CHAR* data, MD_SIZE data_size, void* userData
 QString MD4CMarkdownConverter::renderAsHtml(MarkdownDocument *document)
 {
     MD4CMarkdownDocument *doc = dynamic_cast<MD4CMarkdownDocument*>(document);
-    const char *data = doc->text.toUtf8().constData();
+    if (mdData == doc->text)
+        return htmlResult;
+    //cache
+    mdData = doc->text;
+    const char *data = qstrdup(doc->text.toUtf8().constData());
     size_t length = strlen(data);
 
     // return an empty string if the note is empty
@@ -114,9 +119,9 @@ QString MD4CMarkdownConverter::renderAsHtml(MarkdownDocument *document)
         return QLatin1String("");
     }
 
-    QByteArray array;
+    QByteArray array = QByteArray();
     int renderResult = md_render_html(data, MD_SIZE(length),
-                                      &captureHtmlFragment,
+                                      captureHtmlFragment,
                                       &array,
                                       translateConverterOptions(doc->options),
                                       0);
@@ -124,9 +129,11 @@ QString MD4CMarkdownConverter::renderAsHtml(MarkdownDocument *document)
     QString result;
     if (renderResult == 0) {
         result = QString::fromUtf8(array);
+        htmlResult = result;
     } else {
-        //qDebug() << "MD4C Failure!";
+        qDebug() << "MD4C Failure!";
     }
+
     return result;
 }
 

@@ -21,13 +21,13 @@
 
 class QAction;
 class QNetworkDiskCache;
-class QWebView;
+class QWebEngineView;
 
 class HtmlPreviewController : public QObject
 {
     Q_OBJECT
 public:
-    explicit HtmlPreviewController(QWebView *view, QObject *parent = 0);
+    explicit HtmlPreviewController(QWebEngineView *view, QObject *parent = 0);
 
 public slots:
     void zoomInView();
@@ -42,7 +42,7 @@ private:
     void setupNetworkDiskCache();
     
 private:
-    QWebView *view;
+    QWebEngineView *view;
     QAction *zoomInAction;
     QAction *zoomOutAction;
     QAction *zoomResetAction;

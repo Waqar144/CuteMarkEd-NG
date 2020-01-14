@@ -19,11 +19,11 @@
 #include <QAction>
 #include <QNetworkDiskCache>
 #include <QStandardPaths>
-#include <QWebView>
+#include <QWebEngineView>
 
-static const qreal ZOOM_CHANGE_VALUE = 0.1;
+static constexpr qreal ZOOM_CHANGE_VALUE = 0.1;
 
-HtmlPreviewController::HtmlPreviewController(QWebView *view, QObject *parent) :
+HtmlPreviewController::HtmlPreviewController(QWebEngineView *view, QObject *parent) :
     QObject(parent),
     view(view),
     zoomInAction(0),
@@ -64,7 +64,7 @@ QAction *HtmlPreviewController::createAction(const QString &text, const QKeySequ
 
 void HtmlPreviewController::registerActionsWithView()
 {
-    view->addAction(view->pageAction(QWebPage::Copy));
+    view->addAction(view->pageAction(QWebEnginePage::Copy));
     //view->addAction(view->pageAction(QWebPage::InspectElement));
     view->addAction(zoomInAction);
     view->addAction(zoomOutAction);
@@ -74,10 +74,10 @@ void HtmlPreviewController::registerActionsWithView()
 void HtmlPreviewController::setupNetworkDiskCache()
 {
     // setup disk cache for network access
-    QString cacheDir = QStandardPaths::writableLocation(QStandardPaths::CacheLocation);
-    diskCache->setCacheDirectory(cacheDir);
+//    QString cacheDir = QStandardPaths::writableLocation(QStandardPaths::CacheLocation);
+//    diskCache->setCacheDirectory(cacheDir);
 
-    view->page()->networkAccessManager()->setCache(diskCache);
+//    view->page()->networkAccessManager()->setCache(diskCache);
 }
 
 void HtmlPreviewController::zoomInView()

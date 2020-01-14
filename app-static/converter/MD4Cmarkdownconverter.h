@@ -51,6 +51,8 @@ public:
 
 private:
     static unsigned long translateConverterOptions(ConverterOptions options);
+    QString htmlResult;
+    QString mdData;
 };
 
 #endif // DISCOUNTMARKDOWNCONVERTER_H

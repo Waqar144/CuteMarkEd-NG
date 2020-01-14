@@ -36,9 +36,13 @@
 #include <QStandardPaths>
 #include <QTextDocumentWriter>
 #include <QTimer>
-#include <QWebFrame>
-#include <QWebPage>
-#include <QWebInspector>
+#include <QWebEngineView>
+#include <QWebEnginePage>
+#include <QWebEngineSettings>
+#include <QWebChannel>
+//#include <QWebFrame>
+//#include <QWebPage>
+//#include <QWebInspector>
 
 #ifdef Q_OS_WIN
 #include <QWinJumpList>
@@ -85,7 +89,8 @@ MainWindow::MainWindow(const QString &fileName, QWidget *parent) :
     htmlPreviewController(0),
     themeCollection(new ThemeCollection()),
     splitFactor(0.5),
-    rightViewCollapsed(false)
+    rightViewCollapsed(false),
+    channel(new QWebChannel(this))
 {
     ui->setupUi(this);
     setupUi();
@@ -133,7 +138,9 @@ void MainWindow::resizeEvent(QResizeEvent *e)
 void MainWindow::initializeApp()
 {
     // inform us when a link in the table of contents or preview view is clicked
-    ui->webView->page()->setLinkDelegationPolicy(QWebPage::DelegateAllLinks);
+    //ui->webView->page()->setLinkDelegationPolicy(QWebPage::DelegateAllLinks);
+    addJavaScriptObject();
+    ui->webView->page()->setWebChannel(channel);
     ui->tocWebView->page()->setLinkDelegationPolicy(QWebPage::DelegateAllLinks);
 
     themeCollection->load(":/builtin-htmlpreview-themes.json");
@@ -168,9 +175,11 @@ void MainWindow::initializeApp()
     // allow loading of remote javascript
     QWebSettings::globalSettings()->setAttribute(QWebSettings::LocalContentCanAccessRemoteUrls, true);
 
-    ui->webView->settings()->setAttribute(QWebSettings::DeveloperExtrasEnabled, true);
-    QWebInspector *inspector = new QWebInspector();
-    inspector->setPage(ui->webView->page());
+    ui->webView->settings()->setAttribute(QWebEngineSettings::LocalContentCanAccessRemoteUrls, true);
+    //ui->webView->settings()->setAttribute(QWebSettings::DeveloperExtrasEnabled, true);
+    ui->webView->page()->setInspectedPage(ui->webView->page());
+//    QWebInspector *inspector = new QWebInspector();
+//    inspector->setPage(ui->webView->page());
 
     ui->menuLanguages->loadDictionaries(options->dictionaryLanguage());
 
@@ -277,47 +286,47 @@ bool MainWindow::fileSaveAs()
 
 void MainWindow::fileExportToHtml()
 {
-    ExportHtmlDialog dialog(fileName);
-    if (dialog.exec() == QDialog::Accepted) {
+//    ExportHtmlDialog dialog(fileName);
+//    if (dialog.exec() == QDialog::Accepted) {
 
-        QString cssStyle;
-        if (dialog.includeCSS()) {
-            // get url of current css stylesheet
-            QUrl cssUrl = ui->webView->page()->settings()->userStyleSheetUrl();
+//        QString cssStyle;
+//        if (dialog.includeCSS()) {
+//            // get url of current css stylesheet
+//            QUrl cssUrl = ui->webView->page()->settings()->userStyleSheetUrl();
 
-            // get resource or file name from url
-            QString cssFileName;
-            if (cssUrl.scheme() == "qrc") {
-                cssFileName = cssUrl.toString().remove(0, 3);
-            } else {
-                cssFileName = cssUrl.toLocalFile();
-            }
+//            // get resource or file name from url
+//            QString cssFileName;
+//            if (cssUrl.scheme() == "qrc") {
+//                cssFileName = cssUrl.toString().remove(0, 3);
+//            } else {
+//                cssFileName = cssUrl.toLocalFile();
+//            }
 
-            // read currently used css stylesheet file
-            QFile f(cssFileName);
-            if (f.open(QIODevice::ReadOnly | QIODevice::Text)) {
-                cssStyle = f.readAll();
-            }
-        }
+//            // read currently used css stylesheet file
+//            QFile f(cssFileName);
+//            if (f.open(QIODevice::ReadOnly | QIODevice::Text)) {
+//                cssStyle = f.readAll();
+//            }
+//        }
 
-        QString highlightJs;
-        if (dialog.includeCodeHighlighting()) {
-            QFile f(":/scripts/highlight.js/highlight.pack.js");
-            if (f.open(QIODevice::ReadOnly | QIODevice::Text)) {
-                highlightJs = f.readAll();
-            }
-        }
+//        QString highlightJs;
+//        if (dialog.includeCodeHighlighting()) {
+//            QFile f(":/scripts/highlight.js/highlight.pack.js");
+//            if (f.open(QIODevice::ReadOnly | QIODevice::Text)) {
+//                highlightJs = f.readAll();
+//            }
+//        }
 
-        QString html = generator->exportHtml(cssStyle, highlightJs);
+//        QString html = generator->exportHtml(cssStyle, highlightJs);
 
-        // write HTML source to disk
-        QFile f(dialog.fileName());
-        if (f.open(QIODevice::WriteOnly | QIODevice::Text)) {
-            QTextStream out(&f);
-            out.setCodec("UTF-8");
-            out << html;
-        }
-    }
+//        // write HTML source to disk
+//        QFile f(dialog.fileName());
+//        if (f.open(QIODevice::WriteOnly | QIODevice::Text)) {
+//            QTextStream out(&f);
+//            out.setCodec("UTF-8");
+//            out << html;
+//        }
+//    }
 }
 
 void MainWindow::fileExportToPdf()
@@ -327,27 +336,27 @@ void MainWindow::fileExportToPdf()
     // of QWebView::print() method (possible bug in Qt?)
     // more info here: http://stackoverflow.com/questions/11629093/add-working-url-into-pdf-using-qt-qprinter
 
-    ExportPdfDialog dialog(fileName);
-    if (dialog.exec() == QDialog::Accepted) {
-         QTextDocument doc;
-         doc.setHtml(ui->webView->page()->currentFrame()->toHtml());
-         doc.print(dialog.printer());
-    }
+//    ExportPdfDialog dialog(fileName);
+//    if (dialog.exec() == QDialog::Accepted) {
+//         QTextDocument doc;
+//         doc.setHtml(ui->webView->page()->currentFrame()->toHtml());
+//         doc.print(dialog.printer());
+//    }
 }
 
 void MainWindow::filePrint()
 {
-    QPrinter printer;
-    QPrintDialog *dlg = new QPrintDialog(&printer, this);
-    dlg->setWindowTitle(tr("Print Document"));
+//    QPrinter printer;
+//    QPrintDialog *dlg = new QPrintDialog(&printer, this);
+//    dlg->setWindowTitle(tr("Print Document"));
 
-    if (ui->webView->hasSelection())
-        dlg->addEnabledOption(QAbstractPrintDialog::PrintSelection);
+//    if (ui->webView->hasSelection())
+//        dlg->addEnabledOption(QAbstractPrintDialog::PrintSelection);
 
-    if (dlg->exec() == QDialog::Accepted)
-        ui->webView->print(&printer);
+//    if (dlg->exec() == QDialog::Accepted)
+//        ui->webView->print(&printer);
 
-    delete dlg;
+//    delete dlg;
 }
 
 void MainWindow::editUndo()
@@ -530,7 +539,7 @@ void MainWindow::applyCurrentTheme()
 
     generator->setCodeHighlightingStyle(codeHighlighting);
     ui->plainTextEdit->loadStyleFromStylesheet(stylePath(markdownHighlighting));
-    ui->webView->page()->settings()->setUserStyleSheetUrl(QUrl(previewStylesheet));
+   // ui->webView->page()->settings()->setUserStyleSheetUrl(QUrl(previewStylesheet));
 }
 
 void MainWindow::viewFullScreenMode()
@@ -737,12 +746,15 @@ void MainWindow::htmlResultReady(const QString &html)
     }
 
     QList<int> childSizes = ui->splitter->sizes();
-    if (ui->webView->isVisible() && childSizes[1] != 0) {
-        ui->webView->setHtml(html, baseUrl);
-    }
+    if (previewHtml != html) {
+        if (ui->webView->isVisible() && childSizes[1] != 0) {
+            previewHtml = html;
+            ui->webView->setHtml(html, baseUrl);
+        }
 
-    // show html source
-    ui->htmlSourceTextEdit->setPlainText(html);
+        // show html source
+        ui->htmlSourceTextEdit->setPlainText(html);
+    }
 }
 
 void MainWindow::tocResultReady(const QString &toc)
@@ -770,7 +782,7 @@ void MainWindow::previewLinkClicked(const QUrl &url)
 void MainWindow::tocLinkClicked(const QUrl &url)
 {
     QString anchor = url.toString().remove("#");
-    ui->webView->page()->mainFrame()->scrollToAnchor(anchor);
+//    ui->webView->page()->scrollToAnchor(anchor);
 }
 
 void MainWindow::splitterMoved(int pos, int index)
@@ -789,8 +801,9 @@ void MainWindow::splitterMoved(int pos, int index)
 
 void MainWindow::addJavaScriptObject()
 {
+    channel->registerObject(QStringLiteral("synchronizer"), viewSynchronizer);
     // add view synchronizer object to javascript engine
-    ui->webView->page()->mainFrame()->addToJavaScriptWindowObject("synchronizer", viewSynchronizer);
+    //ui->webView->page()->mainFrame()->addToJavaScriptWindowObject("synchronizer", viewSynchronizer);
 }
 
 bool MainWindow::load(const QString &fileName)
@@ -854,8 +867,8 @@ void MainWindow::markdownConverterChanged()
 
     // disable unsupported extensions
     updateExtensionStatus();
-
-    delete viewSynchronizer;
+    if (viewSynchronizer)
+        delete viewSynchronizer;
     switch (options->markdownConverter()) {
 #ifdef ENABLE_HOEDOWN
     case Options::HoedownMarkdownConverter:
@@ -1025,8 +1038,7 @@ void MainWindow::setActionsIcons()
 
   // view menu
   ui->actionFullScreenMode->setIcon(QIcon("fa-arrows-alt.fontawesome"));
-
-  ui->webView->pageAction(QWebPage::Copy)->setIcon(QIcon("fa-copy.fontawesome"));
+  ui->webView->pageAction(QWebEnginePage::Copy)->setIcon(QIcon("fa-copy.fontawesome"));
 #endif
 }
 
@@ -1066,8 +1078,8 @@ void MainWindow::setupMarkdownEditor()
 void MainWindow::setupHtmlPreview()
 {
     // add our objects everytime JavaScript environment is cleared
-    connect(ui->webView->page()->mainFrame(), SIGNAL(javaScriptWindowObjectCleared()),
-            this, SLOT(addJavaScriptObject()));
+//    connect(ui->webView->page(), SIGNAL(javaScriptWindowObjectCleared()),
+//            this, SLOT(addJavaScriptObject()));s()
 
     // start background HTML preview generator
     connect(generator, SIGNAL(htmlResultReady(QString)),

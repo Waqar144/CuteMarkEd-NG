@@ -18,7 +18,7 @@
 #define HTMLPREVIEWCONTROLLERTEST_H
 
 #include <QObject>
-class QWebView;
+class QWebEngineView;
 class HtmlPreviewController;
 
 class HtmlPreviewControllerTest : public QObject
@@ -40,7 +40,7 @@ private slots:
     void setupsNetworkDiskCache();
 
 private:
-    QWebView *webView;
+    QWebEngineView *webView;
     HtmlPreviewController *controller;
 };
 

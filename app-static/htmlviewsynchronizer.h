@@ -25,7 +25,7 @@ class HtmlViewSynchronizer : public ViewSynchronizer
     Q_OBJECT
 
 public:
-    HtmlViewSynchronizer(QWebView *webView, QPlainTextEdit *editor);
+    HtmlViewSynchronizer(QWebEngineView *webView, QPlainTextEdit *editor);
     ~HtmlViewSynchronizer();
 
 public slots:
@@ -38,6 +38,10 @@ private slots:
 
 private:
     int scrollBarPos;
+
+    double maxScrollBar;
+    void setMaxScrollBar(double);
+    double getMaxScrollBar() const;
 };
 
 #endif // HTMLVIEWSYNCHRONIZER_H

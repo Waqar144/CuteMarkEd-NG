@@ -19,10 +19,10 @@
 #include <QPlainTextEdit>
 #include <QScrollBar>
 #include <QWebFrame>
-#include <QWebView>
+#include <QWebEngineView>
 
 
-HtmlViewSynchronizer::HtmlViewSynchronizer(QWebView *webView, QPlainTextEdit *editor) :
+HtmlViewSynchronizer::HtmlViewSynchronizer(QWebEngineView *webView, QPlainTextEdit *editor) :
     ViewSynchronizer(webView, editor),
     scrollBarPos(0)
 {
@@ -31,7 +31,7 @@ HtmlViewSynchronizer::HtmlViewSynchronizer(QWebView *webView, QPlainTextEdit *ed
             this, SLOT(scrollValueChanged(int)));
 
     // restore scrollbar position after content size changed
-    connect(webView->page()->mainFrame(), SIGNAL(contentsSizeChanged(QSize)),
+    connect(webView->page(), SIGNAL(contentsSizeChanged(QSizeF)),
             this, SLOT(htmlContentSizeChanged()));
 }
 
@@ -39,25 +39,37 @@ HtmlViewSynchronizer::~HtmlViewSynchronizer()
 {
 }
 
+void HtmlViewSynchronizer::setMaxScrollBar(double val) {
+    maxScrollBar = val;
+}
+
+double HtmlViewSynchronizer::getMaxScrollBar() const {
+    return maxScrollBar;
+}
+
+//disabled for now.
 void HtmlViewSynchronizer::webViewScrolled()
 {
-    double factor = (double)m_editor->verticalScrollBar()->maximum() /
-                    m_webView->page()->mainFrame()->scrollBarMaximum(Qt::Vertical);
-    int value = m_webView->page()->mainFrame()->scrollBarValue(Qt::Vertical);
+//    const QSignalBlocker blocker(m_editor);
+//    m_webView->page()->runJavaScript("document.body.scrollHeight",
+//                                     [this](const QVariant &result){
+//        setMaxScrollBar(result.toDouble());
+//    });
 
-    m_editor->verticalScrollBar()->setValue(qRound(value * factor));
+//    double webViewMax = getMaxScrollBar();
+//    double factor = (double)m_editor->verticalScrollBar()->maximum() / webViewMax;
+//    double value = m_webView->page()->scrollPosition().y();
 
-    // remember new vertical scrollbar position of markdown editor
-    rememberScrollBarPos();
+//    m_editor->verticalScrollBar()->setValue(qRound(value * factor));
+//    // remember new vertical scrollbar position of markdown editor
+//    rememberScrollBarPos();
 }
 
 void HtmlViewSynchronizer::scrollValueChanged(int value)
 {
-    int webMax = m_webView->page()->mainFrame()->scrollBarMaximum(Qt::Vertical);
     int textMax = m_editor->verticalScrollBar()->maximum();
-    double factor = (double)webMax / textMax;
-
-    m_webView->page()->mainFrame()->setScrollBarValue(Qt::Vertical, qRound(value * factor));
+    const QString ScrollJavaScript("window.scrollTo(0, document.body.scrollHeight * %1 / %2);");
+    m_webView->page()->runJavaScript(ScrollJavaScript.arg(value).arg(textMax));
 }
 
 void HtmlViewSynchronizer::htmlContentSizeChanged()

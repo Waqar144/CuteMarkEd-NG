@@ -41,6 +41,7 @@ class SnippetCollection;
 class ThemeCollection;
 class ViewSynchronizer;
 class StatusBarWidget;
+class QWebChannel;
 
 
 class MainWindow : public QMainWindow
@@ -165,6 +166,8 @@ private:
     float splitFactor;
     bool rightViewCollapsed;
     QTimer *previewTimer;
+    QString previewHtml;
+    QWebChannel *channel;
 };
 
 #endif // MAINWINDOW_H

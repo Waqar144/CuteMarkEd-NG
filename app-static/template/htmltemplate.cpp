@@ -91,6 +91,14 @@ QString HtmlTemplate::buildHtmlHeader(RenderOptions options) const
 
     // add javascript for scrollbar synchronization
     if (options.testFlag(Template::ScrollbarSynchronization)) {
+        header += "<script src=\"qrc:/qtwebchannel/qwebchannel.js\"></script>";
+        header += "<script>"
+                  "var synchronizer = 0;"
+                  "new QWebChannel(qt.webChannelTransport,"
+                  " function(channel) {"
+                  "     synchronizer = channel.objects.synchronizer;"
+                  "});"
+                  "</script>";
         header += "<script type=\"text/javascript\">window.onscroll = function() { synchronizer.webViewScrolled(); }; </script>\n";
     }
 

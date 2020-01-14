@@ -17,7 +17,7 @@
  */
 #include "viewsynchronizer.h"
 
-ViewSynchronizer::ViewSynchronizer(QWebView *webView, QPlainTextEdit *editor, QObject *parent) :
+ViewSynchronizer::ViewSynchronizer(QWebEngineView *webView, QPlainTextEdit *editor, QObject *parent) :
     QObject(parent),
     m_webView(webView),
     m_editor(editor)

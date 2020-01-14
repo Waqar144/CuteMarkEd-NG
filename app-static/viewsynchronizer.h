@@ -20,7 +20,7 @@
 
 #include <QObject>
 
-class QWebView;
+class QWebEngineView;
 class QPlainTextEdit;
 
 
@@ -29,11 +29,11 @@ class ViewSynchronizer : public QObject
     Q_OBJECT
 
 public:
-    ViewSynchronizer(QWebView *webView, QPlainTextEdit *editor, QObject *parent = 0);
+    ViewSynchronizer(QWebEngineView *webView, QPlainTextEdit *editor, QObject *parent = 0);
     virtual ~ViewSynchronizer() {}
 
 protected:
-    QWebView *m_webView;
+    QWebEngineView *m_webView;
     QPlainTextEdit *m_editor;
 };
 

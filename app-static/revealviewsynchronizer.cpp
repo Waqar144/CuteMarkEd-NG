@@ -20,20 +20,21 @@
 #include <QPlainTextEdit>
 #include <QTextBlock>
 #include <QWebFrame>
-#include <QWebView>
+#include <QWebEngineView>
 
 #include "slidelinemapping.h"
 
 
-RevealViewSynchronizer::RevealViewSynchronizer(QWebView *webView, QPlainTextEdit *editor) :
+RevealViewSynchronizer::RevealViewSynchronizer(QWebEngineView *webView, QPlainTextEdit *editor) :
     ViewSynchronizer(webView, editor),
     currentSlide(qMakePair(0, 0)),
     slideLineMapping(new SlideLineMapping())
 {
     connect(webView, SIGNAL(loadFinished(bool)),
             this, SLOT(registerEvents()));
-    connect(webView->page()->mainFrame(), SIGNAL(javaScriptWindowObjectCleared()),
-            this, SLOT(restoreSlidePosition()));
+
+//    connect(webView->page(), SIGNAL(javaScriptWindowObjectCleared()),
+//            this, SLOT(restoreSlidePosition()));
 
     connect(editor, SIGNAL(cursorPositionChanged()),
             this, SLOT(cursorPositionChanged()));
@@ -73,7 +74,7 @@ void RevealViewSynchronizer::slideChanged(int horizontal, int vertical)
 
 void RevealViewSynchronizer::registerEvents()
 {
-    m_webView->page()->mainFrame()->evaluateJavaScript(
+    m_webView->page()->runJavaScript(QStringLiteral(
                     "(function(){"
                     "  var mainWinUpdate = false;"
                     "  function feedbackPosition(event) {"
@@ -89,14 +90,14 @@ void RevealViewSynchronizer::registerEvents()
                     "    mainWinUpdate = false;"
                     "  }"
                     "  synchronizer.gotoSlideRequested.connect(gotoSlide);"
-                    "})();");
+                    "})();"));
 }
 
 void RevealViewSynchronizer::restoreSlidePosition()
 {
-    static QString restorePosition =
-        "window.location.hash = '/'+synchronizer.horizontalSlide+'/'+synchronizer.verticalSlide;";
-    m_webView->page()->mainFrame()->evaluateJavaScript(restorePosition);
+    static QString restorePosition = QStringLiteral(
+        "window.location.hash = '/'+synchronizer.horizontalSlide+'/'+synchronizer.verticalSlide;");
+    m_webView->page()->runJavaScript(restorePosition);
 }
 
 void RevealViewSynchronizer::cursorPositionChanged()

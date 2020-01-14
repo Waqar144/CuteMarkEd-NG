@@ -4,7 +4,7 @@
 # Github : https://github.com/cloose/CuteMarkEd
 #
 
-QT += gui webkitwidgets
+QT += gui webkitwidgets webenginewidgets
 
 TARGET = app-static
 TEMPLATE = lib
