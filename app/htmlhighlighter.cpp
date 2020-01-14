@@ -30,8 +30,8 @@ HtmlHighlighter::HtmlHighlighter(QTextDocument *document) :
     HighlightingRule rule;
 
     QString htmlTagRegExp = "<(/?)(%1)[^>]*(/?)>";
-    QStringList keywords;
-    keywords << htmlTagRegExp.arg("html")
+    const QStringList keywords = QStringList()
+             << htmlTagRegExp.arg("html")
              << "<head>" << "</head>"
              << htmlTagRegExp.arg("link")
              << htmlTagRegExp.arg("script")
@@ -73,7 +73,7 @@ HtmlHighlighter::HtmlHighlighter(QTextDocument *document) :
              << "<strike>" << "</strike>"
              << "<del>" << "</del>";
 
-    foreach(QString keyword, keywords) {
+    for(const QString &keyword : keywords) {
         rule.pattern = QRegExp(keyword);
         rule.format = &keywordFormat;
         highlightingRules.append(rule);
@@ -101,7 +101,7 @@ void HtmlHighlighter::setEnabled(bool enabled)
 void HtmlHighlighter::highlightBlock(const QString &text)
 {
     if (enabled) {
-        foreach(HighlightingRule rule, highlightingRules) {
+        for (const HighlightingRule &rule : qAsConst(highlightingRules)) {
             QRegExp expression(rule.pattern);
             int index = text.indexOf(expression);
             while (index >= 0) {

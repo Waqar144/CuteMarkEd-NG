@@ -71,8 +71,8 @@ const Snippet &SnippetCollection::at(int offset) const
 QSharedPointer<SnippetCollection> SnippetCollection::userDefinedSnippets() const
 {
     QSharedPointer<SnippetCollection> userDefinedSnippets = QSharedPointer<SnippetCollection>::create();
-
-    foreach (Snippet snippet, snippets.values()) {
+    const auto snippetsList = snippets.values();
+    for (const Snippet &snippet : snippetsList) {
         if (!snippet.builtIn) {
             userDefinedSnippets->insert(snippet);
         }

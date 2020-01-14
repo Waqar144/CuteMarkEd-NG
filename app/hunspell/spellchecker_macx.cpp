@@ -28,13 +28,12 @@ QMap<QString, Dictionary> SpellChecker::availableDictionaries()
 {
     QMap<QString, Dictionary> dictionaries;
 
-    QStringList paths;
-    paths << (qApp->applicationDirPath() + "/../Resources/dictionaries");
+    const QStringList paths = {qApp->applicationDirPath() + "/../Resources/dictionaries"};
 
-    foreach (const QString &path, paths) {
+    for (const QString &path : paths) {
         QDir dictPath(path);
         dictPath.setFilter(QDir::Files);
-        dictPath.setNameFilters(QStringList() << "*.dic");
+        dictPath.setNameFilters(QStringList{"*.dic"});
         if (dictPath.exists()) {
             // loop over all dictionaries in directory
             QDirIterator it(dictPath);

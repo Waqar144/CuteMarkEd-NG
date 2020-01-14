@@ -60,7 +60,7 @@ QList<Qt::Alignment> TableToolDialog::alignments() const
 {
     QList<Qt::Alignment> alignments;
 
-    foreach (QComboBox *cb, alignmentComboBoxList) {
+    for (QComboBox *cb : qAsConst(alignmentComboBoxList)) {
         Qt::Alignment alignment = (Qt::Alignment)cb->itemData(cb->currentIndex()).toInt();
         alignments.append(alignment);
     }
@@ -185,7 +185,7 @@ void TableToolDialog::updateTabOrder()
     this->setTabOrder(ui->rowsSpinBox, ui->columnsSpinBox);
 
     QWidget *first = ui->columnsSpinBox;
-    foreach (QComboBox *cb, alignmentComboBoxList) {
+    for (QComboBox *cb : qAsConst(alignmentComboBoxList)) {
         this->setTabOrder(first, cb);
         first = cb;
     }

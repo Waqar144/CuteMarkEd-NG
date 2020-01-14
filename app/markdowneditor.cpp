@@ -286,8 +286,8 @@ void MarkdownEditor::showContextMenu(const QPoint &pos)
         contextMenu->addMenu(subMenu);
 
         // add action for each suggested replacement
-        QStringList suggestions = spellChecker->suggestions(cursor.selectedText());
-        foreach (const QString &suggestion, suggestions) {
+        const QStringList suggestions = spellChecker->suggestions(cursor.selectedText());
+        for (const QString &suggestion : suggestions) {
             QAction *action = subMenu->addAction(suggestion);
             action->setData(cursorPosition);
             connect(action, SIGNAL(triggered()),
@@ -586,7 +586,7 @@ QStringList MarkdownEditor::filterWordList(const QStringList &words, UnaryPredic
 {
     QStringList filteredWordList;
 
-    foreach (const QString &word, words) {
+    for (const QString &word : words) {
         if (predicate(word))
         {
            filteredWordList << word;

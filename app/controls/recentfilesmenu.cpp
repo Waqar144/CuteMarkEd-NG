@@ -84,7 +84,7 @@ void RecentFilesMenu::updateMenu()
 {
     clear();
 
-    foreach (const QString &recentFile, recentFiles) {
+    for (const QString &recentFile : qAsConst(recentFiles)) {
         QAction *action = addAction(recentFile);
         action->setData(recentFile);
 

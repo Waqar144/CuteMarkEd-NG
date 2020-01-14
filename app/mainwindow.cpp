@@ -1105,14 +1105,16 @@ void MainWindow::setupCustomShortcuts()
     setCustomShortcut(ui->menuEdit);
     setCustomShortcut(ui->menuView);
 
-    foreach (QAction *action, ui->plainTextEdit->actions()) {
+    const auto plainTextEditActions = ui->plainTextEdit->actions();
+    for (const auto action : plainTextEditActions) {
         setCustomShortcut(action);
     }
 }
 
 void MainWindow::setCustomShortcut(QMenu *menu)
 {
-    foreach (QAction *action, menu->actions()) {
+    const auto menuActions = menu->actions();
+    for (const auto action : menuActions) {
         if (action->menu()) {
             // recurse into submenu
             setCustomShortcut(action->menu());
@@ -1204,7 +1206,8 @@ void MainWindow::setupHtmlPreviewThemes()
 
     int key = 1;
     bool separatorAdded = false;
-    foreach(const QString &themeName, themeCollection->themeNames()) {
+    const auto themeNames = themeCollection->themeNames();
+    for (const QString &themeName : themeNames) {
         if (!separatorAdded && !themeCollection->theme(themeName).isBuiltIn()) {
             addSeparatorAfterBuiltInThemes();
             separatorAdded = true;

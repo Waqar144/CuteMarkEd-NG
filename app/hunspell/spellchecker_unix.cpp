@@ -28,29 +28,30 @@ QMap<QString, Dictionary> SpellChecker::availableDictionaries()
 {
     QMap<QString, Dictionary> dictionaries;
 
-    QStringList paths;
+    const QStringList paths {
     // Debian
-    paths << QStringLiteral("/usr/local/share/myspell/dicts")
-          << QStringLiteral("/usr/share/myspell/dicts");
+    "/usr/local/share/myspell/dicts",
+    "/usr/share/myspell/dicts",
 
     // Ubuntu
-    paths << QStringLiteral("/usr/share/hunspell");
+    "/usr/share/hunspell",
 
     // Fedora
-    paths << QStringLiteral("/usr/local/share/myspell")
-          << QStringLiteral("/usr/share/myspell");
+    "/usr/local/share/myspell",
+    "/usr/share/myspell"
+    };
 
-    foreach (const QString &path, paths) {
+    for (const QString &path : paths) {
         QDir dictPath(path);
         dictPath.setFilter(QDir::Files);
-        dictPath.setNameFilters(QStringList() << "*.dic");
+        dictPath.setNameFilters(QStringList{"*.dic"});
         if (dictPath.exists()) {
             // loop over all dictionaries in directory
             QDirIterator it(dictPath);
             while (it.hasNext()) {
                 it.next();
 
-                QString language = it.fileName().remove(".dic");
+                QString language = it.fileName().remove(QStringLiteral(".dic"));
                 language.truncate(5); // just language and country code
 
                 Dictionary dict(it.fileName(), it.filePath());

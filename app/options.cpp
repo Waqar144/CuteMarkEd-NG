@@ -532,7 +532,8 @@ void Options::readSettings()
 
     // shortcut settings
     settings.beginGroup("shortcuts");
-    foreach (QString actionName, settings.childKeys()) {
+    const auto actionNames = settings.childKeys();
+    for (const QString &actionName : actionNames) {
         QKeySequence keySequence = settings.value(actionName, "").value<QKeySequence>();
         addCustomShortcut(actionName, keySequence);
     }

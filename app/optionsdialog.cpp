@@ -95,7 +95,8 @@ OptionsDialog::OptionsDialog(Options *opt, SnippetCollection *collection, const 
     ui->tabWidget->setTabIcon(4, QIcon("fa-puzzle-piece.fontawesome"));
     ui->tabWidget->setTabIcon(5, QIcon("fa-keyboard-o.fontawesome"));
 
-    foreach (int size, QFontDatabase::standardSizes()) {
+    const auto sizes = QFontDatabase::standardSizes();
+    for (int size : sizes) {
         ui->sizeComboBox->addItem(QString().setNum(size));
         ui->defaultSizeComboBox->addItem(QString().setNum(size));
         ui->defaultFixedSizeComboBox->addItem(QString().setNum(size));
@@ -251,7 +252,7 @@ void OptionsDialog::setupShortcutsTable()
     ui->shortcutsTable->setRowCount(actions.size());
 
     int i = 0;
-    foreach (QAction *action, actions) {
+    for (const QAction *action : qAsConst(actions)) {
         QTableWidgetItem *label = new QTableWidgetItem(action->text().remove('&'));
         label->setFlags(Qt::ItemIsSelectable);
         const QKeySequence &defaultKeySeq = action->property("defaultshortcut").value<QKeySequence>();
