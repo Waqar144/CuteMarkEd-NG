@@ -161,7 +161,7 @@ private:
     ViewSynchronizer *viewSynchronizer;
     HtmlPreviewController *htmlPreviewController;
     ThemeCollection *themeCollection;
-    Theme currentTheme { "Default", "Default", "Default", "Default" };
+    Theme currentTheme { QStringLiteral("Default"), QStringLiteral("Default"), QStringLiteral("Default"), QStringLiteral("Default") };
     QString fileName;
     float splitFactor;
     bool rightViewCollapsed;

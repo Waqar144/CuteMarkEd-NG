@@ -143,7 +143,7 @@ void MainWindow::initializeApp()
     ui->webView->page()->setWebChannel(channel);
     ui->tocWebView->page()->setLinkDelegationPolicy(QWebPage::DelegateAllLinks);
 
-    themeCollection->load(":/builtin-htmlpreview-themes.json");
+    themeCollection->load(QStringLiteral(":/builtin-htmlpreview-themes.json"));
     loadCustomStyles();
     setupHtmlPreviewThemes();
 
@@ -184,7 +184,7 @@ void MainWindow::initializeApp()
     ui->menuLanguages->loadDictionaries(options->dictionaryLanguage());
 
     //: path to built-in snippets resource.
-    JsonFile<Snippet>::load(":/markdown-snippets.json", snippetCollection);
+    JsonFile<Snippet>::load(QStringLiteral(":/markdown-snippets.json"), snippetCollection);
     QString path = DataLocation::writableLocation();
     JsonFile<Snippet>::load(path + "/user-snippets.json", snippetCollection);
 
@@ -311,7 +311,7 @@ void MainWindow::fileExportToHtml()
 
         QString highlightJs;
         if (dialog.includeCodeHighlighting()) {
-            QFile f(":/scripts/highlight.js/highlight.pack.js");
+            QFile f(QStringLiteral(":/scripts/highlight.js/highlight.pack.js"));
             if (f.open(QIODevice::ReadOnly | QIODevice::Text)) {
                 highlightJs = f.readAll();
             }
@@ -407,37 +407,37 @@ void MainWindow::editFindReplace()
 void MainWindow::editStrong()
 {
     MarkdownManipulator manipulator(ui->plainTextEdit);
-    manipulator.wrapSelectedText("**");
+    manipulator.wrapSelectedText(QStringLiteral("**"));
 }
 
 void MainWindow::editEmphasize()
 {
     MarkdownManipulator manipulator(ui->plainTextEdit);
-    manipulator.wrapSelectedText("*");
+    manipulator.wrapSelectedText(QStringLiteral("*"));
 }
 
 void MainWindow::editStrikethrough()
 {
     MarkdownManipulator manipulator(ui->plainTextEdit);
-    manipulator.wrapSelectedText("~~");
+    manipulator.wrapSelectedText(QStringLiteral("~~"));
 }
 
 void MainWindow::editInlineCode()
 {
     MarkdownManipulator manipulator(ui->plainTextEdit);
-    manipulator.wrapSelectedText("`");
+    manipulator.wrapSelectedText(QStringLiteral("`"));
 }
 
 void MainWindow::editCenterParagraph()
 {
     MarkdownManipulator manipulator(ui->plainTextEdit);
-    manipulator.wrapCurrentParagraph("->", "<-");
+    manipulator.wrapCurrentParagraph(QStringLiteral("->"), QStringLiteral("<-"));
 }
 
 void MainWindow::editHardLinebreak()
 {
     MarkdownManipulator manipulator(ui->plainTextEdit);
-    manipulator.appendToLine("  \n");
+    manipulator.appendToLine(QStringLiteral("  \n"));
 }
 
 void MainWindow::editBlockquote()
@@ -772,7 +772,7 @@ void MainWindow::previewLinkClicked(const QUrl &url)
 
         QString filePath = url.toLocalFile();
         // Links to markdown files open new instance
-        if (filePath.endsWith(".md") || filePath.endsWith(".markdown") || filePath.endsWith(".mdown")) {
+        if (filePath.endsWith(QLatin1String(".md")) || filePath.endsWith(QLatin1String(".markdown")) || filePath.endsWith(QLatin1String(".mdown"))) {
             QProcess::startDetached(qApp->applicationFilePath(), QStringList() << filePath);
             return;
         }
@@ -783,7 +783,7 @@ void MainWindow::previewLinkClicked(const QUrl &url)
 
 void MainWindow::tocLinkClicked(const QUrl &url)
 {
-    QString anchor = url.toString().remove("#");
+    QString anchor = url.toString().remove(QStringLiteral("#"));
 //    ui->webView->page()->scrollToAnchor(anchor);
 }
 
@@ -994,8 +994,8 @@ void MainWindow::setupActions()
     setActionsIcons();
 
     // set names for dock widget actions
-    ui->dockWidget->toggleViewAction()->setObjectName("actionTableOfContents");
-    ui->fileExplorerDockWidget->toggleViewAction()->setObjectName("actionFileExplorer");
+    ui->dockWidget->toggleViewAction()->setObjectName(QStringLiteral("actionTableOfContents"));
+    ui->fileExplorerDockWidget->toggleViewAction()->setObjectName(QStringLiteral("actionFileExplorer"));
 
     // setup default shortcuts
     ui->actionGotoLine->setProperty("defaultshortcut", ui->actionGotoLine->shortcut());
@@ -1055,7 +1055,7 @@ void MainWindow::setupStatusBar()
     statusBarWidget->update();
 
     // remove border around statusbar widgets
-    statusBar()->setStyleSheet("QStatusBar::item { border: 0px solid black }; ");
+    statusBar()->setStyleSheet(QStringLiteral("QStatusBar::item { border: 0px solid black }; "));
     statusBar()->addPermanentWidget(statusBarWidget, 1);
 }
 
@@ -1093,7 +1093,7 @@ void MainWindow::setupHtmlPreview()
 
 void MainWindow::setupHtmlSourceView()
 {
-    QFont font("Monospace", 10);
+    QFont font(QStringLiteral("Monospace"), 10);
     font.setStyleHint(QFont::TypeWriter);
     ui->htmlSourceTextEdit->setFont(font);
     htmlHighlighter = new HtmlHighlighter(ui->htmlSourceTextEdit->document());
@@ -1247,7 +1247,7 @@ void MainWindow::loadCustomStyles()
             QString styleName = QFileInfo(fileName).baseName();
             QString stylePath = QUrl::fromLocalFile(it.filePath()).toString();
 
-            Theme customTheme { styleName, "Default", "Default", styleName };
+            Theme customTheme { styleName, QStringLiteral("Default"), QStringLiteral("Default"), styleName };
             themeCollection->insert(customTheme);
 
             StyleManager styleManager;
@@ -1260,8 +1260,8 @@ void MainWindow::readSettings()
 {
     // restore window size, position and state
     QSettings settings;
-    restoreGeometry(settings.value("mainWindow/geometry").toByteArray());
-    restoreState(settings.value("mainWindow/windowState").toByteArray());
+    restoreGeometry(settings.value(QStringLiteral("mainWindow/geometry")).toByteArray());
+    restoreState(settings.value(QStringLiteral("mainWindow/windowState")).toByteArray());
 
     // restore recent files menu
     recentFilesMenu->readState();
@@ -1278,12 +1278,12 @@ void MainWindow::writeSettings()
 
     // save window size, position and state
     QSettings settings;
-    settings.setValue("mainWindow/geometry", saveGeometry());
-    settings.setValue("mainWindow/windowState", saveState());
+    settings.setValue(QStringLiteral("mainWindow/geometry"), saveGeometry());
+    settings.setValue(QStringLiteral("mainWindow/windowState"), saveState());
 }
 
 QString MainWindow::stylePath(const QString &styleName)
 {
     QString suffix = options->isSourceAtSingleSizeEnabled() ? "" : "+";
-    return QString(":/theme/%1%2.txt").arg(styleName).arg(suffix);
+    return QStringLiteral(":/theme/%1%2.txt").arg(styleName, suffix);
 }
