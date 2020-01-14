@@ -294,21 +294,21 @@ void MainWindow::fileExportToHtml()
         QString cssStyle;
         if (dialog.includeCSS()) {
             // get url of current css stylesheet
-//            QUrl cssUrl = ui->webView->page()->settings()->userStyleSheetUrl();
+            QUrl cssUrl = StyleManager::previewStylesheetPath(currentTheme);
 
-//            // get resource or file name from url
-//            QString cssFileName;
-//            if (cssUrl.scheme() == "qrc") {
-//                cssFileName = cssUrl.toString().remove(0, 3);
-//            } else {
-//                cssFileName = cssUrl.toLocalFile();
-//            }
+            // get resource or file name from url
+            QString cssFileName;
+            if (cssUrl.scheme() == "qrc") {
+                cssFileName = cssUrl.toString().remove(0, 3);
+            } else {
+                cssFileName = cssUrl.toLocalFile();
+            }
 
-//            // read currently used css stylesheet file
-//            QFile f(cssFileName);
-//            if (f.open(QIODevice::ReadOnly | QIODevice::Text)) {
-//                cssStyle = f.readAll();
-//            }
+            // read currently used css stylesheet file
+            QFile f(cssFileName);
+            if (f.open(QIODevice::ReadOnly | QIODevice::Text)) {
+                cssStyle = f.readAll();
+            }
         }
 
         QString highlightJs;
