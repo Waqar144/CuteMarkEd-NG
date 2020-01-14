@@ -1,5 +1,9 @@
 ## CuteMarkEd
 
+### HISTORY
+
+Project was actually written by @cloose. This is an attempt at reviving the project.
+
 ### DESCRIPTION
 
 A Qt-based, free and open source markdown editor with live HTML preview, math expressions, code syntax highlighting and syntax highlighting of markdown document.
