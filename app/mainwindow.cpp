@@ -286,12 +286,12 @@ bool MainWindow::fileSaveAs()
 
 void MainWindow::fileExportToHtml()
 {
-//    ExportHtmlDialog dialog(fileName);
-//    if (dialog.exec() == QDialog::Accepted) {
+    ExportHtmlDialog dialog(fileName);
+    if (dialog.exec() == QDialog::Accepted) {
 
-//        QString cssStyle;
-//        if (dialog.includeCSS()) {
-//            // get url of current css stylesheet
+        QString cssStyle;
+        if (dialog.includeCSS()) {
+            // get url of current css stylesheet
 //            QUrl cssUrl = ui->webView->page()->settings()->userStyleSheetUrl();
 
 //            // get resource or file name from url
@@ -307,26 +307,26 @@ void MainWindow::fileExportToHtml()
 //            if (f.open(QIODevice::ReadOnly | QIODevice::Text)) {
 //                cssStyle = f.readAll();
 //            }
-//        }
+        }
 
-//        QString highlightJs;
-//        if (dialog.includeCodeHighlighting()) {
-//            QFile f(":/scripts/highlight.js/highlight.pack.js");
-//            if (f.open(QIODevice::ReadOnly | QIODevice::Text)) {
-//                highlightJs = f.readAll();
-//            }
-//        }
+        QString highlightJs;
+        if (dialog.includeCodeHighlighting()) {
+            QFile f(":/scripts/highlight.js/highlight.pack.js");
+            if (f.open(QIODevice::ReadOnly | QIODevice::Text)) {
+                highlightJs = f.readAll();
+            }
+        }
 
-//        QString html = generator->exportHtml(cssStyle, highlightJs);
+        QString html = generator->exportHtml(cssStyle, highlightJs);
 
-//        // write HTML source to disk
-//        QFile f(dialog.fileName());
-//        if (f.open(QIODevice::WriteOnly | QIODevice::Text)) {
-//            QTextStream out(&f);
-//            out.setCodec("UTF-8");
-//            out << html;
-//        }
-//    }
+        // write HTML source to disk
+        QFile f(dialog.fileName());
+        if (f.open(QIODevice::WriteOnly | QIODevice::Text)) {
+            QTextStream out(&f);
+            out.setCodec("UTF-8");
+            out << html;
+        }
+    }
 }
 
 void MainWindow::fileExportToPdf()
