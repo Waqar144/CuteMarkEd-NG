@@ -38,6 +38,8 @@
 #include <QTimer>
 #include <QWebEngineView>
 #include <QWebEnginePage>
+#include <QWebEngineScript>
+#include <QWebEngineScriptCollection>
 #include <QWebEngineSettings>
 #include <QWebChannel>
 //#include <QWebFrame>
@@ -518,6 +520,7 @@ void MainWindow::lastUsedTheme()
 
 void MainWindow::themeChanged()
 {
+    removeStyleSheet(currentTheme.name(), true);
     QAction *action = qobject_cast<QAction*>(sender());
     QString themeName = action->text();
 
@@ -541,6 +544,24 @@ void MainWindow::applyCurrentTheme()
 
     generator->setCodeHighlightingStyle(codeHighlighting);
     ui->plainTextEdit->loadStyleFromStylesheet(stylePath(markdownHighlighting));
+
+    QString stylesheetSource;
+    QUrl cssUrl = previewStylesheet;
+
+    // get resource or file name from url
+    QString cssFileName;
+    if (cssUrl.scheme() == "qrc") {
+        cssFileName = cssUrl.toString().remove(0, 3);
+    } else {
+        cssFileName = cssUrl.toLocalFile();
+    }
+
+    // read currently used css stylesheet file
+    QFile f(cssFileName);
+    if (f.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        stylesheetSource = f.readAll();
+    }
+    insertStyleSheet(currentTheme.name(), stylesheetSource, true);
    // ui->webView->page()->settings()->setUserStyleSheetUrl(QUrl(previewStylesheet));
 }
 
@@ -1289,4 +1310,39 @@ QString MainWindow::stylePath(const QString &styleName)
 {
     QString suffix = options->isSourceAtSingleSizeEnabled() ? QLatin1String("") : QLatin1String("+");
     return QStringLiteral(":/theme/%1%2.txt").arg(styleName, suffix);
+}
+
+void MainWindow::insertStyleSheet(const QString &name, const QString &source, bool immediately)
+{
+    QWebEngineScript script;
+    QString s = QString::fromLatin1("(function() {"\
+                                    "    css = document.createElement('style');"\
+                                    "    css.type = 'text/css';"\
+                                    "    css.id = '%1';"\
+                                    "    document.head.appendChild(css);"\
+                                    "    css.innerText = '%2';"\
+                                    "})()").arg(name).arg(source.simplified());
+    if (immediately)
+        ui->webView->page()->runJavaScript(s, QWebEngineScript::ApplicationWorld);
+
+    script.setName(name);
+    script.setSourceCode(s);
+    script.setInjectionPoint(QWebEngineScript::DocumentReady);
+    script.setRunsOnSubFrames(true);
+    script.setWorldId(QWebEngineScript::ApplicationWorld);
+    ui->webView->page()->scripts().insert(script);
+}
+
+void MainWindow::removeStyleSheet(const QString &name, bool immediately)
+{
+    QString s = QString::fromLatin1("(function() {"\
+                                    "    var element = document.getElementById('%1');"\
+                                    "    element.outerHTML = '';"\
+                                    "    delete element;"\
+                                    "})()").arg(name);
+    if (immediately)
+        ui->webView->page()->runJavaScript(s, QWebEngineScript::ApplicationWorld);
+
+    QWebEngineScript script = ui->webView->page()->scripts().findScript(name);
+    ui->webView->page()->scripts().remove(script);
 }

@@ -148,7 +148,8 @@ private:
     void writeSettings();
     void applyCurrentTheme();
     QString stylePath(const QString &styleName);
-
+    void insertStyleSheet(const QString &name, const QString &source, bool immediately);
+    void removeStyleSheet(const QString &name, bool immediately);
 private:
     Ui::MainWindow *ui;
     RecentFilesMenu *recentFilesMenu;
