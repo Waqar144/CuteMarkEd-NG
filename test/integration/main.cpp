@@ -18,12 +18,11 @@
 
 #include <QApplication>
 
-#include "discountmarkdownconvertertest.h"
+#include "md4cmarkdownconvertertest.h"
 #include "htmlpreviewcontrollertest.h"
 #include "htmltemplatetest.h"
 #include "jsonsnippetfiletest.h"
 #include "jsonthemefiletest.h"
-#include "pmhmarkdownparsertest.h"
 #include "revealmarkdownconvertertest.h"
 #include "themecollectiontest.h"
 
@@ -33,7 +32,7 @@ int main(int argc, char *argv[])
 
     int ret = 0;
 
-    DiscountMarkdownConverterTest test;
+    MD4CMarkdownConverterTest test;
     ret += QTest::qExec(&test, argc, argv);
 
     RevealMarkdownConverterTest test3;
@@ -41,9 +40,6 @@ int main(int argc, char *argv[])
 
     JsonSnippetFileTest test4;
     ret += QTest::qExec(&test4, argc, argv);
-
-    PmhMarkdownParserTest test5;
-    ret += QTest::qExec(&test5, argc, argv);
 
     HtmlPreviewControllerTest test6;
     ret += QTest::qExec(&test6, argc, argv);

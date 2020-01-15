@@ -12,23 +12,21 @@ CONFIG += console testcase
 CONFIG += c++11
 
 SOURCES += \
-    discountmarkdownconvertertest.cpp \
+    md4cmarkdownconvertertest.cpp \
     htmlpreviewcontrollertest.cpp \
     htmltemplatetest.cpp \
     jsonsnippetfiletest.cpp \
     jsonthemefiletest.cpp \
     main.cpp \
-    pmhmarkdownparsertest.cpp \
     revealmarkdownconvertertest.cpp \
     themecollectiontest.cpp
 
 HEADERS += \
-    discountmarkdownconvertertest.h \
+    md4cmarkdownconvertertest.h \
     htmlpreviewcontrollertest.h \
     htmltemplatetest.h \
     jsonsnippetfiletest.h \
     jsonthemefiletest.h \
-    pmhmarkdownparsertest.h \
     revealmarkdownconvertertest.h \
     themecollectiontest.h
 
@@ -62,38 +60,6 @@ else:win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../../a
 else:win32-msvc*:CONFIG(release, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../../app-static/release/app-static.lib
 else:win32-msvc*:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../../app-static/debug/app-static.lib
 else:unix: PRE_TARGETDEPS += $$OUT_PWD/../../app-static/libapp-static.a
-
-#
-# PEG Markdown Highlight adapter library
-#
-win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../../libs/peg-markdown-highlight/release/ -lpmh-adapter
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../../libs/peg-markdown-highlight/debug/ -lpmh-adapter
-else:unix: LIBS += -L$$OUT_PWD/../../libs/peg-markdown-highlight/ -lpmh-adapter
-
-INCLUDEPATH += $$PWD/../../libs/peg-markdown-highlight
-DEPENDPATH += $$PWD/../../libs/peg-markdown-highlight
-
-win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../../libs/peg-markdown-highlight/release/libpmh-adapter.a
-else:win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../../libs/peg-markdown-highlight/debug/libpmh-adapter.a
-else:win32-msvc*:CONFIG(release, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../../libs/peg-markdown-highlight/release/pmh-adapter.lib
-else:win32-msvc*:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../../libs/peg-markdown-highlight/debug/pmh-adapter.lib
-else:unix: PRE_TARGETDEPS += $$OUT_PWD/../../libs/peg-markdown-highlight/libpmh-adapter.a
-
-#
-# peg-markdown-highlight
-#
-win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../../3rdparty/peg-markdown-highlight/release/ -lpmh
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../../3rdparty/peg-markdown-highlight/debug/ -lpmh
-else:unix: LIBS += -L$$OUT_PWD/../../3rdparty/peg-markdown-highlight/ -lpmh
-
-INCLUDEPATH += $$PWD/../../3rdparty/peg-markdown-highlight
-DEPENDPATH += $$PWD/../../3rdparty/peg-markdown-highlight
-
-win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../../3rdparty/peg-markdown-highlight/release/libpmh.a
-else:win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../../3rdparty/peg-markdown-highlight/debug/libpmh.a
-else:win32-msvc*:CONFIG(release, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../../3rdparty/peg-markdown-highlight/release/pmh.lib
-else:win32-msvc*:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../../3rdparty/peg-markdown-highlight/debug/pmh.lib
-else:unix: PRE_TARGETDEPS += $$OUT_PWD/../../3rdparty/peg-markdown-highlight/libpmh.a
 
 #
 # Discount library

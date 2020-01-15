@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Christian Loose <christian.loose@hamburg.de>
+ * Copyright 2013-2014 Christian Loose <christian.loose@hamburg.de>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,34 +14,40 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef PMHMARKDOWNPARSERTEST_H
-#define PMHMARKDOWNPARSERTEST_H
+#ifndef DISCOUNTMARKDOWNCONVERTERTEST_H
+#define DISCOUNTMARKDOWNCONVERTERTEST_H
 
 #include <QObject>
 
-class PmhMarkdownParser;
+class MD4CMarkdownConverter;
 
-class PmhMarkdownParserTest : public QObject
+
+class MD4CMarkdownConverterTest : public QObject
 {
     Q_OBJECT
     
 private slots:
     void initTestCase();
-    void cleanupTestCase();
 
-    void returnsEmptyMapForEmptyMarkdownDocument();
-    void returnsNoEntryForNonExistingMarkdownElements();
-    void returnsEntryForMarkdownElement();
-    void returnsListOfEntriesForSingleMarkdownElementType();
-    void entryKnowsItsMarkdownElementType();
-    void entryHasStartAndEndPosition();
+    void convertsEmptyStringToEmptyHtml();
+    void convertsMarkdownParagraphToHtml();
+    void convertsMarkdownHeaderToHtml();
+    void preservesGermanUmlautsInHtml();
+
+    void supportsSuperscriptIfEnabled();
+    void ignoresSuperscriptIfDisabled();
 
     void benchmark_data();
     void benchmark();
+    void benchmarkTableOfContents_data();
+    void benchmarkTableOfContents();
+
+    void cleanupTestCase();
 
 private:
-    PmhMarkdownParser *parser;
+    QString transformMarkdownToHtml(const QString &text);
+    bool isIdAnchorDisabled(const QString &html);
+    MD4CMarkdownConverter *converter;
 };
 
-#endif // PMHMARKDOWNPARSERTEST_H
-
+#endif // DISCOUNTMARKDOWNCONVERTERTEST_H
