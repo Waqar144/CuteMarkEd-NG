@@ -100,7 +100,7 @@ pre {
 }
 pre,
 code {
-  font-family: monospace;
+  font-family: monospace !important;
 }
 pre {
   white-space: pre;
