@@ -27,10 +27,6 @@
 #include "revealmarkdownconvertertest.h"
 #include "themecollectiontest.h"
 
-#ifdef ENABLE_HOEDOWN
-#include "hoedownmarkdownconvertertest.h"
-#endif
-
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
@@ -39,11 +35,6 @@ int main(int argc, char *argv[])
 
     DiscountMarkdownConverterTest test;
     ret += QTest::qExec(&test, argc, argv);
-
-#ifdef ENABLE_HOEDOWN
-    HoedownMarkdownConverterTest test2;
-    ret += QTest::qExec(&test2, argc, argv);
-#endif
 
     RevealMarkdownConverterTest test3;
     ret += QTest::qExec(&test3, argc, argv);

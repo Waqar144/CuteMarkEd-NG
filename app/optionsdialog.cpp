@@ -112,11 +112,6 @@ OptionsDialog::OptionsDialog(Options *opt, SnippetCollection *collection, const 
     connect(ui->snippetTextEdit, SIGNAL(textChanged()),
             this, SLOT(snippetTextChanged()));
 
-    // remove hoedown item from converter combo box, if hoedown is disabled
-#ifndef ENABLE_HOEDOWN
-    ui->converterComboBox->removeItem(1);
-#endif
-
     setupShortcutsTable();
 
     // read configuration state

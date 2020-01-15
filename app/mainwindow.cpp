@@ -893,9 +893,6 @@ void MainWindow::markdownConverterChanged()
     if (viewSynchronizer)
         delete viewSynchronizer;
     switch (options->markdownConverter()) {
-#ifdef ENABLE_HOEDOWN
-    case Options::HoedownMarkdownConverter:
-#endif
     case Options::MD4CMarkdownConverter:
         viewSynchronizer = new HtmlViewSynchronizer(ui->webView, ui->plainTextEdit);
         connect(generator, SIGNAL(htmlResultReady(QString)),

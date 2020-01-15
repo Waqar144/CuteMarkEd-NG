@@ -25,10 +25,6 @@
 #include <QDebug>
 #include <QTimer>
 
-#ifdef ENABLE_HOEDOWN
-#include <converter/hoedownmarkdownconverter.h>
-#endif
-
 #include <template/template.h>
 
 #include "options.h"
@@ -127,13 +123,6 @@ void HtmlPreviewGenerator::markdownConverterChanged()
     }
 
     switch (options->markdownConverter()) {
-#ifdef ENABLE_HOEDOWN
-    case Options::HoedownMarkdownConverter:
-        converter = new HoedownMarkdownConverter();
-        converter->templateRenderer()->setCodeHighlightingStyle(style);
-        break;
-#endif
-
     case Options::RevealMarkdownConverter:
         converter = new RevealMarkdownConverter();
         converter->templateRenderer()->setCodeHighlightingStyle(style);

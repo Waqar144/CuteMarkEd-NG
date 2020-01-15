@@ -214,21 +214,6 @@ macx {
 win32:INCLUDEPATH += $$PWD/../3rdparty/hunspell/src
 win32:DEPENDPATH += $$PWD/../3rdparty/hunspell/src
 
-# hoedown
-with_hoedown {
-    message("app: Enable hoedown markdown converter support")
-    DEFINES += ENABLE_HOEDOWN
-
-    win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../3rdparty/hoedown/release/ -lhoedown
-    else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../3rdparty/hoedown/debug/ -lhoedown
-    else:unix: LIBS += -L/usr/lib -lhoedown
-
-    win32 {
-        INCLUDEPATH += $$PWD/../3rdparty/hoedown
-        DEPENDPATH += $$PWD/../3rdparty/hoedown
-    }
-}
-
 message("Using INCLUDEPATH=$$INCLUDEPATH")
 message("Using LIBS=$$LIBS")
 

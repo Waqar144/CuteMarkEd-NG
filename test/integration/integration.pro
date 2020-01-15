@@ -107,22 +107,3 @@ DEPENDPATH += $$PWD/../../3rdparty/
 
 #win32:CONFIG(release, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../../3rdparty/discount/release/libdiscount.a
 #else:win32:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../../3rdparty/discount/debug/libdiscount.a
-
-#
-# hoedown
-#
-with_hoedown {
-    DEFINES += ENABLE_HOEDOWN
-    SOURCES += hoedownmarkdownconvertertest.cpp
-    HEADERS += hoedownmarkdownconvertertest.h
-
-    win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../../3rdparty/hoedown/release/ -lhoedown
-    else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../../3rdparty/hoedown/debug/ -lhoedown
-    else:unix: LIBS += -L$$OUT_PWD/../../3rdparty/hoedown/ -lhoedown
-
-    INCLUDEPATH += $$PWD/../../3rdparty/hoedown
-    DEPENDPATH += $$PWD/../../3rdparty/hoedown
-
-    #win32:CONFIG(release, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../../3rdparty/hoedown/release/libhoedown.a
-    #else:win32:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../../3rdparty/hoedown/debug/libhoedown.a
-}

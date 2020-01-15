@@ -99,16 +99,3 @@ INCLUDEPATH += $$PWD/../3rdparty/md4c/md4c
 
 #Discount Library
 win32:INCLUDEPATH += $$PWD/../3rdparty/discount
-
-#
-# Hoedown library
-#
-with_hoedown {
-    message("app-static: Enable hoedown markdown converter support")
-
-    DEFINES += ENABLE_HOEDOWN
-    SOURCES += converter/hoedownmarkdownconverter.cpp
-    HEADERS += converter/hoedownmarkdownconverter.h
-
-    win32:INCLUDEPATH += $$PWD/../3rdparty/hoedown
-}
