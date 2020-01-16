@@ -100,7 +100,7 @@ pre {
 }
 pre,
 code {
-  font-family: monospace !important;
+  font-family: "Source Code Pro", Monokai, Consolas, Inconsolata,  Courier, monospace;
 }
 pre {
   white-space: pre;

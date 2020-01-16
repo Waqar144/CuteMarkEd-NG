@@ -30,8 +30,10 @@ static const QMap<QString, QString> BUILTIN_MARKDOWN_HIGHLIGHTINGS = {
 static const QMap<QString, QString> BUILTIN_CODE_HIGHLIGHTINGS = {
     { "Default", "default" },
     { "Github", "github" },
-    { "Solarized Light", "solarized_light" },
-    { "Solarized Dark", "solarized_dark" }
+    { "Solarized Light", "solarized-light" },
+    { "Solarized Dark", "solarized-dark" },
+    { "Dracula", "dracula" },
+    { "Atom One Light", "atom-one-light" }
 };
 
 static const QMap<QString, QString> BUILTIN_PREVIEW_STYLESHEETS = {

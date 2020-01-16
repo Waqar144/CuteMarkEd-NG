@@ -561,6 +561,7 @@ void MainWindow::applyCurrentTheme()
     if (f.open(QIODevice::ReadOnly | QIODevice::Text)) {
         stylesheetSource = f.readAll();
     }
+
     insertStyleSheet(currentTheme.name(), stylesheetSource, true);
    // ui->webView->page()->settings()->setUserStyleSheetUrl(QUrl(previewStylesheet));
 }

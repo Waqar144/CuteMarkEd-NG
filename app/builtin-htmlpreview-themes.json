@@ -31,14 +31,14 @@
         {
             "name": "Clearness",
             "markdownHighlighting": "Default",
-            "codeHighlighting": "Default",
+            "codeHighlighting": "Atom One Light",
             "previewStylesheet": "Clearness",
             "builtIn": true
         },
         {
             "name": "Clearness Dark",
             "markdownHighlighting": "Clearness Dark",
-            "codeHighlighting": "Default",
+            "codeHighlighting": "Dracula",
             "previewStylesheet": "Clearness Dark",
             "builtIn": true
         },

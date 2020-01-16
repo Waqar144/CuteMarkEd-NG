@@ -14,7 +14,7 @@ body {
   padding: 20px;
   color: #737373;
   font-size: 1em;
-  font-family: Sans-serif;
+  font-family: arial, Sans-serif;
   background: #ffffff;
   -webkit-font-smoothing: antialiased;
 }
@@ -42,7 +42,7 @@ hr {
 }
 pre > code {
 /*  font-size: .9em;*/
-  font-family: Consolas, Inconsolata, Courier, monospace;
+  font-family: "Source Code Pro", Monokai, Consolas, Inconsolata,  Courier, monospace;
 }
 blockquote {
   padding: 0 15px;

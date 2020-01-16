@@ -44,9 +44,11 @@
     <qresource prefix="/scripts">
         <file alias="highlight.js/highlight.pack.js">scripts/highlight.js/highlight.pack.js</file>
         <file alias="highlight.js/styles/default.css">scripts/highlight.js/styles/default.css</file>
-        <file alias="highlight.js/styles/solarized_light.css">scripts/highlight.js/styles/solarized_light.css</file>
+        <file alias="highlight.js/styles/solarized-light.css">scripts/highlight.js/styles/solarized-light.css</file>
         <file alias="highlight.js/styles/github.css">scripts/highlight.js/styles/github.css</file>
-        <file alias="highlight.js/styles/solarized_dark.css">scripts/highlight.js/styles/solarized_dark.css</file>
+        <file alias="highlight.js/styles/solarized-dark.css">scripts/highlight.js/styles/solarized-dark.css</file>
+        <file alias="highlight.js/styles/atom-one-light.css">scripts/highlight.js/styles/atom-one-light.css</file>
+        <file alias="highlight.js/styles/dracula.css">scripts/highlight.js/styles/dracula.css</file>
         <file alias="mermaid/mermaid.full.min.js">scripts/mermaid/mermaid.full.min.js</file>
         <file alias="mermaid/mermaid.css">scripts/mermaid/mermaid.css</file>
     </qresource>

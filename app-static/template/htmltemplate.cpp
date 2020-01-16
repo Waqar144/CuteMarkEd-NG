@@ -33,6 +33,7 @@
 
 #include <QFile>
 #include <QRegularExpression>
+#include <QDebug>
 
 HtmlTemplate::HtmlTemplate()
 {
