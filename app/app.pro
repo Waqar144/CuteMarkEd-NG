@@ -39,6 +39,7 @@ macx {
     QMAKE_INFO_PLIST = Info.plist
 }
 
+include(../3rdparty/qmarkdowntextedit/qmarkdowntextedit.pri)
 INCLUDEPATH += $$PWD
 
 SOURCES += \
