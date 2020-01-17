@@ -32,10 +32,7 @@ SOURCES += \
     revealviewsynchronizer.cpp \
     htmlpreviewcontroller.cpp \
     htmlviewsynchronizer.cpp \
-    yamlheaderchecker.cpp \
-    $$PWD/../3rdparty/md4c/md4c/md4c.c \
-    $$PWD/../3rdparty/md4c/md2html/render_html.c \
-    $$PWD/../3rdparty/md4c/md2html/entity.c
+    yamlheaderchecker.cpp
 
 HEADERS += \
     snippets/snippet.h \
@@ -62,10 +59,7 @@ HEADERS += \
     revealviewsynchronizer.h \
     htmlpreviewcontroller.h \
     htmlviewsynchronizer.h \
-    yamlheaderchecker.h \
-    $$PWD/../3rdparty/md4c/md4c/md4c.h \
-    $$PWD/../3rdparty/md4c/md2html/render_html.h \
-    $$PWD/../3rdparty/md4c/md2html/entity.h
+    yamlheaderchecker.h
 
 #unix:!symbian {
 #    maemo5 {

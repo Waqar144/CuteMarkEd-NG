@@ -18,8 +18,6 @@ unix:!macx {
   CONFIG += link_pkgconfig
 }
 
-include(../3rdparty/qmarkdowntextedit/qmarkdowntextedit.pri)
-
 TRANSLATIONS += \
     translations/cutemarked_cs.ts \
     translations/cutemarked_da.ts \
@@ -54,7 +52,6 @@ SOURCES += \
     controls/recentfilesmenu.cpp \
     htmlpreviewgenerator.cpp \
     cutemarkdownhighlighter.cpp \
-#    highlightworkerthread.cpp \
     markdownmanipulator.cpp \
     exportpdfdialog.cpp \
     exporthtmldialog.cpp \
@@ -95,7 +92,6 @@ HEADERS  += \
     controls/recentfilesmenu.h \
     htmlpreviewgenerator.h \
     cutemarkdownhighlighter.h \
-#    highlightworkerthread.h \
     markdownmanipulator.h \
     exportpdfdialog.h \
     exporthtmldialog.h \
