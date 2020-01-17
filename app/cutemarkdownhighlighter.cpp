@@ -85,7 +85,9 @@ void CuteMarkdownHighlighter::checkSpelling(const QString &textBlock)
         index = textBlock.indexOf(word, index);
 
         if (!spellChecker->isCorrect(word)) {
-            setFormat(index, word.length(), spellFormat);
+            auto fmt = QSyntaxHighlighter::format(index + 1);
+            fmt.merge(spellFormat);
+            setFormat(index, word.length(), fmt);
         }
         index += word.length();
     }
