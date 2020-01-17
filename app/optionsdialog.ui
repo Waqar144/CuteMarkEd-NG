@@ -44,7 +44,7 @@
            <widget class="QComboBox" name="converterComboBox">
             <item>
              <property name="text">
-              <string extracomment="Name of a Markdown to HTML converter library">Discount (Default)</string>
+              <string extracomment="Name of a Markdown to HTML converter library">MD4C (Default)</string>
              </property>
             </item>
             <item>
