@@ -19,48 +19,48 @@
 #include <QWebSettings>
 #include <QDir>
 
-static const char* MARKDOWN_CONVERTER = "General/converter";
-static const char* LAST_USED_THEME = "General/lastusedtheme";
-static const char* EXPLORER_DEFAULT_PATH = "General/explorerPath";
-static const char* THEME_DEFAULT = "Default";
-static const char* FONT_FAMILY_DEFAULT = "Monospace";
-static const char* FONT_FAMILY = "editor/font/family";
-static const char* FONT_SIZE = "editor/font/size";
-static const char* TAB_WIDTH = "editor/tabwidth";
-static const char* LINECOLUMN_ENABLED = "editor/linecolumn/enabled";
-static const char* RULER_ENABLED = "editor/ruler/enabled";
-static const char* RULER_POS = "editor/ruler/pos";
-static const char* PREVIEW_STANDARD_FONT = "preview/standardfont";
-static const char* PREVIEW_FIXED_FONT = "preview/fixedfont";
-static const char* PREVIEW_SERIF_FONT = "preview/seriffont";
-static const char* PREVIEW_SANSSERIF_FONT = "preview/sansseriffont";
-static const char* PREVIEW_DEFAULT_FONT_SIZE = "preview/defaultfontsize";
-static const char* PREVIEW_DEFAULT_FIXED_FONT_SIZE = "preview/defaultfixedfontsize";
-static const char* PROXY_MODE = "internet/proxy/mode";
-static const char* PROXY_HOST = "internet/proxy/host";
-static const char* PROXY_PORT = "internet/proxy/port";
-static const char* PROXY_USER = "internet/proxy/user";
-static const char* PROXY_PASSWORD = "internet/proxy/password";
-static const char* AUTOLINK_ENABLED = "extensions/autolink";
-static const char* STRIKETHROUGH_ENABLED = "extensions/strikethrough";
-static const char* UNDERLINE_ENABLED = "extensions/underline";
-static const char* ALPHABETICLISTS_ENABLED = "extensions/alphabeticLists";
-static const char* DEFINITIONSLISTS_ENABLED = "extensions/definitionLists";
-static const char* SMARTYPANTS_ENABLED = "extensions/smartyPants";
-static const char* FOOTNOTES_ENABLED = "extensions/footnotes";
-static const char* SUPERSCRIPT_ENABLED = "extensions/superscript";
-static const char* MATHSUPPORT_ENABLED = "mathsupport/enabled";
-static const char* MATHINLINESUPPORT_ENABLED = "mathinlinesupport/enabled";
-static const char* CODEHIGHLIGHT_ENABLED = "codehighlighting/enabled";
-static const char* SHOWSPECIALCHARACTERS_ENABLED = "specialchars/enabled";
-static const char* WORDWRAP_ENABLED = "wordwrap/enabled";
-static const char* SOURCEATSINGLESIZE_ENABLED = "sourceatsinglesize/enabled";
-static const char* SPELLINGCHECK_ENABLED = "spelling/enabled";
-static const char* DICTIONARY_LANGUAGE = "spelling/language";
-static const char* YAMLHEADERSUPPORT_ENABLED = "yamlheadersupport/enabled";
-static const char* DIAGRAMSUPPORT_ENABLED = "diagramsupport/enabled";
+static const QString MARKDOWN_CONVERTER = QStringLiteral("General/converter");
+static const QString LAST_USED_THEME = QStringLiteral("General/lastusedtheme");
+static const QString EXPLORER_DEFAULT_PATH = QStringLiteral("General/explorerPath");
+static const QString THEME_DEFAULT = QStringLiteral("Default");
+static const QString FONT_FAMILY_DEFAULT = QStringLiteral("Monospace");
+static const QString FONT_FAMILY = QStringLiteral("editor/font/family");
+static const QString FONT_SIZE = QStringLiteral("editor/font/size");
+static const QString TAB_WIDTH = QStringLiteral("editor/tabwidth");
+static const QString LINECOLUMN_ENABLED = QStringLiteral("editor/linecolumn/enabled");
+static const QString RULER_ENABLED = QStringLiteral("editor/ruler/enabled");
+static const QString RULER_POS = QStringLiteral("editor/ruler/pos");
+static const QString PREVIEW_STANDARD_FONT = QStringLiteral("preview/standardfont");
+static const QString PREVIEW_FIXED_FONT = QStringLiteral("preview/fixedfont");
+static const QString PREVIEW_SERIF_FONT = QStringLiteral("preview/seriffont");
+static const QString PREVIEW_SANSSERIF_FONT = QStringLiteral("preview/sansseriffont");
+static const QString PREVIEW_DEFAULT_FONT_SIZE = QStringLiteral("preview/defaultfontsize");
+static const QString PREVIEW_DEFAULT_FIXED_FONT_SIZE = QStringLiteral("preview/defaultfixedfontsize");
+static const QString PROXY_MODE = QStringLiteral("internet/proxy/mode");
+static const QString PROXY_HOST = QStringLiteral("internet/proxy/host");
+static const QString PROXY_PORT = QStringLiteral("internet/proxy/port");
+static const QString PROXY_USER = QStringLiteral("internet/proxy/user");
+static const QString PROXY_PASSWORD = QStringLiteral("internet/proxy/password");
+static const QString AUTOLINK_ENABLED = QStringLiteral("extensions/autolink");
+static const QString STRIKETHROUGH_ENABLED = QStringLiteral("extensions/strikethrough");
+static const QString UNDERLINE_ENABLED = QStringLiteral("extensions/underline");
+static const QString ALPHABETICLISTS_ENABLED = QStringLiteral("extensions/alphabeticLists");
+static const QString DEFINITIONSLISTS_ENABLED = QStringLiteral("extensions/definitionLists");
+static const QString SMARTYPANTS_ENABLED = QStringLiteral("extensions/smartyPants");
+static const QString FOOTNOTES_ENABLED = QStringLiteral("extensions/footnotes");
+static const QString SUPERSCRIPT_ENABLED = QStringLiteral("extensions/superscript");
+static const QString MATHSUPPORT_ENABLED = QStringLiteral("mathsupport/enabled");
+static const QString MATHINLINESUPPORT_ENABLED = QStringLiteral("mathinlinesupport/enabled");
+static const QString CODEHIGHLIGHT_ENABLED = QStringLiteral("codehighlighting/enabled");
+static const QString SHOWSPECIALCHARACTERS_ENABLED = QStringLiteral("specialchars/enabled");
+static const QString WORDWRAP_ENABLED = QStringLiteral("wordwrap/enabled");
+static const QString SOURCEATSINGLESIZE_ENABLED = QStringLiteral("sourceatsinglesize/enabled");
+static const QString SPELLINGCHECK_ENABLED = QStringLiteral("spelling/enabled");
+static const QString DICTIONARY_LANGUAGE = QStringLiteral("spelling/language");
+static const QString YAMLHEADERSUPPORT_ENABLED = QStringLiteral("yamlheadersupport/enabled");
+static const QString DIAGRAMSUPPORT_ENABLED = QStringLiteral("diagramsupport/enabled");
 
-static const char* DEPRECATED__LAST_USED_STYLE = "general/lastusedstyle";
+static const QString DEPRECATED__LAST_USED_STYLE = QStringLiteral("general/lastusedstyle");
 
 Options::Options(QObject *parent) :
     QObject(parent),
@@ -541,16 +541,16 @@ void Options::readSettings()
 
     // proxy settings
     m_proxyMode = (Options::ProxyMode)settings.value(PROXY_MODE, 0).toInt();
-    m_proxyHost = settings.value(PROXY_HOST, "").toString();
+    m_proxyHost = settings.value(PROXY_HOST, QLatin1String("")).toString();
     m_proxyPort = settings.value(PROXY_PORT, 0).toInt();
-    m_proxyUser = settings.value(PROXY_USER, "").toString();
-    m_proxyPassword = settings.value(PROXY_PASSWORD, "").toString();
+    m_proxyUser = settings.value(PROXY_USER, QLatin1String("")).toString();
+    m_proxyPassword = settings.value(PROXY_PASSWORD, QLatin1String("")).toString();
 
     // shortcut settings
-    settings.beginGroup("shortcuts");
+    settings.beginGroup(QStringLiteral("shortcuts"));
     const auto actionNames = settings.childKeys();
     for (const QString &actionName : actionNames) {
-        QKeySequence keySequence = settings.value(actionName, "").value<QKeySequence>();
+        QKeySequence keySequence = settings.value(actionName, QLatin1String("")).value<QKeySequence>();
         addCustomShortcut(actionName, keySequence);
     }
     settings.endGroup();
@@ -575,7 +575,7 @@ void Options::readSettings()
 
     // spelling check settings
     m_spellingCheckEnabled = settings.value(SPELLINGCHECK_ENABLED, true).toBool();
-    m_dictionaryLanguage = settings.value(DICTIONARY_LANGUAGE, "en_US").toString();
+    m_dictionaryLanguage = settings.value(DICTIONARY_LANGUAGE, QStringLiteral("en_US")).toString();
 
     // migrate deprecated lastUsedStyle option
     if (settings.contains(DEPRECATED__LAST_USED_STYLE)) {
@@ -619,7 +619,7 @@ void Options::writeSettings()
     settings.setValue(PROXY_PASSWORD, m_proxyPassword);
 
     // shortcut settings
-    settings.beginGroup("shortcuts");
+    settings.beginGroup(QStringLiteral("shortcuts"));
     QMap<QString, QKeySequence>::const_iterator it = m_customShortcuts.constBegin();
     while (it != m_customShortcuts.constEnd()) {
         settings.setValue(it.key(), it.value());
@@ -653,13 +653,13 @@ void Options::writeSettings()
 void Options::migrateLastUsedStyleOption(QSettings &settings)
 {
     static const QMap<QString, QString> migrations {
-        { "actionDefault", "Default" },
-        { "actionGithub", "Github" },
-        { "actionSolarizedLight", "Solarized Light" },
-        { "actionSolarizedDark", "Solarized Dark" },
-        { "actionClearness", "Clearness" },
-        { "actionClearnessDark", "Clearness Dark" },
-        { "actionBywordDark", "Byword Dark" }
+        { QStringLiteral("actionDefault"), QStringLiteral("Default") },
+        { QStringLiteral("actionGithub"), QStringLiteral("Github") },
+        { QStringLiteral("actionSolarizedLight"), QStringLiteral("Solarized Light") },
+        { QStringLiteral("actionSolarizedDark"), QStringLiteral("Solarized Dark") },
+        { QStringLiteral("actionClearness"), QStringLiteral("Clearness") },
+        { QStringLiteral("actionClearnessDark"), QStringLiteral("Clearness Dark") },
+        { QStringLiteral("actionBywordDark"), QStringLiteral("Byword Dark") }
     };
 
     QString lastUsedStyle = settings.value(DEPRECATED__LAST_USED_STYLE).toString();
