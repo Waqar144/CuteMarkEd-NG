@@ -25,6 +25,8 @@
 #include <QStyledItemDelegate>
 #include <QTableWidgetItem>
 #include <QAction>
+//#include <QDebug>
+#include <QFileDialog>
 
 #include <snippets/snippetcollection.h>
 #include "options.h"
@@ -236,6 +238,15 @@ void OptionsDialog::validateShortcut(int row, int column)
     }
 }
 
+void OptionsDialog::onPathBrowserButtonClicked()
+{
+    QFileDialog dialog(this, tr("Choose directory"));
+    dialog.setFileMode(QFileDialog::Directory);
+    if (dialog.exec() == DialogCode::Accepted) {
+        ui->pathLineEdit->setText(dialog.directory().path());
+    }
+}
+
 void OptionsDialog::setupShortcutsTable()
 {
     QStyledItemDelegate *delegate = new QStyledItemDelegate(ui->shortcutsTable);
@@ -277,6 +288,7 @@ void OptionsDialog::readState()
 {
     // general settings
     ui->converterComboBox->setCurrentIndex(options->markdownConverter());
+    ui->pathLineEdit->setText(options->explorerDefaultPath());
 
     // editor settings
     QFont font = options->editorFont();
@@ -327,6 +339,7 @@ void OptionsDialog::saveState()
 {
     // general settings
     options->setMarkdownConverter((Options::MarkdownConverter)ui->converterComboBox->currentIndex());
+    options->setExplorerDefaultPath(ui->pathLineEdit->text());
 
     // editor settings
     QFont font = ui->fontComboBox->currentFont();

@@ -3,6 +3,7 @@
 
 #include <QFileSystemModel>
 #include <QSortFilterProxyModel>
+#include <QSettings>
 #include <QDebug>
 
 class FileSortFilterProxyModel : public QSortFilterProxyModel
@@ -44,7 +45,9 @@ FileExplorerWidget::FileExplorerWidget(QWidget *parent) :
     ui->fileTreeView->setColumnWidth(0, 150);
     ui->fileTreeView->sortByColumn(0, Qt::AscendingOrder);
 
-    ui->fileTreeView->setRootIndex(model->index(QDir::homePath()));
+    QSettings settings;
+    QString path = settings.value(QStringLiteral("General/explorerPath"), QDir::homePath()).toString();
+    setPath(path);
 
     connect(ui->fileTreeView, SIGNAL(doubleClicked(QModelIndex)),
             SLOT(fileOpen(QModelIndex)));
@@ -59,10 +62,17 @@ void FileExplorerWidget::showEvent(QShowEvent *event)
 {
     if (!initialized) {
         model->setRootPath("");
-        ui->fileTreeView->setRootIndex(model->index(QDir::homePath()));
+        QSettings settings;
+        QString path = settings.value(QStringLiteral("General/explorerPath"), QDir::homePath()).toString();
+        setPath(path);
         initialized = true;
     }
     QWidget::showEvent(event);
+}
+
+void FileExplorerWidget::setPath(const QString &path)
+{
+    ui->fileTreeView->setRootIndex(model->index(path));
 }
 
 void FileExplorerWidget::fileOpen(const QModelIndex &index)

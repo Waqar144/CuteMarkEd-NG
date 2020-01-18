@@ -17,10 +17,11 @@
 #include "options.h"
 
 #include <QWebSettings>
-
+#include <QDir>
 
 static const char* MARKDOWN_CONVERTER = "General/converter";
 static const char* LAST_USED_THEME = "General/lastusedtheme";
+static const char* EXPLORER_DEFAULT_PATH = "General/explorerPath";
 static const char* THEME_DEFAULT = "Default";
 static const char* FONT_FAMILY_DEFAULT = "Monospace";
 static const char* FONT_FAMILY = "editor/font/family";
@@ -482,6 +483,20 @@ void Options::setMarkdownConverter(Options::MarkdownConverter converter)
     }
 }
 
+QString Options::explorerDefaultPath() const
+{
+    return m_explorerDefaultPath;
+}
+
+void Options::setExplorerDefaultPath(const QString &path)
+{
+    if (path != m_explorerDefaultPath) {
+        m_explorerDefaultPath = path;
+        emit explorerPathChanged(path);
+    }
+}
+
+
 QString Options::lastUsedTheme() const
 {
     return m_lastUsedTheme;
@@ -499,6 +514,7 @@ void Options::readSettings()
     // general settings
     m_markdownConverter = (Options::MarkdownConverter)settings.value(MARKDOWN_CONVERTER, 0).toInt();
     m_lastUsedTheme = settings.value(LAST_USED_THEME, THEME_DEFAULT).toString();
+    m_explorerDefaultPath = settings.value(EXPLORER_DEFAULT_PATH, QDir::homePath()).toString();
 
     // editor settings
     QString fontFamily = settings.value(FONT_FAMILY, FONT_FAMILY_DEFAULT).toString();
@@ -576,6 +592,7 @@ void Options::writeSettings()
     // general settings
     settings.setValue(MARKDOWN_CONVERTER, m_markdownConverter);
     settings.setValue(LAST_USED_THEME, m_lastUsedTheme);
+    settings.setValue(EXPLORER_DEFAULT_PATH, m_explorerDefaultPath);
 
     // editor settings
     settings.setValue(FONT_FAMILY, font.family());

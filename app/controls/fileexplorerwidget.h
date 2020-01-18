@@ -24,6 +24,9 @@ signals:
 protected:
     void showEvent(QShowEvent *event);
 
+public slots:
+    void setPath(const QString &path);
+
 private slots:
     void fileOpen(const QModelIndex &index);
 

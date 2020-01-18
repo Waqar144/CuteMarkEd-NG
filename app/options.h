@@ -148,6 +148,9 @@ public:
     MarkdownConverter markdownConverter() const;
     void setMarkdownConverter(MarkdownConverter converter);
 
+    QString explorerDefaultPath() const;
+    void setExplorerDefaultPath(const QString &path);
+
     QString lastUsedTheme() const;
     void setLastUsedTheme(const QString &theme);
 
@@ -164,6 +167,7 @@ signals:
 
     void proxyConfigurationChanged();
     void markdownConverterChanged();
+    void explorerPathChanged(const QString &path);
 
 private:
     void migrateLastUsedStyleOption(QSettings &settings);
@@ -198,6 +202,7 @@ private:
     int m_rulerPos;
     QString m_dictionaryLanguage;
     MarkdownConverter m_markdownConverter;
+    QString m_explorerDefaultPath;
     QString m_lastUsedTheme;
     QString m_standardFontFamily;
     QString m_fixedFontFamily;

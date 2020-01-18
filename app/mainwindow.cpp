@@ -193,6 +193,8 @@ void MainWindow::initializeApp()
     // setup file explorer
     connect(ui->fileExplorerDockContents, SIGNAL(fileSelected(QString)),
             this, SLOT(openRecentFile(QString)));
+    connect(options, &Options::explorerPathChanged,
+            ui->fileExplorerDockContents, &FileExplorerWidget::setPath);
 
     // setup jump list on windows
 #ifdef Q_OS_WIN

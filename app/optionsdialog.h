@@ -44,6 +44,7 @@ private slots:
     void addSnippetButtonClicked();
     void removeSnippetButtonClicked();
     void validateShortcut(int row, int column);
+    void onPathBrowserButtonClicked();
 
 private:
     void setupShortcutsTable();
