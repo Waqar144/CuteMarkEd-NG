@@ -655,7 +655,8 @@ void MainWindow::extrasCheckSpelling(bool checked)
 
 void MainWindow::extrasOptions()
 {
-    QList<QAction*> actions;
+    QVector<QAction*> actions;
+    actions.reserve(sizeof(QAction*) * 38);
     // file menu
     actions << ui->actionNew
             << ui->actionOpen
@@ -699,7 +700,7 @@ void MainWindow::extrasOptions()
             << ui->actionHorizontalLayout;
 
     // snippet complete
-    actions << ui->plainTextEdit->actions();
+    actions << ui->plainTextEdit->actions().toVector();
 
     OptionsDialog dialog(options, snippetCollection, actions, this);
     if (dialog.exec() == QDialog::Accepted) {
@@ -707,7 +708,7 @@ void MainWindow::extrasOptions()
 
         QString path = DataLocation::writableLocation();
         QSharedPointer<SnippetCollection> userDefinedSnippets = snippetCollection->userDefinedSnippets();
-        JsonFile<Snippet>::save(path + "/user-snippets.json", userDefinedSnippets.data());
+        JsonFile<Snippet>::save(path + QStringLiteral("/user-snippets.json"), userDefinedSnippets.data());
 
         // update shortcuts
         setupCustomShortcuts();

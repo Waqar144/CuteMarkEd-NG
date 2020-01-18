@@ -36,7 +36,7 @@ class KeySequenceTableItem : public QTableWidgetItem
 {
 public:
     KeySequenceTableItem (const QKeySequence &keySequence) : 
-        QTableWidgetItem(QTableWidgetItem::UserType+1),
+        QTableWidgetItem(QTableWidgetItem::UserType + 1),
         m_keySequence(keySequence)
     {
     }
@@ -75,12 +75,12 @@ public:
 
     QByteArray valuePropertyName() const
     {
-        return "keySequence";
+        return QByteArrayLiteral("keySequence");
     }
 };
 
 
-OptionsDialog::OptionsDialog(Options *opt, SnippetCollection *collection, const QList<QAction*> &acts, QWidget *parent) :
+OptionsDialog::OptionsDialog(Options *opt, SnippetCollection *collection, const QVector<QAction*> &acts, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::OptionsDialog),
     options(opt),
@@ -90,12 +90,12 @@ OptionsDialog::OptionsDialog(Options *opt, SnippetCollection *collection, const 
     ui->setupUi(this);
 
     ui->tabWidget->setIconSize(QSize(24, 24));
-    ui->tabWidget->setTabIcon(0, QIcon("fa-cog.fontawesome"));
-    ui->tabWidget->setTabIcon(1, QIcon("fa-file-text-o.fontawesome"));
-    ui->tabWidget->setTabIcon(2, QIcon("fa-html5.fontawesome"));
-    ui->tabWidget->setTabIcon(3, QIcon("fa-globe.fontawesome"));
-    ui->tabWidget->setTabIcon(4, QIcon("fa-puzzle-piece.fontawesome"));
-    ui->tabWidget->setTabIcon(5, QIcon("fa-keyboard-o.fontawesome"));
+    ui->tabWidget->setTabIcon(0, QIcon(QStringLiteral("fa-cog.fontawesome")));
+    ui->tabWidget->setTabIcon(1, QIcon(QStringLiteral("fa-file-text-o.fontawesome")));
+    ui->tabWidget->setTabIcon(2, QIcon(QStringLiteral("fa-html5.fontawesome")));
+    ui->tabWidget->setTabIcon(3, QIcon(QStringLiteral("fa-globe.fontawesome")));
+    ui->tabWidget->setTabIcon(4, QIcon(QStringLiteral("fa-puzzle-piece.fontawesome")));
+    ui->tabWidget->setTabIcon(5, QIcon(QStringLiteral("fa-keyboard-o.fontawesome")));
 
     const auto sizes = QFontDatabase::standardSizes();
     for (int size : sizes) {
@@ -108,11 +108,9 @@ OptionsDialog::OptionsDialog(Options *opt, SnippetCollection *collection, const 
     ui->passwordLineEdit->setEchoMode(QLineEdit::Password);
 
     ui->snippetTableView->setModel(new SnippetsTableModel(snippetCollection, ui->snippetTableView));
-    connect(ui->snippetTableView->selectionModel(), SIGNAL(currentChanged(QModelIndex,QModelIndex)),
-            this, SLOT(currentSnippetChanged(QModelIndex,QModelIndex)));
-
-    connect(ui->snippetTextEdit, SIGNAL(textChanged()),
-            this, SLOT(snippetTextChanged()));
+    connect(ui->snippetTableView->selectionModel(), &QItemSelectionModel::currentChanged,
+            this, &OptionsDialog::currentSnippetChanged);
+    connect(ui->snippetTextEdit, &QPlainTextEdit::textChanged, this, &OptionsDialog::snippetTextChanged);
 
     setupShortcutsTable();
 
@@ -149,7 +147,7 @@ void OptionsDialog::currentSnippetChanged(const QModelIndex &current, const QMod
 
     // update text edit for snippet content
     QString formattedSnippet(snippet.snippet);
-    formattedSnippet.insert(snippet.cursorPosition, "$|");
+    formattedSnippet.insert(snippet.cursorPosition, QStringLiteral("$|"));
     ui->snippetTextEdit->setPlainText(formattedSnippet);
     ui->snippetTextEdit->setReadOnly(snippet.builtIn);
 
@@ -166,7 +164,7 @@ void OptionsDialog::snippetTextChanged()
             snippet.snippet = ui->snippetTextEdit->toPlainText();
 
             // find cursor marker
-            int pos = snippet.snippet.indexOf("$|");
+            int pos = snippet.snippet.indexOf(QStringLiteral("$|"));
             if (pos >= 0) {
                 snippet.cursorPosition = pos;
                 snippet.snippet.remove(pos, 2);
@@ -217,15 +215,17 @@ void OptionsDialog::validateShortcut(int row, int column)
     if (ks.isEmpty() && !newShortcut.isEmpty()) {
         // If new shortcut was invalid, restore the original
         ui->shortcutsTable->setItem(row, column,
-            new QTableWidgetItem(actions[row]->shortcut().toString()));
+            new QTableWidgetItem(actions.at(row)->shortcut().toString()));
     } else {
         // Check for conflicts.
         if (!ks.isEmpty()) {
             for (int c = 0; c < actions.size(); ++c) {
                 if (c != row && ks == QKeySequence(ui->shortcutsTable->item(c, 1)->text())) {
                     ui->shortcutsTable->setItem(row, column,
-                        new QTableWidgetItem(actions[row]->shortcut().toString()));
-                    QMessageBox::information(this, tr("Conflict"), tr("This shortcut is already used for \"%1\"").arg(actions[c]->text().remove('&')));
+                        new QTableWidgetItem(actions.at(row)->shortcut().toString()));
+                    QMessageBox::information(this, tr("Conflict"),
+                                             tr("This shortcut is already used for \"%1\"")
+                                             .arg(actions.at(c)->text().remove(QLatin1Char('&'))));
                     return;
                 }
             }
@@ -233,7 +233,7 @@ void OptionsDialog::validateShortcut(int row, int column)
         // If the new shortcut is not the same as the default, make the
         // action label bold.
         QFont font = ui->shortcutsTable->item(row, 0)->font();
-        font.setBold(ks != actions[row]->property("defaultshortcut").value<QKeySequence>());
+        font.setBold(ks != actions.at(row)->property("defaultshortcut").value<QKeySequence>());
         ui->shortcutsTable->item(row, 0)->setFont(font);
     }
 }
@@ -280,8 +280,7 @@ void OptionsDialog::setupShortcutsTable()
     ui->shortcutsTable->horizontalHeader()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
     ui->shortcutsTable->horizontalHeader()->setSectionResizeMode(2, QHeaderView::ResizeToContents);
 
-    connect(ui->shortcutsTable, SIGNAL(cellChanged(int,int)),
-            this, SLOT(validateShortcut(int,int)));
+    connect(ui->shortcutsTable, &QTableWidget::cellChanged, this, &OptionsDialog::validateShortcut);
 }
 
 void OptionsDialog::readState()
@@ -329,8 +328,8 @@ void OptionsDialog::readState()
 
     // shortcut settings
     for (int i = 0; i < ui->shortcutsTable->rowCount(); ++i) {
-        if (options->hasCustomShortcut(actions[i]->objectName())) {
-            ui->shortcutsTable->item(i, 1)->setData(Qt::EditRole, options->customShortcut(actions[i]->objectName()));
+        if (options->hasCustomShortcut(actions.at(i)->objectName())) {
+            ui->shortcutsTable->item(i, 1)->setData(Qt::EditRole, options->customShortcut(actions.at(i)->objectName()));
         }
     }
 }
@@ -377,7 +376,7 @@ void OptionsDialog::saveState()
     // shortcut settings
     for (int i = 0; i < ui->shortcutsTable->rowCount(); ++i) {
         QKeySequence customKeySeq(ui->shortcutsTable->item(i, 1)->text());
-        options->addCustomShortcut(actions[i]->objectName(), customKeySeq);
+        options->addCustomShortcut(actions.at(i)->objectName(), customKeySeq);
     }
     
     options->apply();

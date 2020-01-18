@@ -31,7 +31,7 @@ class OptionsDialog : public QDialog
     Q_OBJECT
     
 public:
-    OptionsDialog(Options *opt, SnippetCollection *collection, const QList<QAction*> &acts, QWidget *parent = 0);
+    OptionsDialog(Options *opt, SnippetCollection *collection, const QVector<QAction*> &acts, QWidget *parent = 0);
     ~OptionsDialog();
 
 protected:
@@ -55,7 +55,7 @@ private:
     Ui::OptionsDialog *ui;
     Options *options;
     SnippetCollection *snippetCollection;
-    QList<QAction*> actions;
+    const QVector<QAction*> actions;
 };
 
 #endif // OPTIONSDIALOG_H
