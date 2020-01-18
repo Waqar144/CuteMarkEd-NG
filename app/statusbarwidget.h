@@ -28,7 +28,7 @@ private slots:
     void cursorPositionChanged();
     void textChanged();
 
-    void styleContextMenu(const QPoint &pos);
+    void styleContextMenu(QPoint pos);
     void updateStyleLabel();
 
 private:

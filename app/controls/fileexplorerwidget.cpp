@@ -61,7 +61,7 @@ FileExplorerWidget::~FileExplorerWidget()
 void FileExplorerWidget::showEvent(QShowEvent *event)
 {
     if (!initialized) {
-        model->setRootPath("");
+        model->setRootPath(QLatin1String(""));
         QSettings settings;
         QString path = settings.value(QStringLiteral("General/explorerPath"), QDir::homePath()).toString();
         setPath(path);

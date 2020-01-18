@@ -28,11 +28,11 @@ ExportHtmlDialog::ExportHtmlDialog(const QString &fileName, QWidget *parent) :
 
     // change button text of standard Ok button
     QPushButton *okButton = ui->buttonBox->button(QDialogButtonBox::Ok);
-    okButton->setText("Export HTML");
+    okButton->setText(QStringLiteral("Export HTML"));
 
     if (!fileName.isEmpty()) {
         QFileInfo info(fileName);
-        QString exportFileName = info.absoluteFilePath().replace(info.suffix(), "html");
+        QString exportFileName = info.absoluteFilePath().replace(info.suffix(), QLatin1String("html"));
         ui->exportToLineEdit->setText(exportFileName);
     }
 

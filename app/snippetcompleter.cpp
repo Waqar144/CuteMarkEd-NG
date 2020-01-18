@@ -45,7 +45,7 @@ SnippetCompleter::SnippetCompleter(SnippetCollection *collection, QWidget *paren
     completer->setModel(model);
 }
 
-void SnippetCompleter::performCompletion(const QString &textUnderCursor, const QStringList &words, const QRect &popupRect)
+void SnippetCompleter::performCompletion(const QString &textUnderCursor, const QStringList &words, QRect popupRect)
 {
     const QString completionPrefix = textUnderCursor;
 
@@ -95,8 +95,8 @@ void SnippetCompleter::insertSnippet(const QString &trigger)
 
 void SnippetCompleter::replaceClipboardVariable(QString &snippetContent)
 {
-    if (snippetContent.contains("%clipboard")) {
+    if (snippetContent.contains(QLatin1String("%clipboard"))) {
         QClipboard *clipboard = QApplication::clipboard();
-        snippetContent.replace("%clipboard", clipboard->text());
+        snippetContent.replace(QLatin1String("%clipboard"), clipboard->text());
     }
 }

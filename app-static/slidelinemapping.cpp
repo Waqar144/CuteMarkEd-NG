@@ -48,7 +48,7 @@ void SlideLineMapping::build(const QString &code)
     m_lineToSlide.insert(lineNumber, qMakePair(horizontal, vertical));
 }
 
-int SlideLineMapping::lineForSlide(const QPair<int, int>& slide) const
+int SlideLineMapping::lineForSlide(const QPair<int, int> slide) const
 {
     QMap<QPair<int, int>, int>::const_iterator it = m_slideToLine.find(slide);
     if (it != m_slideToLine.end()) {

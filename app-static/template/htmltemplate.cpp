@@ -37,7 +37,7 @@
 
 HtmlTemplate::HtmlTemplate()
 {
-    QFile f(":/template.html");
+    QFile f(QStringLiteral(":/template.html"));
     if (f.open(QIODevice::ReadOnly | QIODevice::Text)) {
         htmlTemplate = f.readAll();
     }
@@ -92,7 +92,7 @@ QString HtmlTemplate::buildHtmlHeader(RenderOptions options) const
 
     // add javascript for scrollbar synchronization
     if (options.testFlag(Template::ScrollbarSynchronization)) {
-        header += "<script src=\"qrc:/qtwebchannel/qwebchannel.js\"></script>";
+        header += QLatin1String("<script src=\"qrc:/qtwebchannel/qwebchannel.js\"></script>");
         header += "<script>"
                   "var synchronizer = 0;"
                   "new QWebChannel(qt.webChannelTransport,"
@@ -100,7 +100,7 @@ QString HtmlTemplate::buildHtmlHeader(RenderOptions options) const
                   "     synchronizer = channel.objects.synchronizer;"
                   "});"
                   "</script>";
-        header += "<script type=\"text/javascript\">window.onscroll = function() { synchronizer.webViewScrolled(); }; </script>\n";
+        header += QLatin1String("<script type=\"text/javascript\">window.onscroll = function() { synchronizer.webViewScrolled(); }; </script>\n");
     }
 
     // add MathJax.js script to HTML header
@@ -108,23 +108,23 @@ QString HtmlTemplate::buildHtmlHeader(RenderOptions options) const
 
         // Add MathJax support for inline LaTeX Math
         if (options.testFlag(Template::MathInlineSupport)) {
-            header += "<script type=\"text/x-mathjax-config\">MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\\\(','\\\\)']]}});</script>";
+            header += QLatin1String("<script type=\"text/x-mathjax-config\">MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\\\(','\\\\)']]}});</script>");
         }
 
-        header += "<script type=\"text/javascript\" src=\"http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML\"></script>\n";
+        header += QLatin1String("<script type=\"text/javascript\" src=\"http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML\"></script>\n");
     }
 
     // add Highlight.js script to HTML header
     if (options.testFlag(Template::CodeHighlighting)) {
-        header += QString("<link rel=\"stylesheet\" href=\"qrc:/scripts/highlight.js/styles/%1.css\">\n").arg(codeHighlightingStyle());
-        header += "<script src=\"qrc:/scripts/highlight.js/highlight.pack.js\"></script>\n";
-        header += "<script>hljs.initHighlightingOnLoad();</script>\n";
+        header += QStringLiteral("<link rel=\"stylesheet\" href=\"qrc:/scripts/highlight.js/styles/%1.css\">\n").arg(codeHighlightingStyle());
+        header += QLatin1String("<script src=\"qrc:/scripts/highlight.js/highlight.pack.js\"></script>\n");
+        header += QLatin1String("<script>hljs.initHighlightingOnLoad();</script>\n");
     }
 
     // add mermaid.js script to HTML header
     if (options.testFlag(Template::DiagramSupport)) {
-        header += "<link rel=\"stylesheet\" href=\"qrc:/scripts/mermaid/mermaid.css\">\n";
-        header += "<script src=\"qrc:/scripts/mermaid/mermaid.full.min.js\"></script>\n";
+        header += QLatin1String("<link rel=\"stylesheet\" href=\"qrc:/scripts/mermaid/mermaid.css\">\n");
+        header += QLatin1String("<script src=\"qrc:/scripts/mermaid/mermaid.full.min.js\"></script>\n");
     }
 
     return header;

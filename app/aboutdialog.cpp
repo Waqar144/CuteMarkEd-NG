@@ -31,7 +31,7 @@ AboutDialog::AboutDialog(QWidget *parent) :
             .arg(qApp->applicationVersion());
     ui->messageLabel->setText(appInfo);
 
-    const QString description = QString("<p>%1<br>%2</p><p>%3</p>")
+    const QString description = QStringLiteral("<p>%1<br>%2</p><p>%3</p>")
             .arg(tr("Qt-based, free and open source markdown editor with live HTML preview"))
             .arg(COPYRIGHT)
             .arg(HOMEPAGE);

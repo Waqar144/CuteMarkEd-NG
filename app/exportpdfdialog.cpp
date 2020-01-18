@@ -29,11 +29,11 @@ ExportPdfDialog::ExportPdfDialog(const QString &fileName, QWidget *parent) :
 
     // change button text of standard Ok button
     QPushButton *okButton = ui->buttonBox->button(QDialogButtonBox::Ok);
-    okButton->setText("Export PDF");
+    okButton->setText(QStringLiteral("Export PDF"));
 
     if (!fileName.isEmpty()) {
         QFileInfo info(fileName);
-        QString exportFileName = info.absoluteFilePath().replace(info.suffix(), "pdf");
+        QString exportFileName = info.absoluteFilePath().replace(info.suffix(), QLatin1String("pdf"));
         ui->exportToLineEdit->setText(exportFileName);
     }
 

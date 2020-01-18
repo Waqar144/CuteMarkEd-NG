@@ -21,7 +21,7 @@
 #include <QLineEdit>
 
 // Make QPoint in QMap work
-bool operator<(const QPoint& lhs, const QPoint& rhs)
+bool operator<(QPoint lhs, QPoint rhs)
 {
     if (lhs.x() < rhs.x())
         return true;

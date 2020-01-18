@@ -62,20 +62,20 @@ QString HtmlPreviewGenerator::exportHtml(const QString &styleSheet, const QStrin
 
     QString header;
     if (!styleSheet.isEmpty()) {
-        header += QString("\n<style>%1</style>").arg(styleSheet);
+        header += QStringLiteral("\n<style>%1</style>").arg(styleSheet);
     }
 
     if (!highlightingScript.isEmpty()) {
         // FIXME: doesn't really belong here
         QString highlightStyle;
-        QFile f(QString(":/scripts/highlight.js/styles/%1.css").arg(converter->templateRenderer()->codeHighlightingStyle()));
+        QFile f(QStringLiteral(":/scripts/highlight.js/styles/%1.css").arg(converter->templateRenderer()->codeHighlightingStyle()));
         if (f.open(QIODevice::ReadOnly | QIODevice::Text)) {
             highlightStyle = f.readAll();
         }
 
-        header += QString("\n<style>%1</style>").arg(highlightStyle);
-        header += QString("\n<script>%1</script>").arg(highlightingScript);
-        header += "\n<script>hljs.initHighlightingOnLoad();</script>";
+        header += QStringLiteral("\n<style>%1</style>").arg(highlightStyle);
+        header += QStringLiteral("\n<script>%1</script>").arg(highlightingScript);
+        header += QLatin1String("\n<script>hljs.initHighlightingOnLoad();</script>");
     }
 
     return converter->templateRenderer()->exportAsHtml(header, converter->renderAsHtml(document), renderOptions());
@@ -162,7 +162,7 @@ void HtmlPreviewGenerator::generateTableOfContents()
     if (!document) return;
 
     QString toc = converter->renderAsTableOfContents(document);
-    QString styledToc = QString("<html><head>\n<style type=\"text/css\">ul { list-style-type: none; padding: 0; margin-left: 1em; } a { text-decoration: none; }</style>\n</head><body>%1</body></html>").arg(toc);
+    QString styledToc = QStringLiteral("<html><head>\n<style type=\"text/css\">ul { list-style-type: none; padding: 0; margin-left: 1em; } a { text-decoration: none; }</style>\n</head><body>%1</body></html>").arg(toc);
     emit tocResultReady(styledToc);
 }
 

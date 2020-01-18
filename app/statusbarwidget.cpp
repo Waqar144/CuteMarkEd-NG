@@ -46,7 +46,7 @@ StatusBarWidget::StatusBarWidget(MarkdownEditor* editor) :
     connect(m_styleLabel, &QLabel::customContextMenuRequested, this, &StatusBarWidget::styleContextMenu);
 
     // separator label
-    topLayout->addWidget(new QLabel("|"), 0);
+    topLayout->addWidget(new QLabel(QStringLiteral("|")), 0);
 
     // html preview label
     m_htmlLabel = new ActiveLabel;
@@ -104,7 +104,7 @@ void StatusBarWidget::cursorPositionChanged()
     m_lineColLabel->setText(tr("Line %1, Column %2 %3")
             .arg(QLocale().toString(line + 1))
             .arg(QLocale().toString(column + 1))
-            .arg("|")
+            .arg(QStringLiteral("|"))
             );
 }
 
@@ -121,7 +121,7 @@ void StatusBarWidget::textChanged()
     }
 }
 
-void StatusBarWidget::styleContextMenu(const QPoint &pos)
+void StatusBarWidget::styleContextMenu(QPoint pos)
 {
     if (m_styleActions) {
         QMenu menu;

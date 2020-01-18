@@ -45,7 +45,7 @@ QIconEngine *FontAwesomeIconEnginePlugin::create(const QString &filename)
 {
     FontAwesomeIconEngine *engine = new FontAwesomeIconEngine;
     if (!filename.isNull()) {
-        int lastPoint = filename.lastIndexOf(".");
+        int lastPoint = filename.lastIndexOf(QLatin1String("."));
         engine->setIconName(filename.left(lastPoint));
     }
     return engine;

@@ -53,10 +53,10 @@ static void associateFileTypes(const QStringList &fileTypes)
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
-    app.setOrganizationName("CuteMarkEd Project");
-    app.setApplicationName("CuteMarkEd");
-    app.setApplicationDisplayName("CuteMarkEd");
-    app.setApplicationVersion("0.11.3");
+    app.setOrganizationName(QStringLiteral("CuteMarkEd Project"));
+    app.setApplicationName(QStringLiteral("CuteMarkEd"));
+    app.setApplicationDisplayName(QStringLiteral("CuteMarkEd"));
+    app.setApplicationVersion(QStringLiteral("0.11.3"));
 
 #ifdef Q_OS_WIN
     QStringList fileTypes;
@@ -68,20 +68,20 @@ int main(int argc, char *argv[])
     QTranslator qtTranslator;
     if (!qtTranslator.load("qt_" + QLocale::system().name(),
                            QLibraryInfo::location(QLibraryInfo::TranslationsPath))) {
-        qtTranslator.load("qt_" + QLocale::system().name(), "translations");
+        qtTranslator.load("qt_" + QLocale::system().name(), QStringLiteral("translations"));
     }
     app.installTranslator(&qtTranslator);
 
     // try to load translation for current locale from resource file
     QTranslator translator;
-    translator.load("cutemarked_" + QLocale::system().name(), ":/translations");
+    translator.load("cutemarked_" + QLocale::system().name(), QStringLiteral(":/translations"));
     app.installTranslator(&translator);
 
     // setup command line parser
     QCommandLineParser parser;
     parser.addHelpOption();
     parser.addVersionOption();
-    parser.addPositionalArgument("file", QApplication::translate("main", "The file to open."));
+    parser.addPositionalArgument(QStringLiteral("file"), QApplication::translate("main", "The file to open."));
     parser.process(app);
 
     // get filename from command line arguments

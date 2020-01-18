@@ -34,7 +34,7 @@ public:
     void wrapCurrentParagraph(const QString &startTag, const QString &endTag);
 
     void appendToLine(const QString &text);
-    void prependToLine(const QChar &mark);
+    void prependToLine(QChar mark);
 
     void increaseHeadingLevel();
     void decreaseHeadingLevel();
@@ -45,7 +45,7 @@ public:
     void insertImageLink(const QString &alternateText, const QString &imageSource, const QString &optionalTitle = QString());
 
 private:
-    void formatBlock(const QChar &mark);
+    void formatBlock(QChar mark);
 
     QPlainTextEdit *editor;
 };

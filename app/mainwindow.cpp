@@ -281,7 +281,7 @@ bool MainWindow::fileSaveAs()
 
     // Add default extension ".md" if the file name as no extension yet.
     if (QFileInfo(name).suffix().isEmpty()) {
-        name.append(".md");
+        name.append(QStringLiteral(".md"));
     }
 
     setFileName(name);
@@ -300,7 +300,7 @@ void MainWindow::fileExportToHtml()
 
             // get resource or file name from url
             QString cssFileName;
-            if (cssUrl.scheme() == "qrc") {
+            if (cssUrl.scheme() == QLatin1String("qrc")) {
                 cssFileName = cssUrl.toString().remove(0, 3);
             } else {
                 cssFileName = cssUrl.toLocalFile();
@@ -1322,7 +1322,7 @@ void MainWindow::insertStyleSheet(const QString &name, const QString &source, bo
                                     "    css.id = '%1';"\
                                     "    document.head.appendChild(css);"\
                                     "    css.innerText = '%2';"\
-                                    "})()").arg(name).arg(source.simplified());
+                                    "})()").arg(name, source.simplified());
     if (immediately)
         ui->webView->page()->runJavaScript(s, QWebEngineScript::ApplicationWorld);
 

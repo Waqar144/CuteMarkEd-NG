@@ -47,7 +47,7 @@ QVariant CompletionListModel::data(const QModelIndex &index, int role) const
                 return QIcon("fa-puzzle-piece.fontawesome");
 
             case Qt::DisplayRole:
-                return QString("%1 %2").arg(snippet.trigger, -15).arg(snippet.description);
+                return QStringLiteral("%1 %2").arg(snippet.trigger, -15).arg(snippet.description);
 
             case Qt::EditRole:
                 return snippet.trigger;
@@ -57,7 +57,7 @@ QVariant CompletionListModel::data(const QModelIndex &index, int role) const
 
             case Qt::FontRole:
                 {
-                    QFont font("Monospace", 8);
+                    QFont font(QStringLiteral("Monospace"), 8);
                     font.setStyleHint(QFont::TypeWriter);
                     return font;
                 }

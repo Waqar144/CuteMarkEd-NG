@@ -53,7 +53,7 @@ void LanguageMenu::languageTriggered()
 
 QAction *LanguageMenu::createAction(const Dictionary &dictionary)
 {
-    QAction *action = this->addAction(QString("%1 / %2").arg(dictionary.languageName()).arg(dictionary.countryName()), this, SLOT(languageTriggered()));
+    QAction *action = this->addAction(QStringLiteral("%1 / %2").arg(dictionary.languageName()).arg(dictionary.countryName()), this, SLOT(languageTriggered()));
     action->setCheckable(true);
     action->setActionGroup(dictionariesGroup);
 

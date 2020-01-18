@@ -29,10 +29,10 @@ void RecentFilesMenu::readState()
 {
     QSettings settings;
 
-    int size = settings.beginReadArray("recentFiles");
+    int size = settings.beginReadArray(QStringLiteral("recentFiles"));
     for (int i = 0; i < size; ++i) {
         settings.setArrayIndex(i);
-        recentFiles << settings.value("fileName").toString();
+        recentFiles << settings.value(QStringLiteral("fileName")).toString();
     }
     settings.endArray();
 
@@ -43,10 +43,10 @@ void RecentFilesMenu::saveState() const
 {
     QSettings settings;
 
-    settings.beginWriteArray("recentFiles");
+    settings.beginWriteArray(QStringLiteral("recentFiles"));
     for (int i = 0; i < recentFiles.size(); ++i) {
         settings.setArrayIndex(i);
-        settings.setValue("fileName", recentFiles.at(i));
+        settings.setValue(QStringLiteral("fileName"), recentFiles.at(i));
     }
     settings.endArray();
 }

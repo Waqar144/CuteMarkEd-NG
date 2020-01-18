@@ -69,9 +69,9 @@ public slots:
 
 private slots:
     void updateLineNumberAreaWidth(int newBlockCount);
-    void updateLineNumberArea(const QRect &rect, int dy);
+    void updateLineNumberArea(QRect rect, int dy);
 
-    void showContextMenu(const QPoint &pos);
+    void showContextMenu(QPoint pos);
     void replaceWithSuggestion();
     void performCompletion();
     void insertSnippet(const QString &completionPrefix, const QString &completion, int newCursorPos);

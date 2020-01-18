@@ -69,13 +69,13 @@ void ActiveLabel::updateFromAction()
 
     // update text based on QAction data
     QString actionText = m_action->text();
-    actionText.remove("&");
+    actionText.remove(QStringLiteral("&"));
 
     if (m_action->isCheckable()) {
         if (m_action->isChecked())
-            setText(QString("%1: %2").arg(actionText).arg(tr("on")));
+            setText(QStringLiteral("%1: %2").arg(actionText).arg(tr("on")));
         else
-            setText(QString("%1: %2").arg(actionText).arg(tr("off")));
+            setText(QStringLiteral("%1: %2").arg(actionText).arg(tr("off")));
     } else {
         setText(actionText);
     }

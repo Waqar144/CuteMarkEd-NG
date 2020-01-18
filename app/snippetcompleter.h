@@ -29,7 +29,7 @@ class SnippetCompleter : public QObject
 public:
     explicit SnippetCompleter(SnippetCollection *collection, QWidget *parentWidget);
 
-    void performCompletion(const QString &textUnderCursor, const QStringList &words, const QRect &popupRect);
+    void performCompletion(const QString &textUnderCursor, const QStringList &words, QRect popupRect);
 
     bool isPopupVisible() const;
     void hidePopup();

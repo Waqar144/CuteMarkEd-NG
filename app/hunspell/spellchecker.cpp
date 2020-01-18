@@ -91,7 +91,7 @@ void SpellChecker::loadDictionary(const QString &dictFilePath)
     qDebug() << "Load dictionary from path" << dictFilePath;
 
     QString affixFilePath(dictFilePath);
-    affixFilePath.replace(".dic", ".aff");
+    affixFilePath.replace(QLatin1String(".dic"), QLatin1String(".aff"));
 
     hunspellChecker = new Hunspell(affixFilePath.toLocal8Bit(), dictFilePath.toLocal8Bit());
 

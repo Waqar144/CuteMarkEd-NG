@@ -27,7 +27,7 @@ class SlideLineMapping
 public:
     void build(const QString &code);
 
-    int lineForSlide(const QPair<int, int>& slide) const;
+    int lineForSlide(const QPair<int, int> slide) const;
     QPair<int, int> slideForLine(int lineNumber) const;
 
     QMap<int, QPair<int, int> > lineToSlide() const;

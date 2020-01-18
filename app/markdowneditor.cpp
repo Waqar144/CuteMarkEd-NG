@@ -60,7 +60,7 @@ MarkdownEditor::MarkdownEditor(QWidget *parent) :
 {
     highlighter = new CuteMarkdownHighlighter(this->document(), spellChecker);
 
-    QFont font("Monospace", 10);
+    QFont font(QStringLiteral("Monospace"), 10);
     font.setStyleHint(QFont::TypeWriter);
 
     lineNumberArea->setFont(font);
@@ -80,7 +80,7 @@ MarkdownEditor::MarkdownEditor(QWidget *parent) :
     updateLineNumberAreaWidth(0);
 
     QAction * actionComplete = new QAction(tr("Snippet Complete"), this);
-    actionComplete->setObjectName("actionComplete");
+    actionComplete->setObjectName(QStringLiteral("actionComplete"));
     actionComplete->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Space));
     actionComplete->setProperty("defaultshortcut", actionComplete->shortcut());
     connect(actionComplete, SIGNAL(triggered()),
@@ -234,7 +234,7 @@ void MarkdownEditor::updateLineNumberAreaWidth(int newBlockCount)
     setViewportMargins(lineNumberAreaWidth(), 0, 0, 0);
 }
 
-void MarkdownEditor::updateLineNumberArea(const QRect &rect, int dy)
+void MarkdownEditor::updateLineNumberArea(QRect rect, int dy)
 {
     if (dy)
         lineNumberArea->scroll(0, dy);
@@ -269,7 +269,7 @@ void MarkdownEditor::rulerPosChanged(int pos)
     viewport()->update();
 }
 
-void MarkdownEditor::showContextMenu(const QPoint &pos)
+void MarkdownEditor::showContextMenu(QPoint pos)
 {
     QMenu *contextMenu = createStandardContextMenu();
 
@@ -491,7 +491,7 @@ void MarkdownEditor::drawLineEndMarker(QPaintEvent *e)
 {
     QPainter painter(viewport());
 
-    int leftMargin = qRound(fontMetrics().width(" ") / 2.0);
+    int leftMargin = qRound(fontMetrics().width(QStringLiteral(" ")) / 2.0);
     int lineEndCharWidth = fontMetrics().width("\u00B6");
     int fontHeight = fontMetrics().height();
 
@@ -503,7 +503,7 @@ void MarkdownEditor::drawLineEndMarker(QPaintEvent *e)
 
         if (block.isVisible() && blockGeometry.toRect().intersects(e->rect())) {
             QString text = block.text();
-            if (text.endsWith("  ")) {
+            if (text.endsWith(QLatin1String("  "))) {
                 painter.drawText(blockGeometry.left() + fontMetrics().width(text) + leftMargin,
                                  blockGeometry.top(),
                                  lineEndCharWidth,

@@ -102,7 +102,7 @@ void MarkdownManipulator::appendToLine(const QString &text)
     cursor.endEditBlock();
 }
 
-void MarkdownManipulator::prependToLine(const QChar &mark)
+void MarkdownManipulator::prependToLine(QChar mark)
 {
     QTextCursor cursor = editor->textCursor();
     QTextDocument *doc = editor->document();
@@ -122,7 +122,7 @@ void MarkdownManipulator::prependToLine(const QChar &mark)
 
     // add space after mark, if missing
     if (doc->characterAt(pos) != ' ') {
-        cursor.insertText(" ");
+        cursor.insertText(QStringLiteral(" "));
     }
 
     cursor.endEditBlock();
@@ -141,9 +141,9 @@ void MarkdownManipulator::increaseHeadingLevel()
         ;
 
     if ((pos - cursor.position()) < 7) {
-        cursor.insertText("#");
+        cursor.insertText(QStringLiteral("#"));
         if (' ' != cursor.document()->characterAt(pos)) {
-            cursor.insertText(" ");
+            cursor.insertText(QStringLiteral(" "));
         } else {
             int pos = cursor.position();
             QTextDocument *doc = editor->document();
@@ -202,14 +202,14 @@ void MarkdownManipulator::insertTable(int rows, int columns, const QList<Qt::Ali
     // table header
     QStringList headers = cells.at(0);
 
-    QString header("| ");
-    header.append(headers.join(" | "));
+    QString header(QStringLiteral("| "));
+    header.append(headers.join(QStringLiteral(" | ")));
     header.append(" |");
     cursor.insertText(header);
     cursor.insertBlock();
 
     // separator between table header and body including alignment
-    QString line("|");
+    QString line(QStringLiteral("|"));
     for (int col = 0; col < columns; ++col) {
         header = headers.at(col);
         QString underline(header.length()+2, QChar('-'));
@@ -236,8 +236,8 @@ void MarkdownManipulator::insertTable(int rows, int columns, const QList<Qt::Ali
     for (int i = 0; i < rows-1; ++i) {
         QStringList rowData = cells.at(i+1);
 
-        QString row("| ");
-        row.append(rowData.join(" | "));
+        QString row(QStringLiteral("| "));
+        row.append(rowData.join(QStringLiteral(" | ")));
         row.append(" |");
 
         cursor.insertText(row);
@@ -260,9 +260,9 @@ void MarkdownManipulator::insertImageLink(const QString &alternateText, const QS
 
     QString imageLink;
     if (optionalTitle.isEmpty()) {
-        imageLink = QString("![%1](%2)").arg(alternateText).arg(imageSource);
+        imageLink = QStringLiteral("![%1](%2)").arg(alternateText).arg(imageSource);
     } else {
-        imageLink = QString("![%1](%2 \"%3\")").arg(alternateText).arg(imageSource).arg(optionalTitle);
+        imageLink = QStringLiteral("![%1](%2 \"%3\")").arg(alternateText).arg(imageSource).arg(optionalTitle);
     }
 
     cursor.insertText(imageLink);
@@ -270,7 +270,7 @@ void MarkdownManipulator::insertImageLink(const QString &alternateText, const QS
     cursor.endEditBlock();
 }
 
-void MarkdownManipulator::formatBlock(const QChar &mark)
+void MarkdownManipulator::formatBlock(QChar mark)
 {
     QTextCursor cursor = editor->textCursor();
     QTextDocument *doc = editor->document();
@@ -295,7 +295,7 @@ void MarkdownManipulator::formatBlock(const QChar &mark)
 
         // add space after mark, if missing
         if (doc->characterAt(pos) != ' ') {
-            cursor.insertText(" ");
+            cursor.insertText(QStringLiteral(" "));
         }
 
         cursor.movePosition(QTextCursor::NextBlock);
