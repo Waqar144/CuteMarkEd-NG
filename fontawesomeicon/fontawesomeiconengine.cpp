@@ -88,7 +88,7 @@ QPixmap FontAwesomeIconEngine::pixmap(const QSize &size, QIcon::Mode mode, QIcon
     QPixmap pm(size);
     pm.fill(Qt::transparent);
 
-    if (!QPixmapCache::find(key, pm)) {
+    if (!QPixmapCache::find(key, &pm)) {
         QPainter p(&pm);
         paint(&p, QRect(QPoint(0,0),size), mode, state);
         QPixmapCache::insert(key, pm);

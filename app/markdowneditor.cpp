@@ -152,8 +152,8 @@ int MarkdownEditor::lineNumberAreaWidth()
 
     QFont font = lineNumberArea->font();
     const QFontMetrics linefmt(font);
+    int space = linefmt.horizontalAdvance(QLatin1Char('9')) * digits;
 
-    int space = 10 + linefmt.width(QLatin1Char('9')) * digits;
     return space;
 }
 
@@ -254,7 +254,7 @@ void MarkdownEditor::editorFontChanged(const QFont &font)
 void MarkdownEditor::tabWidthChanged(int tabWidth)
 {
     QFontMetrics fm(font());
-    setTabStopWidth(tabWidth*fm.width(' '));
+    setTabStopDistance(tabWidth * fm.horizontalAdvance(QLatin1Char(' ')));
 }
 
 void MarkdownEditor::rulerEnabledChanged(bool enabled)
@@ -474,6 +474,7 @@ void MarkdownEditor::setSnippetCompleter(SnippetCompleter *completer)
 
 void MarkdownEditor::setYamlHeaderSupportEnabled(bool enabled)
 {
+    Q_UNUSED(enabled)
 //    highlighter->setYamlHeaderSupportEnabled(enabled);
 
     // rehighlight markdown document
@@ -491,8 +492,8 @@ void MarkdownEditor::drawLineEndMarker(QPaintEvent *e)
 {
     QPainter painter(viewport());
 
-    int leftMargin = qRound(fontMetrics().width(QStringLiteral(" ")) / 2.0);
-    int lineEndCharWidth = fontMetrics().width("\u00B6");
+    int leftMargin = qRound(fontMetrics().horizontalAdvance(QStringLiteral(" ")) / 2.0);
+    int lineEndCharWidth = fontMetrics().horizontalAdvance(QStringLiteral("\u00B6"));
     int fontHeight = fontMetrics().height();
 
     QTextBlock block = firstVisibleBlock();
@@ -504,12 +505,12 @@ void MarkdownEditor::drawLineEndMarker(QPaintEvent *e)
         if (block.isVisible() && blockGeometry.toRect().intersects(e->rect())) {
             QString text = block.text();
             if (text.endsWith(QLatin1String("  "))) {
-                painter.drawText(blockGeometry.left() + fontMetrics().width(text) + leftMargin,
+                painter.drawText(blockGeometry.left() + fontMetrics().horizontalAdvance(text) + leftMargin,
                                  blockGeometry.top(),
                                  lineEndCharWidth,
                                  fontHeight,
                                  Qt::AlignLeft | Qt::AlignVCenter,
-                                 "\u00B6");
+                                 QStringLiteral("\u00B6"));
             }
         }
 
@@ -578,7 +579,7 @@ QStringList MarkdownEditor::extractDistinctWordsFromDocument() const
 
 QStringList MarkdownEditor::retrieveAllWordsFromDocument() const
 {
-    return toPlainText().split(QRegExp("\\W+"), QString::SkipEmptyParts);
+    return toPlainText().split(QRegularExpression("\\W+"), QString::SkipEmptyParts);
 }
 
 template <class UnaryPredicate>

@@ -32,8 +32,8 @@
 #include <QDebug>
 #include "MD4Cmarkdownconverter.h"
 
-#include "md2html/render_html.h"
-
+//#include "md2html/render_html.h"
+#include <md2html/render_html.h>
 extern "C" {
 #ifdef Q_OS_WIN
 #include <Windows.h>

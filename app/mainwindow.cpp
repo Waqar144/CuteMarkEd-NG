@@ -78,6 +78,7 @@
 #include "snippetcompleter.h"
 #include "tabletooldialog.h"
 #include "statusbarwidget.h"
+#include "../fontawesomeicon/fontawesomeiconengine.h"
 
 MainWindow::MainWindow(const QString &fileName, QWidget *parent) :
     QMainWindow(parent),
@@ -1033,6 +1034,7 @@ void MainWindow::setupActions()
 
 void MainWindow::setActionsIcons()
 {
+
 #ifndef Q_OS_OSX
   // file menu
   ui->actionSave->setIcon(QIcon("fa-floppy-o.fontawesome"));
