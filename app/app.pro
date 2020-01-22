@@ -66,7 +66,8 @@ SOURCES += \
     snippetcompleter.cpp \
     snippetstablemodel.cpp \
     aboutdialog.cpp \
-    statusbarwidget.cpp
+    statusbarwidget.cpp \
+    controls/navigationwidget.cpp
 
 win32 {
     SOURCES += \
@@ -107,7 +108,8 @@ HEADERS  += \
     snippetstablemodel.h \
     aboutdialog.h \
     statusbarwidget.h \
-    savefileadapter.h
+    savefileadapter.h \
+    controls/navigationwidget.h
 
 FORMS    += \
     mainwindow.ui \

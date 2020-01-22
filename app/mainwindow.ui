@@ -307,12 +307,12 @@
       <number>0</number>
      </property>
      <item>
-      <widget class="QWebView" name="tocWebView">
-       <property name="url">
-        <url>
-         <string>about:blank</string>
-        </url>
-       </property>
+      <widget class="NavigationWidget" name="navigationWidget">
+       <column>
+        <property name="text">
+         <string notr="true">1</string>
+        </property>
+       </column>
       </widget>
      </item>
     </layout>
@@ -757,6 +757,11 @@
    <header>controls/fileexplorerwidget.h</header>
    <container>1</container>
   </customwidget>
+  <customwidget>
+   <class>NavigationWidget</class>
+   <extends>QTreeWidget</extends>
+   <header>controls/navigationwidget.h</header>
+  </customwidget>
  </customwidgets>
  <resources>
   <include location="resources.qrc"/>
@@ -931,22 +936,6 @@
     <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>399</x>
-     <y>249</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>tocWebView</sender>
-   <signal>linkClicked(QUrl)</signal>
-   <receiver>MainWindow</receiver>
-   <slot>tocLinkClicked(QUrl)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>703</x>
-     <y>261</y>
     </hint>
     <hint type="destinationlabel">
      <x>399</x>

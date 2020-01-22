@@ -42,15 +42,13 @@
 #include <QWebEngineScriptCollection>
 #include <QWebEngineSettings>
 #include <QWebChannel>
-//#include <QWebFrame>
-//#include <QWebPage>
-//#include <QWebInspector>
 
 #ifdef Q_OS_WIN
 #include <QWinJumpList>
 #include <QWinJumpListCategory>
 #endif
 
+#include <cutemarkdownhighlighter.h>
 #include <jsonfile.h>
 #include <snippets/jsonsnippettranslatorfactory.h>
 #include <snippets/snippetcollection.h>
@@ -144,7 +142,6 @@ void MainWindow::initializeApp()
     //ui->webView->page()->setLinkDelegationPolicy(QWebPage::DelegateAllLinks);
     addJavaScriptObject();
     ui->webView->page()->setWebChannel(channel);
-    ui->tocWebView->page()->setLinkDelegationPolicy(QWebPage::DelegateAllLinks);
 
     themeCollection->load(QStringLiteral(":/builtin-htmlpreview-themes.json"));
     loadCustomStyles();
@@ -196,6 +193,10 @@ void MainWindow::initializeApp()
             this, SLOT(openRecentFile(QString)));
     connect(options, &Options::explorerPathChanged,
             ui->fileExplorerDockContents, &FileExplorerWidget::setPath);
+
+    //toc/navigation parser
+    connect(ui->plainTextEdit->getHighlighter(), &CuteMarkdownHighlighter::highlightingFinished,
+            this, &MainWindow::startNavigationParser);
 
     // setup jump list on windows
 #ifdef Q_OS_WIN
@@ -785,9 +786,13 @@ void MainWindow::htmlResultReady(const QString &html)
     }
 }
 
-void MainWindow::tocResultReady(const QString &toc)
-{
-    ui->tocWebView->setHtml(toc);
+/**
+ * Starts the parsing for the navigation widget
+ */
+void MainWindow::startNavigationParser() {
+    if (ui->navigationWidget->isVisible()) {
+        ui->navigationWidget->parse(ui->plainTextEdit->document());
+    }
 }
 
 void MainWindow::previewLinkClicked(const QUrl &url)
@@ -805,12 +810,6 @@ void MainWindow::previewLinkClicked(const QUrl &url)
     }
 
     QDesktopServices::openUrl(url);
-}
-
-void MainWindow::tocLinkClicked(const QUrl &url)
-{
-    QString anchor = url.toString().remove(QStringLiteral("#"));
-//    ui->webView->page()->scrollToAnchor(anchor);
 }
 
 void MainWindow::splitterMoved(int pos, int index)
@@ -1110,9 +1109,6 @@ void MainWindow::setupHtmlPreview()
     // start background HTML preview generator
     connect(generator, SIGNAL(htmlResultReady(QString)),
             this, SLOT(htmlResultReady(QString)));
-    connect(generator, SIGNAL(tocResultReady(QString)),
-            this, SLOT(tocResultReady(QString)));
-    //generator->start();
 }
 
 void MainWindow::setupHtmlSourceView()

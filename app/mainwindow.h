@@ -113,10 +113,8 @@ private slots:
 
     void plainTextChanged();
     void htmlResultReady(const QString &html);
-    void tocResultReady(const QString &toc);
 
     void previewLinkClicked(const QUrl &url);
-    void tocLinkClicked(const QUrl &url);
 
     void splitterMoved(int pos, int index);
 
@@ -124,6 +122,7 @@ private slots:
     bool load(const QString &fileName);
     void proxyConfigurationChanged();
     void markdownConverterChanged();
+    void startNavigationParser();
 
 private:
     void setupUi();

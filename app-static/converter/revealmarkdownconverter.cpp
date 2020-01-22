@@ -38,13 +38,6 @@ QString RevealMarkdownConverter::renderAsHtml(MarkdownDocument *document)
     return html;
 }
 
-QString RevealMarkdownConverter::renderAsTableOfContents(MarkdownDocument *document)
-{
-    Q_UNUSED(document)
-
-    return QString();
-}
-
 Template *RevealMarkdownConverter::templateRenderer() const
 {
     static PresentationTemplate presentationTemplate;

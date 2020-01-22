@@ -107,32 +107,6 @@ void MD4CMarkdownConverterTest::benchmark()
     }
 }
 
-void MD4CMarkdownConverterTest::benchmarkTableOfContents_data()
-{
-    QTest::addColumn<QString>("text");
-    QTest::newRow("500 words text") << fiveHundredWordsLoremIpsumText;
-    QString twoThousandWordsLoremIpsumText = (fiveHundredWordsLoremIpsumText +
-                                              fiveHundredWordsLoremIpsumText +
-                                              fiveHundredWordsLoremIpsumText +
-                                              fiveHundredWordsLoremIpsumText);
-    QTest::newRow("2000 words text") << twoThousandWordsLoremIpsumText;
-    QString tenThousandWordsLoremIpsumText = (twoThousandWordsLoremIpsumText +
-                                              twoThousandWordsLoremIpsumText +
-                                              twoThousandWordsLoremIpsumText +
-                                              twoThousandWordsLoremIpsumText +
-                                              twoThousandWordsLoremIpsumText);
-    QTest::newRow("10000 words text") << tenThousandWordsLoremIpsumText;
-}
-
-void MD4CMarkdownConverterTest::benchmarkTableOfContents()
-{
-    QFETCH(QString, text);
-    QBENCHMARK {
-        MarkdownDocument *doc = converter->createDocument(text, 0);
-        QString toc = converter->renderAsTableOfContents(doc);
-    }
-}
-
 void MD4CMarkdownConverterTest::cleanupTestCase()
 {
     delete converter;

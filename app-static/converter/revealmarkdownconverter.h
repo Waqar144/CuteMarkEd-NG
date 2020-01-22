@@ -10,7 +10,6 @@ public:
 
     virtual MarkdownDocument *createDocument(const QString &text, ConverterOptions options);
     virtual QString renderAsHtml(MarkdownDocument *document);
-    virtual QString renderAsTableOfContents(MarkdownDocument *document);
 
     virtual Template *templateRenderer() const;
 

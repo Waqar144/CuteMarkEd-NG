@@ -51,6 +51,10 @@ public:
     void setSnippetCompleter(SnippetCompleter *completer);
     void gotoLine(int line);
 
+    inline CuteMarkdownHighlighter *getHighlighter() {
+        return highlighter;
+    }
+
 signals:
     void loadDroppedFile(const QString &fileName);
 

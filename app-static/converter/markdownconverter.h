@@ -65,7 +65,6 @@ public:
 
     virtual MarkdownDocument *createDocument(const QString &text, ConverterOptions options) = 0;
     virtual QString renderAsHtml(MarkdownDocument *document) = 0;
-    virtual QString renderAsTableOfContents(MarkdownDocument *document) = 0;
 
     virtual Template *templateRenderer() const = 0;
 

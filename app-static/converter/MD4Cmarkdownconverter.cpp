@@ -32,29 +32,15 @@
 #include <QDebug>
 #include "MD4Cmarkdownconverter.h"
 
-//#include "md2html/render_html.h"
 #include <md2html/render_html.h>
 extern "C" {
 #ifdef Q_OS_WIN
 #include <Windows.h>
 #endif
-#include <mkdio.h>
 }
 
 #include "markdowndocument.h"
 #include "template/htmltemplate.h"
-
-class DiscountMarkdownDocument : public MarkdownDocument
-{
-public:
-    explicit DiscountMarkdownDocument(MMIOT *document) : discountDocument(document) {}
-    ~DiscountMarkdownDocument() { mkd_cleanup(discountDocument); }
-
-    MMIOT *document() const { return discountDocument; }
-
-private:
-    MMIOT *discountDocument;
-};
 
 class MD4CMarkdownDocument : public MarkdownDocument
 {
@@ -63,9 +49,7 @@ public:
     MarkdownConverter::ConverterOptions options;
 };
 
-MD4CMarkdownConverter::MD4CMarkdownConverter()
-{
-}
+MD4CMarkdownConverter::MD4CMarkdownConverter(){}
 
 MarkdownDocument *MD4CMarkdownConverter::createDocument(const QString &text, ConverterOptions options)
 {
@@ -73,27 +57,6 @@ MarkdownDocument *MD4CMarkdownConverter::createDocument(const QString &text, Con
     doc->text = text;
     doc->options = options;
     return doc;
-
-//    MMIOT *doc = 0;
-
-//    if (text.length() > 0) {
-//        QString markdownText(text);
-
-//        // text has to always end with a line break,
-//        // otherwise characters are missing in HTML
-//        if (!markdownText.endsWith('\n')) {
-//            markdownText.append('\n');
-//        }
-
-//        unsigned long converterOptions = translateConverterOptions(options);
-
-//        QByteArray utf8Data = markdownText.toUtf8();
-//        doc = mkd_string(utf8Data, utf8Data.length(), converterOptions);
-
-//        mkd_compile(doc, converterOptions);
-//    }
-
-//    return new DiscountMarkdownDocument(doc);
 }
 
 void captureHtmlFragment (const MD_CHAR* data, MD_SIZE data_size, void* userData) {
@@ -135,48 +98,6 @@ QString MD4CMarkdownConverter::renderAsHtml(MarkdownDocument *document)
     }
 
     return result;
-}
-
-/*Discount is being used here as MD4C doesn't have TOC generation*/
-QString MD4CMarkdownConverter::renderAsTableOfContents(MarkdownDocument *document)
-{
-    QString toc;
-    MD4CMarkdownDocument *md_doc = dynamic_cast<MD4CMarkdownDocument*>(document);
-    QString text = md_doc->text;
-
-
-    MMIOT *_doc = 0;
-
-    if (text.length() > 0) {
-        QString markdownText(text);
-
-        // text has to always end with a line break,
-        // otherwise characters are missing in HTML
-        if (!markdownText.endsWith('\n')) {
-            markdownText.append('\n');
-        }
-
-        unsigned long converterOptions = MKD_TOC; //translateConverterOptions(options);
-
-        QByteArray utf8Data = markdownText.toUtf8();
-        _doc = mkd_string(utf8Data, utf8Data.length(), converterOptions);
-
-        mkd_compile(_doc, converterOptions);
-    }
-
-    if (_doc) {
-        DiscountMarkdownDocument *doc = new DiscountMarkdownDocument(_doc);
-
-        if (doc && doc->document()) {
-            // generate table of contents
-            char *out;
-            mkd_toc(doc->document(), &out);
-
-            toc = QString::fromUtf8(out);
-        }
-    }
-
-    return toc;
 }
 
 Template *MD4CMarkdownConverter::templateRenderer() const

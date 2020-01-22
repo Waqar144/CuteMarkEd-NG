@@ -145,9 +145,6 @@ void HtmlPreviewGenerator::updatePreview()
     // generate HTML from markdown
     document = converter->createDocument(this->text, converterOptions());
     generateHtmlFromMarkdown();
-
-    // generate table of contents
-    generateTableOfContents();
 }
 
 void HtmlPreviewGenerator::generateHtmlFromMarkdown()
@@ -155,15 +152,6 @@ void HtmlPreviewGenerator::generateHtmlFromMarkdown()
     if (!document) return;
     QString html = converter->templateRenderer()->render(converter->renderAsHtml(document), renderOptions());
     emit htmlResultReady(html);
-}
-
-void HtmlPreviewGenerator::generateTableOfContents()
-{
-    if (!document) return;
-
-    QString toc = converter->renderAsTableOfContents(document);
-    QString styledToc = QStringLiteral("<html><head>\n<style type=\"text/css\">ul { list-style-type: none; padding: 0; margin-left: 1em; } a { text-decoration: none; }</style>\n</head><body>%1</body></html>").arg(toc);
-    emit tocResultReady(styledToc);
 }
 
 MarkdownConverter::ConverterOptions HtmlPreviewGenerator::converterOptions() const

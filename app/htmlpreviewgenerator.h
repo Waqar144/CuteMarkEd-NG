@@ -53,11 +53,8 @@ public slots:
 
 signals:
     void htmlResultReady(const QString &html);
-    void tocResultReady(const QString &toc);
-
 private:
     void generateHtmlFromMarkdown();
-    void generateTableOfContents();
     MarkdownConverter::ConverterOptions converterOptions() const;
     Template::RenderOptions renderOptions() const;
     int calculateDelay(const QString &text);
