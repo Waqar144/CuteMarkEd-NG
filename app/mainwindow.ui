@@ -345,15 +345,6 @@
      <property name="bottomMargin">
       <number>0</number>
      </property>
-     <item>
-      <widget class="QWebView" name="webView_2">
-       <property name="url">
-        <url>
-         <string>qrc:/syntax.html</string>
-        </url>
-       </property>
-      </widget>
-     </item>
     </layout>
    </widget>
   </widget>
@@ -729,11 +720,6 @@
    <class>QWebEngineView</class>
    <extends>QWidget</extends>
    <header location="global">QtWebEngineWidgets/QWebEngineView</header>
-  </customwidget>
-  <customwidget>
-   <class>QWebView</class>
-   <extends>QWidget</extends>
-   <header location="global">QtWebKitWidgets/QWebView</header>
   </customwidget>
   <customwidget>
    <class>MarkdownEditor</class>

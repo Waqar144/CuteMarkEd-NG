@@ -16,7 +16,7 @@
  */
 #include "options.h"
 
-#include <QWebSettings>
+#include <QWebEngineSettings>
 #include <QDir>
 
 static const QString MARKDOWN_CONVERTER = QStringLiteral("General/converter");
@@ -93,13 +93,13 @@ Options::Options(QObject *parent) :
 
 void Options::apply()
 {
-    QWebSettings *globalWebSettings = QWebSettings::globalSettings();
-    globalWebSettings->setFontFamily(QWebSettings::StandardFont, m_standardFontFamily);
-    globalWebSettings->setFontFamily(QWebSettings::FixedFont, m_fixedFontFamily);
-    globalWebSettings->setFontFamily(QWebSettings::SerifFont, m_serifFontFamily);
-    globalWebSettings->setFontFamily(QWebSettings::SansSerifFont, m_sansSerifFontFamily);
-    globalWebSettings->setFontSize(QWebSettings::DefaultFontSize, m_defaultFontSize);
-    globalWebSettings->setFontSize(QWebSettings::DefaultFixedFontSize, m_defaultFixedFontSize);
+    QWebEngineSettings *globalWebSettings = QWebEngineSettings::globalSettings();
+    globalWebSettings->setFontFamily(QWebEngineSettings::StandardFont, m_standardFontFamily);
+    globalWebSettings->setFontFamily(QWebEngineSettings::FixedFont, m_fixedFontFamily);
+    globalWebSettings->setFontFamily(QWebEngineSettings::SerifFont, m_serifFontFamily);
+    globalWebSettings->setFontFamily(QWebEngineSettings::SansSerifFont, m_sansSerifFontFamily);
+    globalWebSettings->setFontSize(QWebEngineSettings::DefaultFontSize, m_defaultFontSize);
+    globalWebSettings->setFontSize(QWebEngineSettings::DefaultFixedFontSize, m_defaultFixedFontSize);
 
     emit proxyConfigurationChanged();
     emit markdownConverterChanged();
@@ -530,13 +530,13 @@ void Options::readSettings()
     setEditorFont(f);
 
     // html preview settings
-    QWebSettings *globalWebSettings = QWebSettings::globalSettings();
-    m_standardFontFamily = settings.value(PREVIEW_STANDARD_FONT, globalWebSettings->fontFamily(QWebSettings::StandardFont)).toString();
-    m_fixedFontFamily = settings.value(PREVIEW_FIXED_FONT, globalWebSettings->fontFamily(QWebSettings::FixedFont)).toString();
-    m_serifFontFamily = settings.value(PREVIEW_SERIF_FONT, globalWebSettings->fontFamily(QWebSettings::SerifFont)).toString();
-    m_sansSerifFontFamily = settings.value(PREVIEW_SANSSERIF_FONT, globalWebSettings->fontFamily(QWebSettings::SansSerifFont)).toString();
-    m_defaultFontSize = settings.value(PREVIEW_DEFAULT_FONT_SIZE, globalWebSettings->fontSize(QWebSettings::DefaultFontSize)).toInt();
-    m_defaultFixedFontSize = settings.value(PREVIEW_DEFAULT_FIXED_FONT_SIZE, globalWebSettings->fontSize(QWebSettings::DefaultFixedFontSize)).toInt();
+    QWebEngineSettings *globalWebSettings = QWebEngineSettings::globalSettings();
+    m_standardFontFamily = settings.value(PREVIEW_STANDARD_FONT, globalWebSettings->fontFamily(QWebEngineSettings::StandardFont)).toString();
+    m_fixedFontFamily = settings.value(PREVIEW_FIXED_FONT, globalWebSettings->fontFamily(QWebEngineSettings::FixedFont)).toString();
+    m_serifFontFamily = settings.value(PREVIEW_SERIF_FONT, globalWebSettings->fontFamily(QWebEngineSettings::SerifFont)).toString();
+    m_sansSerifFontFamily = settings.value(PREVIEW_SANSSERIF_FONT, globalWebSettings->fontFamily(QWebEngineSettings::SansSerifFont)).toString();
+    m_defaultFontSize = settings.value(PREVIEW_DEFAULT_FONT_SIZE, globalWebSettings->fontSize(QWebEngineSettings::DefaultFontSize)).toInt();
+    m_defaultFixedFontSize = settings.value(PREVIEW_DEFAULT_FIXED_FONT_SIZE, globalWebSettings->fontSize(QWebEngineSettings::DefaultFixedFontSize)).toInt();
     m_mathInlineSupportEnabled = settings.value(MATHINLINESUPPORT_ENABLED, false).toBool();
 
     // proxy settings

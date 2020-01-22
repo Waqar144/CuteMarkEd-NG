@@ -5,7 +5,7 @@
 #
 
 QT       += testlib
-QT       += gui webkitwidgets webenginewidgets
+QT       += gui webenginewidgets
 
 TARGET = integrationtest
 CONFIG += console testcase

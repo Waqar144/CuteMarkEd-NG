@@ -170,11 +170,9 @@ void MainWindow::initializeApp()
     ui->actionYamlHeaderSupport->setChecked(options->isYamlHeaderSupportEnabled());
 
     // set url to markdown syntax help
-    ui->webView_2->setUrl(tr("qrc:/syntax.html"));
+    //ui->webView_2->setUrl(tr("qrc:/syntax.html"));
 
     // allow loading of remote javascript
-    QWebSettings::globalSettings()->setAttribute(QWebSettings::LocalContentCanAccessRemoteUrls, true);
-
     ui->webView->settings()->setAttribute(QWebEngineSettings::LocalContentCanAccessRemoteUrls, true);
     //ui->webView->settings()->setAttribute(QWebSettings::DeveloperExtrasEnabled, true);
     ui->webView->page()->setInspectedPage(ui->webView->page());
