@@ -197,6 +197,8 @@ void MainWindow::initializeApp()
     //toc/navigation parser
     connect(ui->plainTextEdit->getHighlighter(), &CuteMarkdownHighlighter::highlightingFinished,
             this, &MainWindow::startNavigationParser);
+    connect(ui->navigationWidget, &NavigationWidget::positionClicked,
+            this, &MainWindow::onNavigationWidgetPositionClicked);
 
     // setup jump list on windows
 #ifdef Q_OS_WIN
@@ -793,6 +795,35 @@ void MainWindow::startNavigationParser() {
     if (ui->navigationWidget->isVisible()) {
         ui->navigationWidget->parse(ui->plainTextEdit->document());
     }
+}
+
+void MainWindow::onNavigationWidgetPositionClicked(int position)
+{
+    auto textEdit = ui->plainTextEdit;
+
+    // set the focus first so the preview also scrolls to the headline
+    textEdit->setFocus();
+
+    QTextCursor c = textEdit->textCursor();
+
+    // if the current position of the cursor is smaller than the position
+    // where we want to jump to set the cursor to the end of the note to make
+    // sure it scrolls up, not down
+    // everything is visible that way
+    if (c.position() < position) {
+        c.movePosition(QTextCursor::End);
+        textEdit->setTextCursor(c);
+    }
+
+    c.setPosition(position);
+
+    // select the text of the headline
+    c.movePosition(QTextCursor::EndOfLine, QTextCursor::KeepAnchor);
+
+    textEdit->setTextCursor(c);
+
+//    // update the preview-slider
+//    noteTextSliderValueChanged(textEdit->verticalScrollBar()->value(), true);
 }
 
 void MainWindow::previewLinkClicked(const QUrl &url)

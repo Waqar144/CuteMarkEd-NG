@@ -123,6 +123,7 @@ private slots:
     void proxyConfigurationChanged();
     void markdownConverterChanged();
     void startNavigationParser();
+    void onNavigationWidgetPositionClicked(int position);
 
 private:
     void setupUi();
