@@ -77,7 +77,7 @@ void FileExplorerWidget::setPath(const QString &path)
 
 void FileExplorerWidget::fileOpen(const QModelIndex &index)
 {
-    QFileInfo info = model->fileInfo(sortModel->mapToSource(index));
+    QFileInfo info = model->fileInfo(index);
     if (info.isFile()) {
         const QString filePath = info.filePath();
 
