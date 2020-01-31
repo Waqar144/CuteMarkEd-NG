@@ -1336,8 +1336,8 @@ void MainWindow::writeSettings()
 
 QString MainWindow::stylePath(const QString &styleName)
 {
-    QString suffix = options->isSourceAtSingleSizeEnabled() ? QLatin1String("") : QLatin1String("+");
-    return QStringLiteral(":/theme/%1%2.txt").arg(styleName, suffix);
+//    QString suffix = options->isSourceAtSingleSizeEnabled() ? QLatin1String("") : QLatin1String("+");
+    return QStringLiteral("%1").arg(styleName);
 }
 
 void MainWindow::insertStyleSheet(const QString &name, const QString &source, bool immediately)

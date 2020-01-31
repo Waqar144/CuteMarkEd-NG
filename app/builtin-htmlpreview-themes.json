@@ -9,7 +9,7 @@
         },
         {
             "name": "Github",
-            "markdownHighlighting": "Default",
+            "markdownHighlighting": "Github",
             "codeHighlighting": "Github",
             "previewStylesheet": "Github",
             "builtIn": true

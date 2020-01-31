@@ -21,6 +21,7 @@
 
 static const QMap<QString, QString> BUILTIN_MARKDOWN_HIGHLIGHTINGS = {
     { "Default", "default" },
+    { "Github", "github" },
     { "Solarized Light", "solarized-light" },
     { "Solarized Dark", "solarized-dark" },
     { "Clearness Dark", "clearness-dark" },

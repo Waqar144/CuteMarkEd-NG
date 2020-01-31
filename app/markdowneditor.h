@@ -39,6 +39,7 @@ public:
 
     void resetHighlighting();
     void loadStyleFromStylesheet(const QString &fileName);
+    void loadGithubStyle();
 
     int countWords() const;
 
