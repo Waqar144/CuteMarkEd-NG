@@ -29,8 +29,8 @@ using hunspell::SpellChecker;
 #include <datalocation.h>
 
 SpellChecker::SpellChecker() :
-    hunspellChecker(0),
-    textCodec(0)
+    hunspellChecker {nullptr},
+    textCodec {nullptr}
 {
 }
 
@@ -45,8 +45,7 @@ bool SpellChecker::isCorrect(const QString &word)
         return true;
     }
 
-    QByteArray ba = textCodec->fromUnicode(word);
-    return hunspellChecker->spell(ba) != 0;
+    return hunspellChecker->spell(word.toStdString()) != 0;
 }
 
 QStringList SpellChecker::suggestions(const QString &word)
@@ -57,15 +56,12 @@ QStringList SpellChecker::suggestions(const QString &word)
         return suggestions;
     }
 
-    char **suggestedWords;
-    QByteArray ba = textCodec->fromUnicode(word);
-    int count = hunspellChecker->suggest(&suggestedWords, ba);
+    const std::vector<std::string> suggestionsList = hunspellChecker->suggest(word.toStdString());
+    suggestions.reserve(suggestionsList.size());
 
-    for (int i = 0; i < count; ++i) {
-        suggestions << textCodec->toUnicode(suggestedWords[i]);
+    for (const auto &sugg : suggestionsList) {
+        suggestions << QString::fromStdString(sugg);
     }
-
-    hunspellChecker->free_list(&suggestedWords, count);
 
     return suggestions;
 }
