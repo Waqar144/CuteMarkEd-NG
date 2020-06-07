@@ -32,7 +32,8 @@
 #include <QDebug>
 #include "MD4Cmarkdownconverter.h"
 
-#include <md2html/render_html.h>
+
+#include "md4c-html.h"
 extern "C" {
 #ifdef Q_OS_WIN
 #include <Windows.h>
@@ -83,7 +84,7 @@ QString MD4CMarkdownConverter::renderAsHtml(MarkdownDocument *document)
     }
 
     QByteArray array = QByteArray();
-    int renderResult = md_render_html(data, MD_SIZE(length),
+    int renderResult = md_html(data, MD_SIZE(length),
                                       captureHtmlFragment,
                                       &array,
                                       translateConverterOptions(doc->options),

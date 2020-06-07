@@ -38,9 +38,9 @@ SOURCES += \
     htmlpreviewcontroller.cpp \
     htmlviewsynchronizer.cpp \
     yamlheaderchecker.cpp \
-    $$PWD/../3rdparty/md4c/md4c/md4c.c \
-    $$PWD/../3rdparty/md4c/md2html/entity.c \
-    $$PWD/../3rdparty/md4c/md2html/render_html.c
+    $$PWD/../3rdparty/md4c/src/md4c.c \
+    $$PWD/../3rdparty/md4c/src/entity.c \
+    $$PWD/../3rdparty/md4c/src/md4c-html.c
 
 HEADERS += \
     snippets/snippet.h \
@@ -68,9 +68,9 @@ HEADERS += \
     htmlpreviewcontroller.h \
     htmlviewsynchronizer.h \
     yamlheaderchecker.h \
-    $$PWD/../3rdparty/md4c/md4c/md4c.h \
-    $$PWD/../3rdparty/md4c/md2html/entity.h \
-    $$PWD/../3rdparty/md4c/md2html/render_html.h
+    $$PWD/../3rdparty/md4c/src/md4c.h \
+    $$PWD/../3rdparty/md4c/src/entity.h \
+    $$PWD/../3rdparty/md4c/src/md4c-html.h
 
 
 #unix:!symbian {
@@ -98,4 +98,4 @@ INCLUDEPATH += $$PWD/../libs/jsonconfig
 
 
 #Discount Library
-win32:INCLUDEPATH += $$PWD/../3rdparty/discount
+#win32:INCLUDEPATH += $$PWD/../3rdparty/discount

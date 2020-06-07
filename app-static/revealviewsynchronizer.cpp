@@ -19,7 +19,7 @@
 
 #include <QPlainTextEdit>
 #include <QTextBlock>
-#include <QWebFrame>
+//#include <QWebFrame>
 #include <QWebEngineView>
 
 #include "slidelinemapping.h"
