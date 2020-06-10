@@ -1,7 +1,7 @@
 #
-# Integration Test Project for CuteMarkEd
+# Integration Test Project for CuteMarkEd-NG
 #
-# Github : https://github.com/cloose/CuteMarkEd
+# Github : https://github.com/waqar144/CuteMarkEd-NG
 #
 
 QT       += testlib
@@ -61,15 +61,5 @@ else:win32-msvc*:CONFIG(release, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../
 else:win32-msvc*:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../../app-static/debug/app-static.lib
 else:unix: PRE_TARGETDEPS += $$OUT_PWD/../../app-static/libapp-static.a
 
-#
-# Discount library
-#
-win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../../3rdparty/discount/release/ -ldiscount
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../../3rdparty/discount/debug/ -ldiscount
-else:unix: LIBS += -L$$OUT_PWD/../../3rdparty/discount/ -lmarkdown
-
 INCLUDEPATH += $$PWD/../../3rdparty/
 DEPENDPATH += $$PWD/../../3rdparty/
-
-#win32:CONFIG(release, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../../3rdparty/discount/release/libdiscount.a
-#else:win32:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../../3rdparty/discount/debug/libdiscount.a

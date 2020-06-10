@@ -1,7 +1,7 @@
 #
-# Application Static Libary Project for CuteMarkEd
+# Application Static Libary Project for CuteMarkEd-NG
 #
-# Github : https://github.com/cloose/CuteMarkEd
+# Github : https://github.com/waqar144/CuteMarkEd-NG
 #
 
 QT += gui webenginewidgets
@@ -12,11 +12,8 @@ CONFIG += staticlib
 CONFIG += c++11
 
 INCLUDEPATH += $$PWD
-#
 # MD4C library
-#
-INCLUDEPATH += $$PWD/../3rdparty/md4c
-INCLUDEPATH += $$PWD/../3rdparty/md4c/md4c
+INCLUDEPATH += $$PWD/../3rdparty/md4c/src
 
 SOURCES += \
     snippets/jsonsnippettranslator.cpp \
@@ -95,7 +92,3 @@ macx:INCLUDEPATH += /usr/local/include
 # JSON configuration library
 #
 INCLUDEPATH += $$PWD/../libs/jsonconfig
-
-
-#Discount Library
-#win32:INCLUDEPATH += $$PWD/../3rdparty/discount

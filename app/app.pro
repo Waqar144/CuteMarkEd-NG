@@ -39,7 +39,9 @@ macx {
     QMAKE_INFO_PLIST = Info.plist
 }
 
+#qmarkdowntextedit
 include(../3rdparty/qmarkdowntextedit/qmarkdowntextedit.pri)
+include(../3rdparty/hunspell/hunspell.pri)
 INCLUDEPATH += $$PWD
 
 SOURCES += \
@@ -189,29 +191,6 @@ else:win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../app-
 else:win32-msvc*:CONFIG(release, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../app-static/release/app-static.lib
 else:win32-msvc*:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../app-static/debug/app-static.lib
 else:unix: PRE_TARGETDEPS += $$OUT_PWD/../app-static/libapp-static.a
-
- discount
-win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../3rdparty/discount/release/ -ldiscount
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../3rdparty/discount/debug/ -ldiscount
-else:unix: LIBS += -L/usr/lib -lmarkdown
-
-win32:INCLUDEPATH += $$PWD/../3rdparty/discount
-win32:DEPENDPATH += $$PWD/../3rdparty/discount
-
-# hunspell
-win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../3rdparty/hunspell/lib/ -lhunspell
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../3rdparty/hunspell/lib/ -lhunspell
-
-unix:!macx {
-  PKGCONFIG += hunspell
-}
-
-macx {
-  LIBS += -lhunspell
-}
-
-win32:INCLUDEPATH += $$PWD/../3rdparty/hunspell/src
-win32:DEPENDPATH += $$PWD/../3rdparty/hunspell/src
 
 message("Using INCLUDEPATH=$$INCLUDEPATH")
 message("Using LIBS=$$LIBS")
