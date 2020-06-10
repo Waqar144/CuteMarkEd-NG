@@ -23,7 +23,7 @@ using hunspell::SpellChecker;
 #include <QDirIterator>
 #include <QTextCodec>
 
-#include <hunspell/hunspell.hxx>
+#include "hunspell/hunspell.hxx"
 
 #include <spellchecker/dictionary.h>
 #include <datalocation.h>
