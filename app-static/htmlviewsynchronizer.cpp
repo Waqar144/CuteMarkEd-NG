@@ -18,7 +18,6 @@
 
 #include <QPlainTextEdit>
 #include <QScrollBar>
-//#include <QWebFrame>
 #include <QWebEngineView>
 
 

@@ -75,27 +75,26 @@ QString MD4CMarkdownConverter::renderAsHtml(MarkdownDocument *document)
         return htmlResult;
     //cache
     mdData = doc->text;
-    const char *data = qstrdup(doc->text.toUtf8().constData());
-    size_t length = strlen(data);
+    const auto data = doc->text.toUtf8();
 
     // return an empty string if the note is empty
-    if (length == 0) {
+    if (data.isEmpty()) {
         return QLatin1String("");
     }
 
-    QByteArray array = QByteArray();
-    int renderResult = md_html(data, MD_SIZE(length),
-                                      captureHtmlFragment,
-                                      &array,
-                                      translateConverterOptions(doc->options),
-                                      0);
+    QByteArray array;
+    const int renderResult = md_html(data.data(), MD_SIZE(data.size()),
+        &captureHtmlFragment,
+        &array,
+        translateConverterOptions(doc->options),
+        0);
 
     QString result;
     if (renderResult == 0) {
         result = QString::fromUtf8(array);
         htmlResult = result;
     } else {
-        qDebug() << "MD4C Failure!";
+        qWarning() << "MD4C Failure!";
     }
 
     return result;
