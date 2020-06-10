@@ -439,10 +439,10 @@ void MarkdownEditor::loadGithubStyle() {
     highlighter->setTextFormat(MarkdownHighlighter::HighlighterState::BlockQuote, format);
 
     format = QTextCharFormat();
-    format.setBackground(QColor("#f8f8f8"));
     format.setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
-    highlighter->setTextFormat(MarkdownHighlighter::HighlighterState::InlineCodeBlock, format);
     highlighter->setTextFormat(MarkdownHighlighter::HighlighterState::CodeBlock, format);
+    format.setBackground(QColor("#f8f8f8"));
+    highlighter->setTextFormat(MarkdownHighlighter::HighlighterState::InlineCodeBlock, format);
 
     /****************************************
      * Formats for syntax highlighting
