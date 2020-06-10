@@ -4,3 +4,6 @@
 [submodule "3rdparty/md4c"]
 	path = 3rdparty/md4c
 	url = https://github.com/mity/md4c
+[submodule "3rdparty/hunspell/hunspell"]
+	path = 3rdparty/hunspell/hunspell
+	url = https://github.com/hunspell/hunspell.git
