@@ -14,7 +14,7 @@ public:
 protected:
     bool lessThan(const QModelIndex &left, const QModelIndex &right) const
     {
-        QFileSystemModel *model = static_cast<QFileSystemModel*>(this->sourceModel());
+        QFileSystemModel* model = static_cast<QFileSystemModel*>(this->sourceModel());
 
         QFileInfo leftInfo  = model->fileInfo(left);
         QFileInfo rightInfo = model->fileInfo(right);
@@ -35,6 +35,10 @@ FileExplorerWidget::FileExplorerWidget(QWidget *parent) :
     sortModel(new FileSortFilterProxyModel(this))
 {
     ui->setupUi(this);
+
+    //only show .md and .txt files
+    model->setNameFilters({ "*.txt", "*.md" });
+    model->setNameFilterDisables(false);
 
     sortModel->setDynamicSortFilter(true);
     sortModel->setSourceModel(model);
