@@ -28,7 +28,9 @@ public slots:
     void setPath(const QString &path);
 
 private slots:
-    void fileOpen(const QModelIndex &index);
+    void fileOpen(const QModelIndex& index);
+    void onDoubleClick(const QModelIndex& index);
+    void oncustomContextMenuRequested(const QPoint p);
 
 private:
     bool initialized;
