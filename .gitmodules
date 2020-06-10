@@ -1,9 +1,3 @@
-[submodule "3rdparty/discount"]
-	path = 3rdparty/discount
-	url = https://github.com/cloose/discount.git
-[submodule "3rdparty/hunspell"]
-	path = 3rdparty/hunspell
-	url = https://github.com/cloose/hunspell-mingw.git
 [submodule "3rdparty/qmarkdowntextedit"]
 	path = 3rdparty/qmarkdowntextedit
 	url = https://github.com/pbek/qmarkdowntextedit
