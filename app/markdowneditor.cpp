@@ -223,7 +223,7 @@ bool MarkdownEditor::canInsertFromMimeData(const QMimeData *source) const
 void MarkdownEditor::insertFromMimeData(const QMimeData *source)
 {
     if (isUrlToLocalFile(source)) {
-        emit loadDroppedFile(source->urls().first().toLocalFile());
+        emit loadDroppedFile(source->urls().constFirst().toLocalFile());
     } else {
         QPlainTextEdit::insertFromMimeData(source);
     }
@@ -366,7 +366,7 @@ void MarkdownEditor::addWordToUserWordlist()
 
 bool MarkdownEditor::isUrlToLocalFile(const QMimeData *source) const
 {
-    return source->hasUrls() && (source->urls().count() == 1) && source->urls().first().isLocalFile();
+    return source->hasUrls() && (source->urls().count() == 1) && source->urls().constFirst().isLocalFile();
 }
 
 void MarkdownEditor::loadStyleFromStylesheet(const QString &fileName)

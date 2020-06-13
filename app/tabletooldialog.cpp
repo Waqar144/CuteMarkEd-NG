@@ -59,6 +59,7 @@ int TableToolDialog::columns() const
 QList<Qt::Alignment> TableToolDialog::alignments() const
 {
     QList<Qt::Alignment> alignments;
+    alignments.reserve(alignmentComboBoxList.size());
 
     for (QComboBox *cb : qAsConst(alignmentComboBoxList)) {
         Qt::Alignment alignment = (Qt::Alignment)cb->itemData(cb->currentIndex()).toInt();
@@ -74,6 +75,7 @@ QList<QStringList> TableToolDialog::tableCells() const
 
     for (int row = 0; row < rows(); ++row) {
         QStringList rowData;
+        rowData.reserve(columns());
 
         for (int col = 0; col < columns(); ++col) {
             rowData << cellEditorMap[QPoint(col, row)]->text();

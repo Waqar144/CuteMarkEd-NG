@@ -260,9 +260,9 @@ void MarkdownManipulator::insertImageLink(const QString &alternateText, const QS
 
     QString imageLink;
     if (optionalTitle.isEmpty()) {
-        imageLink = QStringLiteral("![%1](%2)").arg(alternateText).arg(imageSource);
+        imageLink = QString("![%1](%2)").arg(alternateText, imageSource);
     } else {
-        imageLink = QStringLiteral("![%1](%2 \"%3\")").arg(alternateText).arg(imageSource).arg(optionalTitle);
+        imageLink = QString("![%1](%2 \"%3\")").arg(alternateText, imageSource, optionalTitle);
     }
 
     cursor.insertText(imageLink);

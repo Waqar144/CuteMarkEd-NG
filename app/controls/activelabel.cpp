@@ -73,9 +73,9 @@ void ActiveLabel::updateFromAction()
 
     if (m_action->isCheckable()) {
         if (m_action->isChecked())
-            setText(QStringLiteral("%1: %2").arg(actionText).arg(tr("on")));
+            setText(QStringLiteral("%1: %2").arg(actionText, tr("on")));
         else
-            setText(QStringLiteral("%1: %2").arg(actionText).arg(tr("off")));
+            setText(QStringLiteral("%1: %2").arg(actionText, tr("off")));
     } else {
         setText(actionText);
     }

@@ -554,7 +554,7 @@ void MainWindow::applyCurrentTheme()
 
     // get resource or file name from url
     QString cssFileName;
-    if (cssUrl.scheme() == "qrc") {
+    if (cssUrl.scheme() == QLatin1String("qrc")) {
         cssFileName = cssUrl.toString().remove(0, 3);
     } else {
         cssFileName = cssUrl.toLocalFile();

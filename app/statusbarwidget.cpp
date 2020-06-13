@@ -102,9 +102,7 @@ void StatusBarWidget::cursorPositionChanged()
     int column = cursor.positionInBlock();
 
     m_lineColLabel->setText(tr("Line %1, Column %2 %3")
-            .arg(QLocale().toString(line + 1))
-            .arg(QLocale().toString(column + 1))
-            .arg(QStringLiteral("|"))
+            .arg(QLocale().toString(line + 1), QLocale().toString(column + 1), QStringLiteral("|"))
             );
 }
 
