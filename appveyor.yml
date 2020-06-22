@@ -15,7 +15,9 @@ install:
 before_build:
     - mkdir build
     - cd build
+    - '"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvars64.bat"'
     - qmake ..\CuteMarkEd.pro
 
 build_script:
+    - for /r C:\projects\cutemarked-ng\app\translations\ %%i in (*.ts) do lrelease %%i
     - nmake
