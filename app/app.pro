@@ -45,8 +45,8 @@ include(../3rdparty/hunspell/hunspell.pri)
 INCLUDEPATH += $$PWD
 
 SOURCES += \
-    main.cpp\
-    mainwindow.cpp \
+    cutemarkedmain.cpp \
+    cutemarkedmainwindow.cpp \
     markdowneditor.cpp \
     controls/linenumberarea.cpp \
     controls/activelabel.cpp \
@@ -87,7 +87,7 @@ unix {
 }
 
 HEADERS  += \
-    mainwindow.h \
+    cutemarkedmainwindow.h \
     markdowneditor.h \
     controls/linenumberarea.h \
     controls/activelabel.h \
@@ -114,9 +114,9 @@ HEADERS  += \
     controls/navigationwidget.h
 
 FORMS    += \
-    mainwindow.ui \
     controls/fileexplorerwidget.ui \
     controls/findreplacewidget.ui \
+    cutemarkedmainwindow.ui \
     exportpdfdialog.ui \
     exporthtmldialog.ui \
     optionsdialog.ui \
