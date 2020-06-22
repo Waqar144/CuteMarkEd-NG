@@ -1,23 +1,29 @@
+image:
+    - Visual Studio 2019
+
 branches:
     except:
         - gh-pages
 
 environment:
-    QTDIR: C:\Qt\5.4\mingw491_32
-    MINGW_DIR: C:\Qt\Tools\mingw491_32 
+    QTDIR: C:\Qt\5.14.2\msvc2017_64
 
 install:
-    - set PATH=%QTDIR%\bin;%MINGW_DIR%\bin;%PATH%
+    - set PATH=%QTDIR%\bin;%PATH%
     - git submodule update --init --recursive
 
 before_build:
     - mkdir build
     - cd build
+    - '"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvars64.bat"'
     - qmake ..\CuteMarkEd.pro
 
 build_script:
-    - mingw32-make
+    - for /r C:\projects\cutemarked-ng\app\translations\ %%i in (*.ts) do lrelease %%i
+    - nmake
+    - C:\projects\cutemarked-ng\win32installer\makeinstaller.bat
 
-test_script:
-    - cd test\unit
-    - mingw32-make check
+artifacts:
+    - path: win32installer\installer.exe
+      name: CuteMarkEd-NG Installer
+    

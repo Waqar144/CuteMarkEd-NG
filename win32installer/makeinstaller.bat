@@ -1,0 +1,3 @@
+copy C:\projects\cutemarked-ng\build\app\release\cutemarked.exe C:\projects\cutemarked-ng\win32installer\package\io.qt.cutemarked.ng\data\
+windeployqt --release C:\projects\cutemarked-ng\win32installer\package\io.qt.cutemarked.ng\data\cutemarked.exe
+C:\Qt\Tools\QtInstallerFramework\3.2\bin\binarycreator.exe --offline-only -t C:\Qt\Tools\QtInstallerFramework\3.2\bin\installerbase.exe -p C:\projects\cutemarked-ng\win32installer\package C:\projects\cutemarked-ng\win32installer\installer.exe -c C:\projects\cutemarked-ng\win32installer\config\config.xml
