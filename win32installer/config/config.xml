@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<Installer>
+    <Name>CuteMarkEd-NG</Name>
+    <Version>0.11.3</Version>
+    <Title>CuteMarkEd-NG Setup</Title>
+    <Publisher>Community</Publisher>
+    <ProductUrl>https://github.com/Waqar144/CuteMarkEd-NG</ProductUrl>
+    <StartMenuDir>CuteMarkEd-NG</StartMenuDir>
+    <MaintenanceToolName>SDKMaintenanceTool</MaintenanceToolName>
+    <AllowNonAsciiCharacters>true</AllowNonAsciiCharacters>
+
+    <TargetDir>@ApplicationsDirX64@/CuteMarkEd-NG</TargetDir>
+    <AdminTargetDir>@ApplicationsDirX64@/CuteMarkEd-NG</AdminTargetDir>
+</Installer>

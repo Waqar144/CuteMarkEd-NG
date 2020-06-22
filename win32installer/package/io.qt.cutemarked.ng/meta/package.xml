@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<Package>
+    <DisplayName>CuteMarkEd-NG</DisplayName>
+    <Description>CuteMarkEd-NG</Description>
+    <Version>0.11.3</Version>
+    <ReleaseDate>2020-06-22</ReleaseDate>
+    <Name>io.qt.cutemarked.ng</Name>
+    <Default>true</Default>
+    <Script>installscript.qs</Script>
+</Package>

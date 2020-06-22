@@ -21,3 +21,9 @@ before_build:
 build_script:
     - for /r C:\projects\cutemarked-ng\app\translations\ %%i in (*.ts) do lrelease %%i
     - nmake
+    - C:\projects\cutemarked-ng\win32installer\makeinstaller.bat
+
+artifacts:
+    - path: win32installer\installer.exe
+      name: CuteMarkEd-NG Installer
+    
