@@ -144,17 +144,15 @@ void MarkdownEditor::lineNumberAreaPaintEvent(QPaintEvent *event)
 
 int MarkdownEditor::lineNumberAreaWidth()
 {
-    int digits = 2;
-    int max = qMax(1, blockCount());
+    int digits = 3;
+    int max = std::max(1, blockCount());
     while (max >= 100) {
         max /= 10;
         ++digits;
     }
 
     QFont font = lineNumberArea->font();
-    const QFontMetrics linefmt(font);
-    int space = linefmt.horizontalAdvance(QLatin1Char('9')) * digits;
-
+    const int space = QFontMetrics(font).horizontalAdvance(QLatin1Char('9')) * digits;
     return space;
 }
 
