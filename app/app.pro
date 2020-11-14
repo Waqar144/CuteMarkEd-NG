@@ -81,7 +81,7 @@ macx {
         hunspell/spellchecker_macx.cpp
 }
 
-unix {
+unix:!macx {
     SOURCES += \
         hunspell/spellchecker_unix.cpp
 }

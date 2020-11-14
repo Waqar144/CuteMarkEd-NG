@@ -25,7 +25,7 @@ A Qt-based, free and open source markdown editor with live HTML preview, math ex
 
 ##### Instructions
 
-https://github.com/cloose/CuteMarkEd/wiki/Build-Instructions
+[View build instructions](./BUILD.md).
 
 ##### Status
 
