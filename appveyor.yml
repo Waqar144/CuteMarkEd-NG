@@ -1,21 +1,22 @@
 image:
-    - Visual Studio 2019
+    - Visual Studio 2017
 
 branches:
     except:
         - gh-pages
 
 environment:
-    QTDIR: C:\Qt\5.14.2\msvc2017_64
+    QTDIR: C:\Qt\5.13.2\msvc2017_64
 
 install:
     - set PATH=%QTDIR%\bin;%PATH%
     - git submodule update --init --recursive
 
 before_build:
+    - ls C:\Qt\Tools\QtInstallerFramework
     - mkdir build
     - cd build
-    - '"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvars64.bat"'
+    - '"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"'
     - qmake ..\CuteMarkEd.pro
 
 build_script:
