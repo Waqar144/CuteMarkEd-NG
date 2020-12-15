@@ -389,7 +389,14 @@ void MarkdownEditor::loadStyleFromStylesheet(const QString &fileName)
         this->setStyleSheet("MarkdownEditor {"
                             "background-color: white;"
                             "color: black; }");
-        loadGithubStyle();
+
+        // ** You must call at least one load*EditorStyle() in this function.
+        // ** The default formats ignore user-set editor font size.
+        loadGithubEditorStyle();
+    } else {
+        // ** You must call at least one load*EditorStyle() in this function.
+        // ** The default formats ignore user-set editor font size.
+        loadNormalEditorStyle();
     }
 //    if (fileName.contains())
     //this->setStyleSheet("background-color: red;");
@@ -399,27 +406,28 @@ void MarkdownEditor::loadStyleFromStylesheet(const QString &fileName)
 //    this->viewport()->setPalette(this->palette());
 }
 
-void MarkdownEditor::loadGithubStyle() {
+void MarkdownEditor::loadGithubEditorStyle() {
     QTextCharFormat format;
+    int currentFontPointSize = font().pointSize();
 
-    format.setFontPointSize(18);
+    format.setFontPointSize(currentFontPointSize * 1.6);
     format.setForeground(Qt::black);
     format.setFontWeight(QFont::Bold);
 
     highlighter->setTextFormat(MarkdownHighlighter::HighlighterState::H1, format);
-    format.setFontPointSize(16);
+    format.setFontPointSize(currentFontPointSize * 1.5);
     format.setForeground(QColor("#ccc"));
     highlighter->setTextFormat(MarkdownHighlighter::HighlighterState::H2, format);
-    format.setFontPointSize(14);
+    format.setFontPointSize(currentFontPointSize * 1.4);
     format.setForeground(Qt::black);
     highlighter->setTextFormat(MarkdownHighlighter::HighlighterState::H3, format);
-    format.setFontPointSize(13);
+    format.setFontPointSize(currentFontPointSize * 1.3);
     format.setForeground(Qt::black);
     highlighter->setTextFormat(MarkdownHighlighter::HighlighterState::H4, format);
-    format.setFontPointSize(12);
+    format.setFontPointSize(currentFontPointSize * 1.2);
     format.setForeground(Qt::black);
     highlighter->setTextFormat(MarkdownHighlighter::HighlighterState::H5, format);
-    format.setFontPointSize(11);
+    format.setFontPointSize(currentFontPointSize * 1.1);
     format.setForeground(QColor("#777"));
     highlighter->setTextFormat(MarkdownHighlighter::HighlighterState::H6, format);
 
@@ -438,6 +446,7 @@ void MarkdownEditor::loadGithubStyle() {
 
     format = QTextCharFormat();
     format.setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
+    format.setFontPointSize(0);
     highlighter->setTextFormat(MarkdownHighlighter::HighlighterState::CodeBlock, format);
     format.setBackground(QColor("#f8f8f8"));
     highlighter->setTextFormat(MarkdownHighlighter::HighlighterState::InlineCodeBlock, format);
@@ -448,42 +457,182 @@ void MarkdownEditor::loadGithubStyle() {
 
     format = QTextCharFormat();
     format.setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
+    format.setFontPointSize(0);
     format.setForeground(QColor("#333"));
     highlighter->setTextFormat(MarkdownHighlighter::HighlighterState::CodeKeyWord, format);
 
     format = QTextCharFormat();
     format.setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
+    format.setFontPointSize(0);
     format.setForeground(QColor("#d14"));
     highlighter->setTextFormat(MarkdownHighlighter::HighlighterState::CodeString, format);
 
     format = QTextCharFormat();
     format.setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
+    format.setFontPointSize(0);
     format.setForeground(QColor("#998"));
     format.setFontItalic(true);
     highlighter->setTextFormat(MarkdownHighlighter::HighlighterState::CodeComment, format);
 
     format = QTextCharFormat();
     format.setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
+    format.setFontPointSize(0);
     format.setForeground(QColor("#458"));
     highlighter->setTextFormat(MarkdownHighlighter::HighlighterState::CodeType, format);
 
     format = QTextCharFormat();
     format.setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
+    format.setFontPointSize(0);
     format.setForeground(QColor("#999"));
     highlighter->setTextFormat(MarkdownHighlighter::HighlighterState::CodeOther, format);
 
     format = QTextCharFormat();
     format.setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
+    format.setFontPointSize(0);
     format.setForeground(QColor("#008080"));
     highlighter->setTextFormat(MarkdownHighlighter::HighlighterState::CodeNumLiteral, format);
 
     format = QTextCharFormat();
     format.setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
+    format.setFontPointSize(0);
     format.setForeground(QColor("#0086b3"));
     highlighter->setTextFormat(MarkdownHighlighter::HighlighterState::CodeBuiltIn, format);
 }
 
+void MarkdownEditor::loadNormalEditorStyle() {
+    QTextCharFormat format;
+    int currentFontPointSize = font().pointSize();
 
+
+    format.setForeground(QColor(2, 69, 150));
+    format.setFontWeight(QFont::Bold);
+    format.setFontPointSize(currentFontPointSize * 1.6);
+    highlighter->setTextFormat(MarkdownHighlighter::HighlighterState::H1, format);
+    format.setFontPointSize(currentFontPointSize * 1.5);
+    highlighter->setTextFormat(MarkdownHighlighter::HighlighterState::H2, format);
+    format.setFontPointSize(currentFontPointSize * 1.4);
+    format.setForeground(Qt::black);
+    highlighter->setTextFormat(MarkdownHighlighter::HighlighterState::H3, format);
+    format.setFontPointSize(currentFontPointSize * 1.3);
+    format.setForeground(Qt::black);
+    highlighter->setTextFormat(MarkdownHighlighter::HighlighterState::H4, format);
+    format.setFontPointSize(currentFontPointSize * 1.2);
+    format.setForeground(Qt::black);
+    highlighter->setTextFormat(MarkdownHighlighter::HighlighterState::H5, format);
+    format.setFontPointSize(currentFontPointSize * 1.1);
+    highlighter->setTextFormat(MarkdownHighlighter::HighlighterState::H6, format);
+
+    format = QTextCharFormat();
+    format.setForeground(Qt::darkGray);
+    format.setBackground(Qt::lightGray);
+    highlighter->setTextFormat(MarkdownHighlighter::HighlighterState::HorizontalRuler, format);
+
+    format = QTextCharFormat();
+    format.setForeground(QColor(163, 0, 123));
+    highlighter->setTextFormat(MarkdownHighlighter::HighlighterState::List, format);
+
+    format = QTextCharFormat();
+    format.setForeground(QColor(123, 100, 223));
+    highlighter->setTextFormat(MarkdownHighlighter::HighlighterState::CheckBoxUnChecked, format);
+    format = QTextCharFormat();
+    format.setForeground(QColor(223, 50, 123));
+    highlighter->setTextFormat(MarkdownHighlighter::HighlighterState::CheckBoxChecked, format);
+
+    format = QTextCharFormat();
+    format.setForeground(QColor(0, 128, 255));
+    format.setFontUnderline(true);
+    highlighter->setTextFormat(MarkdownHighlighter::HighlighterState::Link, format);
+
+    format = QTextCharFormat();
+    format.setForeground(QColor(0, 191, 0));
+    format.setBackground(QColor(228, 255, 228));
+    highlighter->setTextFormat(MarkdownHighlighter::HighlighterState::Image, format);
+
+    format = QTextCharFormat();
+    format.setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
+    format.setFontPointSize(0);
+    highlighter->setTextFormat(MarkdownHighlighter::HighlighterState::CodeBlock, format);
+    highlighter->setTextFormat(MarkdownHighlighter::HighlighterState::InlineCodeBlock, format);
+
+    format = QTextCharFormat();
+    format.setFontWeight(QFont::StyleItalic);
+    format.setFontItalic(true);
+    highlighter->setTextFormat(MarkdownHighlighter::HighlighterState::Italic, format);
+
+    format = QTextCharFormat();
+    format.setFontWeight(QFont::Bold);
+    highlighter->setTextFormat(MarkdownHighlighter::HighlighterState::Bold, format);
+
+    format = QTextCharFormat();
+    format.setForeground(QBrush(Qt::gray));
+    highlighter->setTextFormat(MarkdownHighlighter::HighlighterState::Comment, format);
+
+    format = QTextCharFormat();
+    format.setForeground(QColor(204, 204, 204));
+    highlighter->setTextFormat(MarkdownHighlighter::HighlighterState::MaskedSyntax, format);
+
+    format = QTextCharFormat();
+    format.setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
+    format.setFontPointSize(0);
+    format.setForeground(QColor(100, 148, 73));
+    highlighter->setTextFormat(MarkdownHighlighter::HighlighterState::Table, format);
+
+    format = QTextCharFormat();
+    format.setForeground(Qt::darkRed);
+    highlighter->setTextFormat(MarkdownHighlighter::HighlighterState::BlockQuote, format);
+
+    format = QTextCharFormat();
+    highlighter->setTextFormat(MarkdownHighlighter::HighlighterState::HeadlineEnd, format);
+
+    format = QTextCharFormat();
+    highlighter->setTextFormat(MarkdownHighlighter::HighlighterState::NoState, format);
+
+    /****************************************
+     * Formats for syntax highlighting
+     ***************************************/
+
+    format = QTextCharFormat();
+    format.setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
+    format.setFontPointSize(0);
+    format.setForeground(QColor(249, 38, 114));
+    highlighter->setTextFormat(MarkdownHighlighter::HighlighterState::CodeKeyWord, format);
+
+    format = QTextCharFormat();
+    format.setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
+    format.setFontPointSize(0);
+    format.setForeground(QColor(163, 155, 78));
+    highlighter->setTextFormat(MarkdownHighlighter::HighlighterState::CodeString, format);
+
+    format = QTextCharFormat();
+    format.setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
+    format.setFontPointSize(0);
+    format.setForeground(QColor(117, 113, 94));
+    highlighter->setTextFormat(MarkdownHighlighter::HighlighterState::CodeComment, format);
+
+    format = QTextCharFormat();
+    format.setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
+    format.setFontPointSize(0);
+    format.setForeground(QColor(84, 174, 191));
+    highlighter->setTextFormat(MarkdownHighlighter::HighlighterState::CodeType, format);
+
+    format = QTextCharFormat();
+    format.setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
+    format.setFontPointSize(0);
+    format.setForeground(QColor(219, 135, 68));
+    highlighter->setTextFormat(MarkdownHighlighter::HighlighterState::CodeOther, format);
+
+    format = QTextCharFormat();
+    format.setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
+    format.setFontPointSize(0);
+    format.setForeground(QColor(174, 129, 255));
+    highlighter->setTextFormat(MarkdownHighlighter::HighlighterState::CodeNumLiteral, format);
+
+    format = QTextCharFormat();
+    format.setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
+    format.setFontPointSize(0);
+    format.setForeground(QColor(1, 138, 15));
+    highlighter->setTextFormat(MarkdownHighlighter::HighlighterState::CodeBuiltIn, format);
+}
 
 int MarkdownEditor::countWords() const
 {
