@@ -51,6 +51,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(const QString &fileName = QString(), QWidget *parent = 0);
     ~MainWindow();
+    void previewLinkClicked(const QUrl &url);
 
 protected:
     void closeEvent(QCloseEvent *e) Q_DECL_OVERRIDE;
@@ -113,8 +114,6 @@ private slots:
 
     void plainTextChanged();
     void htmlResultReady(const QString &html);
-
-    void previewLinkClicked(const QUrl &url);
 
     void splitterMoved(int pos, int index);
 
