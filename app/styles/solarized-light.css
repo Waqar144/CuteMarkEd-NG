@@ -19,9 +19,9 @@ img {
   vertical-align: baseline;
 }
 html * {
-  font-family: "ff-din-web-pro-1", "ff-din-web-pro-2", sans-serif;
-  font-size: 16px;
-  line-height: 19.2px;
+  font-family: sans-serif;
+  font-size: 1em;
+  line-height: 1.2;
   color-profile: sRGB;
 }
 body {
@@ -29,7 +29,7 @@ body {
 }
 p {
   font-weight: lighter;
-  margin-bottom: 20px;
+  margin-bottom: 0.8em;
 }
 strong {
   font-weight: bold;
@@ -37,16 +37,16 @@ strong {
 ol,
 ul {
   margin-left: 2em;
-  margin-bottom: 20px;
+  margin-bottom: 0.6em;
 }
 ul ul,
 ol ol,
 ul ol,
 ol ul {
-  margin-top: 10px;
+  margin-top: 0.3em;
 }
 li {
-  margin-bottom: 10px;
+  margin-bottom: 0.3em;
 }
 h1,
 h2,
@@ -56,35 +56,35 @@ h5,
 h6 {
   font-weight: lighter;
   text-transform: capitalize;
-  margin-top: 40px;
-  margin-bottom: 20px;
+  margin-top: 0.7em;
+  margin-bottom: 0.35em;
 }
 h1 {
-  font-size: 24.624px;
-  line-height: 29.548799999999996px;
+  font-size: 1.6em;
+  line-height: 1.2;
 }
 h2 {
-  font-size: 24.624px;
-  line-height: 29.548799999999996px;
+  font-size: 1.6em;
+  line-height: 1.2;
 }
 h3 {
-  font-size: 23.44px;
-  line-height: 28.128px;
+  font-size: 1.45em;
+  line-height: 1.2;
 }
 h4 {
-  font-size: 22.16px;
-  line-height: 26.592px;
+  font-size: 1.38em;
+  line-height: 1.2;
 }
 h5 {
-  font-size: 22.16px;
-  line-height: 26.592px;
+  font-size: 1.38em;
+  line-height: 1.2;
 }
 h6 {
-  font-size: 22.16px;
-  line-height: 26.592px;
+  font-size: 1.38em;
+  line-height: 1.2;
 }
 img {
-  margin-bottom: 20px;
+  margin-bottom: 1.25em;
 }
 h1 img,
 h2 img,
@@ -96,27 +96,27 @@ p img {
   margin-bottom: 0;
 }
 pre {
-  margin-bottom: 20px;
+  margin-bottom: 1.25em;
 }
 pre,
 code {
-  font-family: "Source Code Pro", Monokai, Consolas, Inconsolata,  Courier, monospace;
+  font-family: monospace;
 }
 pre {
   white-space: pre;
   white-space: pre-wrap;
   word-wrap: break-word;
-  padding: 15px;
+  padding: 0.95em;
 }
 blockquote {
   border-left: 4px solid;
-  padding: 0 15px;
+  padding: 0 0.95em;
 }
 blockquote > :first-child {
   margin-top: 0;
 }
 blockquote > :last-child {
-  margin-bottom: 15px;
+  margin-bottom: 0.95em;
 }
 h1 {
   text-transform: uppercase;

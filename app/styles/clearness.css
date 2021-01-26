@@ -42,7 +42,7 @@ hr {
 }
 pre > code {
 /*  font-size: .9em;*/
-  font-family: "Source Code Pro", Monokai, Consolas, Inconsolata,  Courier, monospace;
+  font-family: monospace;
 }
 blockquote {
   padding: 0 15px;
