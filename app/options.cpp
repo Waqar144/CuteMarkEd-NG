@@ -22,6 +22,7 @@
 static const QString MARKDOWN_CONVERTER = QStringLiteral("General/converter");
 static const QString LAST_USED_THEME = QStringLiteral("General/lastusedtheme");
 static const QString EXPLORER_DEFAULT_PATH = QStringLiteral("General/explorerPath");
+static const QString EXPLORER_WILL_USE_CURRENT_FILE_PATH = QStringLiteral("General/willUseCurrentFilePath");
 static const QString THEME_DEFAULT = QStringLiteral("Default");
 static const QString FONT_FAMILY_DEFAULT = QStringLiteral("Monospace");
 static const QString FONT_FAMILY = QStringLiteral("editor/font/family");
@@ -496,6 +497,16 @@ void Options::setExplorerDefaultPath(const QString &path)
     }
 }
 
+bool Options::willUseCurrentFilePath() const
+{
+    return m_willUseCurrentFilePath;
+}
+
+void Options::setWillUseCurrentFilePath(bool enabled)
+{
+    m_willUseCurrentFilePath = enabled;
+}
+
 
 QString Options::lastUsedTheme() const
 {
@@ -515,6 +526,7 @@ void Options::readSettings()
     m_markdownConverter = (Options::MarkdownConverter)settings.value(MARKDOWN_CONVERTER, 0).toInt();
     m_lastUsedTheme = settings.value(LAST_USED_THEME, THEME_DEFAULT).toString();
     m_explorerDefaultPath = settings.value(EXPLORER_DEFAULT_PATH, QDir::homePath()).toString();
+    m_willUseCurrentFilePath = settings.value(EXPLORER_WILL_USE_CURRENT_FILE_PATH, true).toBool();
 
     // editor settings
     QString fontFamily = settings.value(FONT_FAMILY, FONT_FAMILY_DEFAULT).toString();
@@ -593,6 +605,7 @@ void Options::writeSettings()
     settings.setValue(MARKDOWN_CONVERTER, m_markdownConverter);
     settings.setValue(LAST_USED_THEME, m_lastUsedTheme);
     settings.setValue(EXPLORER_DEFAULT_PATH, m_explorerDefaultPath);
+    settings.setValue(EXPLORER_WILL_USE_CURRENT_FILE_PATH, m_willUseCurrentFilePath);
 
     // editor settings
     settings.setValue(FONT_FAMILY, font.family());

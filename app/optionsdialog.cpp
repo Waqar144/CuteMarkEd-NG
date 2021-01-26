@@ -288,6 +288,7 @@ void OptionsDialog::readState()
     // general settings
     ui->converterComboBox->setCurrentIndex(options->markdownConverter());
     ui->pathLineEdit->setText(options->explorerDefaultPath());
+    ui->useCurrentFilePathCheckbox->setChecked(options->willUseCurrentFilePath());
 
     // editor settings
     QFont font = options->editorFont();
@@ -339,6 +340,7 @@ void OptionsDialog::saveState()
     // general settings
     options->setMarkdownConverter((Options::MarkdownConverter)ui->converterComboBox->currentIndex());
     options->setExplorerDefaultPath(ui->pathLineEdit->text());
+    options->setWillUseCurrentFilePath(ui->useCurrentFilePathCheckbox->isChecked());
 
     // editor settings
     QFont font = ui->fontComboBox->currentFont();
