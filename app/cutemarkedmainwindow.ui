@@ -204,7 +204,7 @@
     <addaction name="actionRedo"/>
     <addaction name="separator"/>
     <addaction name="actionCut"/>
-    <addaction name="actionCopy"/>
+    <addaction name="actionMyEditorCopy"/>
     <addaction name="actionPaste"/>
     <addaction name="actionCopyHtmlToClipboard"/>
     <addaction name="separator"/>
@@ -442,7 +442,7 @@
     <string>Cu&amp;t</string>
    </property>
   </action>
-  <action name="actionCopy">
+  <action name="actionMyEditorCopy">
    <property name="text">
     <string>&amp;Copy</string>
    </property>
@@ -1058,7 +1058,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>actionCopy</sender>
+   <sender>actionMyEditorCopy</sender>
    <signal>triggered()</signal>
    <receiver>plainTextEdit</receiver>
    <slot>copy()</slot>
