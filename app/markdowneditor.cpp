@@ -404,6 +404,8 @@ void MarkdownEditor::loadStyleFromStylesheet(const QString &fileName)
     // update color palette
 //    this->setPalette(parser.editorPalette());
 //    this->viewport()->setPalette(this->palette());
+
+    highlighter->rehighlight();
 }
 
 void MarkdownEditor::loadGithubEditorStyle() {
