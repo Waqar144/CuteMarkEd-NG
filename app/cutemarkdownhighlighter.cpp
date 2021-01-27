@@ -64,7 +64,7 @@ void CuteMarkdownHighlighter::setYamlHeaderSupportEnabled(bool enabled)
 
 void CuteMarkdownHighlighter::highlightBlock(const QString &textBlock)
 {
-    if (textBlock.isEmpty() && !MarkdownHighlighter::isCodeBlock(previousBlockState())) {
+    if (false && textBlock.isEmpty() && !MarkdownHighlighter::isCodeBlock(previousBlockState())) {
         return;
     }
 
