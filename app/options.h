@@ -151,6 +151,9 @@ public:
     QString explorerDefaultPath() const;
     void setExplorerDefaultPath(const QString &path);
 
+    bool willUseCurrentFilePath() const;
+    void setWillUseCurrentFilePath(bool enabled);
+
     QString lastUsedTheme() const;
     void setLastUsedTheme(const QString &theme);
 
@@ -203,6 +206,7 @@ private:
     QString m_dictionaryLanguage;
     MarkdownConverter m_markdownConverter;
     QString m_explorerDefaultPath;
+    bool m_willUseCurrentFilePath;
     QString m_lastUsedTheme;
     QString m_standardFontFamily;
     QString m_fixedFontFamily;

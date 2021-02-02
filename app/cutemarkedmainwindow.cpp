@@ -190,7 +190,7 @@ void MainWindow::initializeApp()
     connect(ui->fileExplorerDockContents, SIGNAL(fileSelected(QString)),
             this, SLOT(openRecentFile(QString)));
     connect(options, &Options::explorerPathChanged,
-            ui->fileExplorerDockContents, &FileExplorerWidget::setPath);
+            ui->fileExplorerDockContents, &FileExplorerWidget::onDefaultPathChanged);
 
     //toc/navigation parser
     connect(ui->plainTextEdit->getHighlighter(), &CuteMarkdownHighlighter::highlightingFinished,
@@ -275,8 +275,8 @@ bool MainWindow::fileSave()
 
 bool MainWindow::fileSaveAs()
 {
-    QString name = QFileDialog::getSaveFileName(this, tr("Save as..."), QString(),
-                                              tr("Markdown Files (*.markdown *.md *.mdown);;All Files (*)"));
+    QString name = QFileDialog::getSaveFileName(this, tr("Save as..."), ui->fileExplorerDockContents->getPath(),
+                                              tr("Markdown Files (*.md *.markdown *.mdown);;All Files (*)"));
     if (name.isEmpty()) {
         return false;
     }
@@ -880,6 +880,13 @@ bool MainWindow::load(const QString &fileName)
 
     ui->plainTextEdit->resetHighlighting();
     ui->plainTextEdit->setPlainText(text);
+
+    QSettings settings;
+    bool willExplorerUseCurrentFilePath = settings.value(QStringLiteral("General/willUseCurrentFilePath"), true).toBool();
+    if (willExplorerUseCurrentFilePath) {
+        QFileInfo fileInfo(fileName);
+        ui->fileExplorerDockContents->setPath(fileInfo.absoluteDir().path());
+    }
 
     // remember name of new file
     setFileName(fileName);

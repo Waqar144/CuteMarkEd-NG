@@ -38,7 +38,7 @@ FileExplorerWidget::FileExplorerWidget(QWidget *parent) :
     ui->setupUi(this);
 
     //only show .md and .txt files
-    model->setNameFilters({ "*.txt", "*.md" });
+    model->setNameFilters({ "*.txt", "*.md", "*.markdown", "*.mdown" });
     model->setNameFilterDisables(false);
 
     ui->fileTreeView->setContextMenuPolicy(Qt::CustomContextMenu);
@@ -83,6 +83,21 @@ void FileExplorerWidget::showEvent(QShowEvent *event)
 void FileExplorerWidget::setPath(const QString &path)
 {
     ui->fileTreeView->setRootIndex(model->index(path));
+}
+
+QString FileExplorerWidget::getPath()
+{
+    return model->filePath(ui->fileTreeView->rootIndex());
+}
+
+void FileExplorerWidget::onDefaultPathChanged(const QString &path)
+{
+    QSettings settings;
+    if (settings.value(QStringLiteral("General/willUseCurrentFilePath"), true).toBool()) {
+        ;
+    } else {
+        setPath(path);
+    }
 }
 
 void FileExplorerWidget::fileOpen(const QModelIndex &index)

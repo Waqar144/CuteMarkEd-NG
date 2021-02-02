@@ -16,8 +16,10 @@ class FileExplorerWidget : public QWidget
 
 public:
     explicit FileExplorerWidget(QWidget *parent = 0);
+    void setPath(const QString &path);
     ~FileExplorerWidget();
 
+    QString getPath();
 signals:
     void fileSelected(const QString &filePath);
 
@@ -25,7 +27,7 @@ protected:
     void showEvent(QShowEvent *event);
 
 public slots:
-    void setPath(const QString &path);
+    void onDefaultPathChanged(const QString &path);
 
 private slots:
     void fileOpen(const QModelIndex& index);

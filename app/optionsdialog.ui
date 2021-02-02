@@ -62,21 +62,32 @@
          <property name="title">
           <string>File Explorer</string>
          </property>
-         <layout class="QHBoxLayout" name="horizontalLayout_5">
+         <layout class="QVBoxLayout" name="verticalLayout_12">
           <item>
-           <widget class="QLabel" name="pathLabel">
-            <property name="text">
-             <string>Default Path: </string>
-            </property>
-           </widget>
+           <layout class="QHBoxLayout" name="horizontalLayout_5">
+            <item>
+             <widget class="QLabel" name="pathLabel">
+              <property name="text">
+               <string>Default Path: </string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="pathLineEdit"/>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pathBrowseButton">
+              <property name="text">
+               <string>...</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
           <item>
-           <widget class="QLineEdit" name="pathLineEdit"/>
-          </item>
-          <item>
-           <widget class="QPushButton" name="pathBrowseButton">
+           <widget class="QCheckBox" name="useCurrentFilePathCheckbox">
             <property name="text">
-             <string>...</string>
+             <string>Use current file path</string>
             </property>
            </widget>
           </item>
