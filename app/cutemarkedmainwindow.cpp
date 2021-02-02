@@ -42,6 +42,7 @@
 #include <QWebEngineScriptCollection>
 #include <QWebEngineSettings>
 #include <QWebChannel>
+#include <QWebEnginePage>
 
 #ifdef Q_OS_WIN
 #include <QWinJumpList>
@@ -77,6 +78,26 @@
 #include "tabletooldialog.h"
 #include "statusbarwidget.h"
 #include "../fontawesomeicon/fontawesomeiconengine.h"
+
+class MyQWebEnginePage : public QWebEnginePage
+{
+    Q_OBJECT
+
+private:
+    MainWindow *mainWindow;
+
+public:
+    MyQWebEnginePage(QObject *parent, MainWindow *mainWindow) : QWebEnginePage(parent), mainWindow(mainWindow) {}
+
+    bool acceptNavigationRequest(const QUrl &url, QWebEnginePage::NavigationType type, bool isMainFrame)
+    {
+        if (type == QWebEnginePage::NavigationTypeLinkClicked && isMainFrame) {
+            mainWindow->previewLinkClicked(url);
+            return false;
+        }
+        return true;
+    }
+};
 
 MainWindow::MainWindow(const QString &fileName, QWidget *parent) :
     QMainWindow(parent),
@@ -138,8 +159,9 @@ void MainWindow::resizeEvent(QResizeEvent *e)
 
 void MainWindow::initializeApp()
 {
+    ui->webView->setPage(new MyQWebEnginePage(this, this));
     // inform us when a link in the table of contents or preview view is clicked
-    //ui->webView->page()->setLinkDelegationPolicy(QWebPage::DelegateAllLinks);
+    // ui->webView->page()->setLinkDelegationPolicy(QWebPage::DelegateAllLinks);
     addJavaScriptObject();
     ui->webView->page()->setWebChannel(channel);
 
@@ -1381,3 +1403,5 @@ void MainWindow::removeStyleSheet(const QString &name, bool immediately)
     QWebEngineScript script = ui->webView->page()->scripts().findScript(name);
     ui->webView->page()->scripts().remove(script);
 }
+
+#include "cutemarkedmainwindow.moc"
