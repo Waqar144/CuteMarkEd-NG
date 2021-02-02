@@ -1,8 +1,8 @@
 body {
      	/* SANS-SERIF */	
-		font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+		font-family: sans-serif !important;
 		-webkit-font-smoothing: antialiased !important;
-  font-size: 16px;
+  font-size: 1em;
   line-height: 1.4;
   padding-top: 10px;
   padding-bottom: 10px;
