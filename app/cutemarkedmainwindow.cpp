@@ -694,7 +694,7 @@ void MainWindow::extrasOptions()
     actions << ui->actionUndo
             << ui->actionRedo
             << ui->actionCut
-            << ui->actionCopy
+            << ui->actionMyEditorCopy
             << ui->actionPaste
             << ui->actionStrong
             << ui->actionCopyHtmlToClipboard
@@ -1034,8 +1034,16 @@ void MainWindow::setupActions()
     SetActionShortcut(ui->actionUndo, QKeySequence::Undo);
     SetActionShortcut(ui->actionRedo, QKeySequence::Redo);
 
+    // TODO： Do we want to disable global Ctrl-V shortcut too?
     SetActionShortcut(ui->actionCut, QKeySequence::Cut);
-    SetActionShortcut(ui->actionCopy, QKeySequence::Copy);
+
+    // We disable global Ctrl-C shortcut, to enable Ctrl-C on HTML preview
+
+    // We have to change the name to actionMyEditorCopy.
+    // Action named actionCopy will be automatically assigned shortcut Ctrl-C,
+    // which is not what we want
+    // SetActionShortcut(ui->actionMyEditorCopy, QKeySequence::Copy);
+
     SetActionShortcut(ui->actionPaste, QKeySequence::Paste);
 
     SetActionShortcut(ui->actionStrong, QKeySequence::Bold);
@@ -1103,7 +1111,7 @@ void MainWindow::setActionsIcons()
   ui->actionRedo->setIcon(QIcon("fa-repeat.fontawesome"));
 
   ui->actionCut->setIcon(QIcon("fa-scissors.fontawesome"));
-  ui->actionCopy->setIcon(QIcon("fa-files-o.fontawesome"));
+  ui->actionMyEditorCopy->setIcon(QIcon("fa-files-o.fontawesome"));
   ui->actionPaste->setIcon(QIcon("fa-clipboard.fontawesome"));
 
   ui->actionStrong->setIcon(QIcon("fa-bold.fontawesome"));
