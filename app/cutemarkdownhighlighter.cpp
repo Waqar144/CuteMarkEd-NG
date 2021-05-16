@@ -64,10 +64,6 @@ void CuteMarkdownHighlighter::setYamlHeaderSupportEnabled(bool enabled)
 
 void CuteMarkdownHighlighter::highlightBlock(const QString &textBlock)
 {
-    if (textBlock.isEmpty()) {
-        return;
-    }
-
     MarkdownHighlighter::highlightBlock(textBlock);
 
 //    // check spelling of passed text block
