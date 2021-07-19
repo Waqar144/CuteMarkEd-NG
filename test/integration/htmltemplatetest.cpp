@@ -23,8 +23,7 @@
 
 static const QString HTML_TEMPLATE = QStringLiteral("<html><head><!--__HTML_HEADER__--></head><body><!--__HTML_CONTENT__--></body></html>");
 static const QString SCROLL_SCRIPT = QStringLiteral("<script type=\"text/javascript\">window.onscroll = function() { synchronizer.webViewScrolled(); }; </script>");
-static const QString MERMAID_CSS   = QStringLiteral("<link rel=\"stylesheet\" href=\"qrc:/scripts/mermaid/mermaid.css\">");
-static const QString MERMAID_JS    = QStringLiteral("<script src=\"qrc:/scripts/mermaid/mermaid.full.min.js\"></script>");
+static const QString MERMAID_JS    = QStringLiteral("<script src=\"qrc:/scripts/mermaid/mermaid.min.js\"></script>\n<script>mermaid.initialize({startOnLoad:true});</script>");
 static const QString HIGHLIGHT_JS  = QStringLiteral("<link rel=\"stylesheet\" href=\"qrc:/scripts/highlight.js/styles/.css\">\n<script src=\"qrc:/scripts/highlight.js/highlight.pack.js\"></script>\n<script>hljs.initHighlightingOnLoad();</script>");
 
 void HtmlTemplateTest::rendersContentInsideBodyTags()
@@ -45,7 +44,7 @@ void HtmlTemplateTest::rendersMermaidGraphInsideCodeTags()
     QString html = htmlTemplate.render("<pre><code class=\"mermaid\">TEST</code></pre>", HtmlTemplate::DiagramSupport);
 
     const QString expected = QStringLiteral("<html><head>%1\n%2\n%3\n</head><body><pre><code class=\"mermaid\">TEST</code></pre></body></html>")
-        .arg(SCROLL_SCRIPT).arg(MERMAID_CSS).arg(MERMAID_JS);
+        .arg(SCROLL_SCRIPT).arg(MERMAID_JS);
     QCOMPARE(html, expected);
 }
 
@@ -56,6 +55,6 @@ void HtmlTemplateTest::replacesMermaidCodeTagsByDivTagsIfCodeHighlightingEnabled
     QString html = htmlTemplate.render("<pre><code class=\"mermaid\">TEST</code></pre>", HtmlTemplate::DiagramSupport | HtmlTemplate::CodeHighlighting);
 
     const QString expected = QStringLiteral("<html><head>%1\n%2\n%3\n%4\n</head><body><div class=\"mermaid\">\nTEST</div></body></html>")
-        .arg(SCROLL_SCRIPT).arg(HIGHLIGHT_JS).arg(MERMAID_CSS).arg(MERMAID_JS);
+        .arg(SCROLL_SCRIPT).arg(HIGHLIGHT_JS).arg(MERMAID_JS);
     QCOMPARE(html, expected);
 }
