@@ -184,6 +184,7 @@ void MainWindow::initializeApp()
     // init option flags
     ui->actionMathSupport->setChecked(options->isMathSupportEnabled());
     ui->actionDiagramSupport->setChecked(options->isDiagramSupportEnabled());
+    ui->actionWavedromSupport->setChecked(options->isWavedromSupportEnabled());
     ui->actionCodeHighlighting->setChecked(options->isCodeHighlightingEnabled());
     ui->actionShowSpecialCharacters->setChecked(options->isShowSpecialCharactersEnabled());
     ui->actionWordWrap->setChecked(options->isWordWrapEnabled());
@@ -1070,7 +1071,9 @@ void MainWindow::setupActions()
             generator, SLOT(setMathSupportEnabled(bool)));
     connect(ui->actionDiagramSupport, SIGNAL(triggered(bool)),
             generator, SLOT(setDiagramSupportEnabled(bool)));
-     connect(ui->actionCodeHighlighting, SIGNAL(triggered(bool)),
+    connect(ui->actionWavedromSupport, SIGNAL(triggered(bool)),
+            generator, SLOT(setWavedromSupportEnabled(bool)));
+    connect(ui->actionCodeHighlighting, SIGNAL(triggered(bool)),
             generator, SLOT(setCodeHighlightingEnabled(bool)));
     connect(ui->menuLanguages, SIGNAL(languageTriggered(Dictionary)),
             this, SLOT(languageChanged(Dictionary)));

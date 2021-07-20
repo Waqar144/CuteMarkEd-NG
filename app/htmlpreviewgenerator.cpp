@@ -97,6 +97,14 @@ void HtmlPreviewGenerator::setDiagramSupportEnabled(bool enabled)
     generateHtmlFromMarkdown();
 }
 
+void HtmlPreviewGenerator::setWavedromSupportEnabled(bool enabled)
+{
+    options->setWavedromSupportEnabled(enabled);
+
+    // regenerate a HTML document
+    generateHtmlFromMarkdown();
+}
+
 void HtmlPreviewGenerator::setCodeHighlightingEnabled(bool enabled)
 {
     options->setCodeHighlightingEnabled(enabled);
@@ -218,6 +226,11 @@ Template::RenderOptions HtmlPreviewGenerator::renderOptions() const
     // diagram support
     if (options->isDiagramSupportEnabled()) {
         renderOptionFlags |= Template::DiagramSupport;
+    }
+
+    // wavedrom support
+    if (options->isWavedromSupportEnabled()) {
+        renderOptionFlags |= Template::WavedromSupport;
     }
 
     // code highlighting

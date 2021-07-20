@@ -53,15 +53,7 @@ QString HtmlTemplate::render(const QString &body, RenderOptions options) const
     // add scrollbar synchronization
     options |= Template::ScrollbarSynchronization;
 
-    QString htmlBody(body);
-
-    // Mermaid and highlighting.js don't work nicely together
-    // So we need to replace the <code> section by a <div> section
-    if (options.testFlag(Template::CodeHighlighting) && options.testFlag(Template::DiagramSupport)) {
-        convertDiagramCodeSectionToDiv(htmlBody);
-    }
-
-    return renderAsHtml(QString(), htmlBody, options);
+    return renderAsHtml(QString(), body, options);
 }
 
 QString HtmlTemplate::exportAsHtml(const QString &header, const QString &body, RenderOptions options) const
@@ -81,9 +73,21 @@ QString HtmlTemplate::renderAsHtml(const QString &header, const QString &body, T
     QString htmlHeader = buildHtmlHeader(options);
     htmlHeader += header;
 
+    QString htmlBody(body);
+    // Mermaid and highlighting.js don't work nicely together
+    // So we need to replace the <code> section by a <div> section
+    if (options.testFlag(Template::CodeHighlighting) && options.testFlag(Template::DiagramSupport)) {
+        convertDiagramCodeSectionToDiv(htmlBody);
+    }
+
+    if (options.testFlag(Template::WavedromSupport)) {
+        convertWavedromCodeSectionToScript(htmlBody);
+        htmlBody += QLatin1String("<script>WaveDrom.ProcessAll();</script>\n");
+    }
+
     return QString(htmlTemplate)
             .replace(QLatin1String("<!--__HTML_HEADER__-->"), htmlHeader)
-            .replace(QLatin1String("<!--__HTML_CONTENT__-->"), body);
+            .replace(QLatin1String("<!--__HTML_CONTENT__-->"), htmlBody);
 }
 
 QString HtmlTemplate::buildHtmlHeader(RenderOptions options) const
@@ -127,6 +131,12 @@ QString HtmlTemplate::buildHtmlHeader(RenderOptions options) const
         header += QLatin1String("<script src=\"qrc:/scripts/mermaid/mermaid.full.min.js\"></script>\n");
     }
 
+    // add wavedrom.js script to HTML header
+    if (options.testFlag(Template::WavedromSupport)) {
+        header += QLatin1String("<script src=\"https://cdnjs.cloudflare.com/ajax/libs/wavedrom/2.6.8/skins/default.js\" type=\"text/javascript\"></script>\n");
+        header += QLatin1String("<script src=\"https://cdnjs.cloudflare.com/ajax/libs/wavedrom/2.6.8/wavedrom.min.js\" type=\"text/javascript\"></script>\n");
+    }
+
     return header;
 }
 
@@ -135,4 +145,11 @@ void HtmlTemplate::convertDiagramCodeSectionToDiv(QString &body) const
     static const QRegularExpression rx(QStringLiteral("<pre><code class=\"mermaid\">(.*?)</code></pre>"),
                                        QRegularExpression::DotMatchesEverythingOption);
     body.replace(rx, QStringLiteral("<div class=\"mermaid\">\n\\1</div>"));
+}
+
+void HtmlTemplate::convertWavedromCodeSectionToScript(QString &body) const
+{
+    static const QRegularExpression rx(QStringLiteral("<pre><code class=\"language-wavedrom\">(.*?)</code></pre>"),
+                                       QRegularExpression::DotMatchesEverythingOption);
+    body.replace(rx, QStringLiteral("<script type=\"WaveDrom\">\n\\1</script>"));
 }

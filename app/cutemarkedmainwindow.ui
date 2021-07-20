@@ -262,6 +262,7 @@
     </widget>
     <addaction name="actionMathSupport"/>
     <addaction name="actionDiagramSupport"/>
+    <addaction name="actionWavedromSupport"/>
     <addaction name="actionYamlHeaderSupport"/>
     <addaction name="actionCodeHighlighting"/>
     <addaction name="actionShowSpecialCharacters"/>
@@ -711,6 +712,14 @@
    </property>
    <property name="text">
     <string>&amp;Diagram Support</string>
+   </property>
+  </action>
+  <action name="actionWavedromSupport">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Wa&amp;vedrom Support</string>
    </property>
   </action>
  </widget>
