@@ -1,5 +1,7 @@
 ## Change Log
 
+*-* `IMPROVED` Updated mermaid.js library to version 8.11.0
+
 #### Version 0.12
 
 - `INFO` Revival of project and renamed as CuteMarkEd NG
