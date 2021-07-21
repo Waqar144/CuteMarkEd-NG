@@ -1,5 +1,13 @@
 ## Change Log
 
+#### Version 0.12.1
+
+Highlights:
+
+The 0.12.1 release offers support to create timing diagram (waveform) using [wavedrom](https://github.com/wavedrom/wavedrom). 
+ 
+
+* `NEW` Added support to create timing diagrams using [mermaid](https://github.com/wavedrom/wavedrom). see [tutorial](https://wavedrom.com/tutorial.html) for samples.
 #### Version 0.12
 
 - `INFO` Revival of project and renamed as CuteMarkEd NG
