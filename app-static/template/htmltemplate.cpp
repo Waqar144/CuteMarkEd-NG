@@ -82,7 +82,7 @@ QString HtmlTemplate::renderAsHtml(const QString &header, const QString &body, T
 
     if (options.testFlag(Template::WavedromSupport)) {
         convertWavedromCodeSectionToScript(htmlBody);
-        htmlBody += QLatin1String("<script>WaveDrom.ProcessAll();</script>\n");
+        htmlBody += QLatin1String("<script type=\"text/javascript\">\n//wavedrom transformation of schematics\n(function() {\n    try {\n        WaveDrom.ProcessAll();\n    } catch(e) {}\n})();\n</script>\n");
     }
 
     return QString(htmlTemplate)
