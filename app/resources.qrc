@@ -49,7 +49,6 @@
         <file alias="highlight.js/styles/solarized-dark.css">scripts/highlight.js/styles/solarized-dark.css</file>
         <file alias="highlight.js/styles/atom-one-light.css">scripts/highlight.js/styles/atom-one-light.css</file>
         <file alias="highlight.js/styles/dracula.css">scripts/highlight.js/styles/dracula.css</file>
-        <file alias="mermaid/mermaid.full.min.js">scripts/mermaid/mermaid.full.min.js</file>
-        <file alias="mermaid/mermaid.css">scripts/mermaid/mermaid.css</file>
+        <file alias="mermaid/mermaid.min.js">scripts/mermaid/mermaid.min.js</file> 
     </qresource>
 </RCC>

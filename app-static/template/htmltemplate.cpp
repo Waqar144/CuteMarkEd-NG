@@ -57,7 +57,7 @@ QString HtmlTemplate::render(const QString &body, RenderOptions options) const
 
     // Mermaid and highlighting.js don't work nicely together
     // So we need to replace the <code> section by a <div> section
-    if (options.testFlag(Template::CodeHighlighting) && options.testFlag(Template::DiagramSupport)) {
+    if (options.testFlag(Template::DiagramSupport)) {
         convertDiagramCodeSectionToDiv(htmlBody);
     }
 
@@ -123,8 +123,8 @@ QString HtmlTemplate::buildHtmlHeader(RenderOptions options) const
 
     // add mermaid.js script to HTML header
     if (options.testFlag(Template::DiagramSupport)) {
-        header += QLatin1String("<link rel=\"stylesheet\" href=\"qrc:/scripts/mermaid/mermaid.css\">\n");
-        header += QLatin1String("<script src=\"qrc:/scripts/mermaid/mermaid.full.min.js\"></script>\n");
+        header += QLatin1String("<script src=\"qrc:/scripts/mermaid/mermaid.min.js\"></script>\n");
+        header += QLatin1String("<script>mermaid.initialize({startOnLoad:true});</script>\n");
     }
 
     return header;
@@ -132,7 +132,7 @@ QString HtmlTemplate::buildHtmlHeader(RenderOptions options) const
 
 void HtmlTemplate::convertDiagramCodeSectionToDiv(QString &body) const
 {
-    static const QRegularExpression rx(QStringLiteral("<pre><code class=\"mermaid\">(.*?)</code></pre>"),
+    static const QRegularExpression rx(QStringLiteral("<pre><code class=\"language-mermaid\">(.*?)</code></pre>"),
                                        QRegularExpression::DotMatchesEverythingOption);
     body.replace(rx, QStringLiteral("<div class=\"mermaid\">\n\\1</div>"));
 }
