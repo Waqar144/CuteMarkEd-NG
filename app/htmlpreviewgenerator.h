@@ -46,6 +46,7 @@ public slots:
 
     void setMathSupportEnabled(bool enabled);
     void setDiagramSupportEnabled(bool enabled);
+    void setWavedromSupportEnabled(bool enabled);
     void setCodeHighlightingEnabled(bool enabled);
     void setCodeHighlightingStyle(const QString &style);
 

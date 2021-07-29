@@ -42,7 +42,8 @@ public:
         MathSupport              = 0x00000002,
         CodeHighlighting         = 0x00000004,
         DiagramSupport           = 0x00000008,
-        MathInlineSupport        = 0x00000010
+        MathInlineSupport        = 0x00000010,
+        WavedromSupport          = 0x00000020
     };
     Q_DECLARE_FLAGS(RenderOptions, RenderOption)
 

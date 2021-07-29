@@ -60,6 +60,7 @@ static const QString SPELLINGCHECK_ENABLED = QStringLiteral("spelling/enabled");
 static const QString DICTIONARY_LANGUAGE = QStringLiteral("spelling/language");
 static const QString YAMLHEADERSUPPORT_ENABLED = QStringLiteral("yamlheadersupport/enabled");
 static const QString DIAGRAMSUPPORT_ENABLED = QStringLiteral("diagramsupport/enabled");
+static const QString WAVEDROMSUPPORT_ENABLED = QStringLiteral("wavedromsupport/enabled");
 
 static const QString DEPRECATED__LAST_USED_STYLE = QStringLiteral("general/lastusedstyle");
 
@@ -84,6 +85,7 @@ Options::Options(QObject *parent) :
     m_sourceAtSingleSizeEnabled(true),
     m_spellingCheckEnabled(true),
     m_diagramSupportEnabled(false),
+    m_wavedromSupportEnabled(false),
     m_lineColumnEnabled(true),
     m_rulerEnabled(false),
     m_rulerPos(80),
@@ -461,6 +463,16 @@ void Options::setDiagramSupportEnabled(bool enabled)
     m_diagramSupportEnabled = enabled;
 }
 
+bool Options::isWavedromSupportEnabled() const
+{
+    return m_wavedromSupportEnabled;
+}
+
+void Options::setWavedromSupportEnabled(bool enabled)
+{
+    m_wavedromSupportEnabled = enabled;
+}
+
 QString Options::dictionaryLanguage() const
 {
     return m_dictionaryLanguage;
@@ -584,6 +596,7 @@ void Options::readSettings()
     m_sourceAtSingleSizeEnabled = settings.value(SOURCEATSINGLESIZE_ENABLED, true).toBool();
     m_yamlHeaderSupportEnabled = settings.value(YAMLHEADERSUPPORT_ENABLED, false).toBool();
     m_diagramSupportEnabled = settings.value(DIAGRAMSUPPORT_ENABLED, false).toBool();
+    m_wavedromSupportEnabled = settings.value(WAVEDROMSUPPORT_ENABLED, false).toBool();
 
     // spelling check settings
     m_spellingCheckEnabled = settings.value(SPELLINGCHECK_ENABLED, true).toBool();
@@ -657,6 +670,7 @@ void Options::writeSettings()
     settings.setValue(SOURCEATSINGLESIZE_ENABLED, m_sourceAtSingleSizeEnabled);
     settings.setValue(YAMLHEADERSUPPORT_ENABLED, m_yamlHeaderSupportEnabled);
     settings.setValue(DIAGRAMSUPPORT_ENABLED, m_diagramSupportEnabled);
+    settings.setValue(WAVEDROMSUPPORT_ENABLED, m_wavedromSupportEnabled);
 
     // spelling check settings
     settings.setValue(SPELLINGCHECK_ENABLED, m_spellingCheckEnabled);

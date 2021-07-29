@@ -142,6 +142,9 @@ public:
     bool isDiagramSupportEnabled() const;
     void setDiagramSupportEnabled(bool enabled);
 
+    bool isWavedromSupportEnabled() const;
+    void setWavedromSupportEnabled(bool enabled);
+
     QString dictionaryLanguage() const;
     void setDictionaryLanguage(const QString &language);
 
@@ -200,6 +203,7 @@ private:
     bool m_spellingCheckEnabled;
     bool m_yamlHeaderSupportEnabled;
     bool m_diagramSupportEnabled;
+    bool m_wavedromSupportEnabled;
     bool m_lineColumnEnabled;
     bool m_rulerEnabled;
     int m_rulerPos;
